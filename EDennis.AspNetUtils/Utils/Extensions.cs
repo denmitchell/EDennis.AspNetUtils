@@ -158,7 +158,7 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The environment variable name</param>
         /// <returns>the configuration services (for fluent construction)</returns>
         /// <exception cref="ArgumentException">when the environment variable isn't defined</exception>
-        public static IConfigurationBuilder AddJsonEnvironmentVariable(this IConfigurationBuilder builder, string key, bool optional = false)
+        public static IConfigurationBuilder AddJsonEnvironmentVariable(this IConfigurationBuilder builder, string key, bool optional = true)
         {
             var value = Environment.GetEnvironmentVariable(key);
             if (!optional && string.IsNullOrEmpty(value))
