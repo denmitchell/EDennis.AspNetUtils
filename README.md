@@ -13,3 +13,15 @@ In addition to the library project, there are three supporting sample/test proje
 - **Blazor Sample** that has sample pages for managing artists, songs, and application users using Radzen components
 - **MVC Sample** that has sample pages for managing application users
 - **Test Project** that demonstrates how to test CRUD operations with automatic rollback of transactions
+
+## Setup
+- Clone the repository
+- Register your applications in Azure AD.  See the [Microsoft Documentation](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
+  -- You can get a developer instance of Azure AD through Microsoft: [Microsoft 365 Develop Program](https://learn.microsoft.com/en-us/azure/active-directory/verifiable-credentials/how-to-create-a-free-developer-account)
+  -- When creating a new Visual Studio Project with Microsoft Authentication Library security, Visual Studio will retrieve the tenant id, client id (etc.) and put this information in appsettings.json.  
+  -- Especially for testing purposes, you can point multiple projects to the same registered application in Azure AD.
+- Add the AzureAd section to configuration in one of two ways:
+  -- Uncomment the existing AzureAd section in appsettings.json and update the values with your registered application credentials.  **If you take this approach, comment out the code in Program.cs that calls builder.Configuration.AddJsonEnvironmentVariable.  Do this in both sample apps.**
+  -- Alternatively, copy the AzureAd configuration JSON, wrap that JSON in curly brackets, minify the JSON so that there are no line breaks or tabs, and place the minified JSON in the following two environment variables.  (Note: I did this so that I wouldn't commit my application credentials to git.)
+     --- EDennis.AspNetUtils.Tests.BlazorSample.Configuration
+     --- EDennis.AspNetUtils.Tests.MvcSample.Configuration
