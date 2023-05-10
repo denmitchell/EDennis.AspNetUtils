@@ -1,0 +1,7 @@
+﻿Drop-Database -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+
+Add-Migration Initial -Context AppUserRolesContext -Project EDennis.AspNetUtils -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+Update-Database -Context AppUserRolesContext -Project EDennis.AspNetUtils -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+
+Add-Migration Initial -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+Update-Database -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample

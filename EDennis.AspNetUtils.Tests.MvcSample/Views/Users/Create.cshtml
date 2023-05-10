@@ -1,0 +1,41 @@
+﻿@model EDennis.AspNetUtils.AppUser
+
+@{
+    ViewData["Title"] = "Create";
+    bool allowMultipleRoles = (bool)ViewData["AllowMultipleRoles"];
+}
+
+<h1>Create</h1>
+
+<h4>AppUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Role</label>
+                <select asp-for="Role" class ="form-control" asp-items="ViewBag.Role" multiple="@allowMultipleRoles"
+                        style="@(allowMultipleRoles ? "height:8em" : "height:auto")"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <input type="hidden" asp-for="SysGuid" />
+            <input type="hidden" asp-for="SysUser" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

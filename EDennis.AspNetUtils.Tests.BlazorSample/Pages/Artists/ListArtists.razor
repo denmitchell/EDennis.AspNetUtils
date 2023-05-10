@@ -1,0 +1,91 @@
+@page "/artists"
+@attribute [Authorize]
+
+<PageTitle>Artists</PageTitle>
+<RadzenStack>
+    <RadzenRow AlignItems="AlignItems.Center">
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenText Text="Artists" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+                <RadzenButton Icon="add_circle_outline" Text="Add" Click="@AddAsync" Variant="Variant.Flat" />
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenRow>
+        <RadzenColumn SizeMD=10>
+            <RadzenDataGrid @ref="artistsGrid" Data="@artists" TItem="Artist" ColumnWidth="33%" Density="Density.Compact"
+
+                            LoadData="@LoadDataAsync" Count="@recCount"
+                            RowDoubleClick="@Edit"                            
+                            RowExpand=@GetSongsAsync
+                            
+                            AllowFiltering="true" 
+                            FilterPopupRenderMode="PopupRenderMode.OnDemand"
+                            FilterMode="FilterMode.Advanced"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            LogicalFilterOperator="LogicalFilterOperator.Or"
+                            
+                            AllowSorting="true"
+                            AllowPaging="true"
+                            ShowPagingSummary="true" 
+                            PageSizeOptions=@(new int[]{5, 10, 20, 30})>
+                <Columns>
+                    <RadzenDataGridColumn TItem="Artist" Property="Name" Title="Name">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Artist" Property="IsSolo" Title="Is Solo">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Artist" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                        <Template Context="artist">
+                            <RadzenButton ButtonStyle="ButtonStyle.Info" Icon="edit" Size="ButtonSize.Medium"
+                                          Shade="Shade.Lighter" Variant="Variant.Flat"
+                                          Click=@(args => EditAsync(artist, args)) @onclick:stopPropagation="true" />
+
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium"
+                                          Shade="Shade.Lighter" Variant="Variant.Flat"
+                                          Click=@(args => DeleteAsync(artist, args)) @onclick:stopPropagation="true" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+                <Template Context="artist">
+                    <RadzenStack Class="rz-my-8">
+                        <RadzenRow Gap="0" AlignItems="AlignItems.Center">
+                            <RadzenColumn Size="12" SizeMD="6">
+                                <RadzenText Visible="@(artist != null)" Text="Songs" TextStyle="TextStyle.H4" TagName="TagName.H2" style="margin: 0" />
+                            </RadzenColumn>
+                            <RadzenColumn Size="12" SizeMD="6">
+                                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+                                    <RadzenButton Visible="@(artist != null)" Icon="add_circle_outline" Text="Add" Click=@(song => AddSongAsync(artist, song)) />
+                                </RadzenStack>
+                            </RadzenColumn>
+                        </RadzenRow>
+                        <RadzenDataGrid @ref=songsGrid Data="@artist?.Songs" TItem="Song" ColumnWidth="33%" Density="Density.Compact" Visible="@(artist != null)" 
+                                        RowSelect="@(song => EditSongAsync(artist, song))"
+                                        
+                                        AllowFiltering="true" 
+                                        FilterMode="Radzen.FilterMode.Advanced"
+                                        
+                                        AllowSorting="true" 
+                                        AllowPaging="true"
+                                        ShowPagingSummary="true" 
+                                        PageSizeOptions=@(new int[]{5, 10, 20, 30})>
+                            <Columns>
+                                <RadzenDataGridColumn TItem="Song" Property="Title" Title="Title">
+                                </RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="Song" Property="ReleaseDate" FormatString="{0:M/d/yyyy}" Title="Release Date">
+                                </RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="Song" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                                    <Template Context="song">
+                                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium" Shade="Shade.Lighter" Variant="Variant.Flat"
+                                                      Click=@(args => DeleteSongAsync(artist, song)) @onclick:stopPropagation="true" />
+                                    </Template>
+                                </RadzenDataGridColumn>
+                            </Columns>
+                        </RadzenDataGrid>
+                    </RadzenStack>
+                </Template>
+            </RadzenDataGrid>
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenStack>
