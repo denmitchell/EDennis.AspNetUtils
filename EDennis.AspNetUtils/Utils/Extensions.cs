@@ -164,7 +164,8 @@ namespace EDennis.AspNetUtils
             if (!optional && string.IsNullOrEmpty(value))
                 throw new ArgumentException($"Environment variable {key} not set.");
 
-            builder.AddJsonStream(new MemoryStream(Encoding.UTF8.GetBytes(value ?? "")));
+            if(!string.IsNullOrEmpty(value))
+                builder.AddJsonStream(new MemoryStream(Encoding.UTF8.GetBytes(value ?? "")));
 
             return builder;
         }
