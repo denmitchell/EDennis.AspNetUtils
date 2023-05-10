@@ -21,7 +21,7 @@ In addition to the library project, there are three supporting sample/test proje
   -- When creating a new Visual Studio Project with Microsoft Authentication Library security, Visual Studio will retrieve the tenant id, client id (etc.) and put this information in appsettings.json.  
   -- Especially for testing purposes, you can point multiple projects to the same registered application in Azure AD.
 - Add the AzureAd section to configuration in one of two ways:
-  -- Uncomment the existing AzureAd section in appsettings.json and update the values with your registered application credentials.  **If you take this approach, comment out the code in Program.cs that calls builder.Configuration.AddJsonEnvironmentVariable.  Do this in both sample apps.**
+  -- Uncomment the existing AzureAd section in appsettings.json and update the values with your registered application credentials.  
   -- Alternatively, copy the AzureAd configuration JSON, wrap that JSON in curly brackets, minify the JSON so that there are no line breaks or tabs, and place the minified JSON in the following two environment variables.  (Note: I did this so that I wouldn't commit my application credentials to git.)
      --- EDennis.AspNetUtils.Tests.BlazorSample.Configuration
      --- EDennis.AspNetUtils.Tests.MvcSample.Configuration
