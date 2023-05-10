@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace EDennis.AspNetUtils
@@ -157,10 +158,10 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The environment variable name</param>
         /// <returns>the configuration services (for fluent construction)</returns>
         /// <exception cref="ArgumentException">when the environment variable isn't defined</exception>
-        public static IConfigurationBuilder AddJsonEnvironmentVariable(this IConfigurationBuilder builder, string key)
+        public static IConfigurationBuilder AddJsonEnvironmentVariable(this IConfigurationBuilder builder, string key, bool optional = false)
         {
             var value = Environment.GetEnvironmentVariable(key);
-            if (string.IsNullOrEmpty(value))
+            if (!optional && string.IsNullOrEmpty(value))
                 throw new ArgumentException($"Environment variable {key} not set.");
 
             builder.AddJsonStream(new MemoryStream(Encoding.UTF8.GetBytes(value ?? "")));
