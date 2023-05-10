@@ -18,9 +18,17 @@
                 <RadzenLabel Text="Role" Component="AppRole" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
-                <RadzenDropDown @bind-Value=@userRoles Data=@roles TextProperty="RoleName" ValueProperty="RoleName"
-                                Multiple=@SecurityOptions.CurrentValue.AllowMultipleRoles 
+                @if (@SecurityOptions.CurrentValue.AllowMultipleRoles)
+                {
+                    <RadzenDropDown @bind-Value=@userRoles Data=@roles TextProperty="RoleName" ValueProperty="RoleName"
+                                Multiple=true
                                 Style="width: 100%; max-width: 400px;" />
+                }
+                else
+                {
+                    <RadzenDropDown @bind-Value=@user.Role Data=@roles TextProperty="RoleName" ValueProperty="RoleName"
+                                Style="width: 100%; max-width: 400px;" />
+                }
             </RadzenColumn>
         </RadzenRow>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">

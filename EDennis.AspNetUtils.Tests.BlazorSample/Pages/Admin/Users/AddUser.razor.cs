@@ -134,6 +134,12 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         protected IEnumerable<string> userRoles;
 
         /// <summary>
+        /// The current user's role, when only one role is permitted.  
+        /// This property is bound to the RadzenTemplateForm's bind-Value attribute (@bind-Value=@userRole)
+        /// </summary>
+        protected string userRole;
+
+        /// <summary>
         /// Provides the all role records for the dropdown.
         /// This property is bound to the RadzenDropDown's Data attribute (Data="@roles")
         /// </summary>
@@ -156,7 +162,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         protected override async Task OnInitializedAsync()
         {
             user = new AppUser();
-            userRoles = Array.Empty<string>();
+            if (SecurityOptions.CurrentValue.AllowMultipleRoles)
+                userRoles = Array.Empty<string>();
+
             (roles, _) = await RoleService.GetAsync(countType: CountType.None);
         }
 
@@ -169,7 +177,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         {
             try
             {
-                user.Role = string.Join(",", userRoles);
+                if (SecurityOptions.CurrentValue.AllowMultipleRoles)
+                    user.Role = string.Join(",", userRoles);
+
                 await UserService.CreateAsync(user);
                 DialogService.Close(user);
             }
