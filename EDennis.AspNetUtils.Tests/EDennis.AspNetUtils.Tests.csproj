@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,6 +7,12 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="appsettings.Test.json" />
@@ -39,10 +45,6 @@
     <ProjectReference Include="..\EDennis.AspNetUtils\EDennis.AspNetUtils.csproj" />
     <ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample\EDennis.AspNetUtils.Tests.BlazorSample.csproj" />
     <ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample\EDennis.AspNetUtils.Tests.BlazorSample.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
