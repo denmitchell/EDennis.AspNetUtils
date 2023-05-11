@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CrudController<TEntity> : Controller 
+    public abstract class CrudController<TEntity> : Controller 
         where TEntity : class
     {
 
@@ -73,14 +74,19 @@ namespace EDennis.AspNetUtils
         {
             if(select == null)
             {
-                (List<TEntity> data, int count) = await CrudService.GetAsync(where, whereArgs, orderBy, skip, take,
+                (List<TEntity> Data, int Count) = await CrudService.GetAsync(where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
-                return new ObjectResult((data,count)) { StatusCode = 200 };
+
+                var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
+                return new ContentResult { Content = json, ContentType = "application/json", StatusCode = 200 };
+
             } else
             {
-                (List<dynamic> data, int count) = await CrudService.GetAsync(select, where, whereArgs, orderBy, skip, take,
+                (List<dynamic> Data, int Count) = await CrudService.GetAsync(select, where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
-                return new ObjectResult((data, count)) { StatusCode = 200 };
+
+                var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
+                return new ContentResult { Content = json, ContentType = "application/json", StatusCode = 200 };
 
             }
         }
@@ -97,6 +103,14 @@ namespace EDennis.AspNetUtils
         {
             await CrudService.EnableTestAsync(new ILoggerTestOutputHelper(Logger));
         }
+
+
+        private static JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            IncludeFields = true
+        };
+
+
     }
 
 

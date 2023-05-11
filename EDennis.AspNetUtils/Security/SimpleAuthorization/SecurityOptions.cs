@@ -29,6 +29,8 @@
         /// How long roles should be cached before being refreshed from the Db
         /// </summary>
         public int RefreshInterval { get; set; } = 1000 * 60 * 60; //one hour
+
+
     }
 
 }
