@@ -6,7 +6,7 @@ using Xunit.Abstractions;
 namespace EDennis.AspNetUtils
 {
     /// <summary>
-    /// Used for XUnit testing of <see cref="CrudService{TContext, TEntity}"/> operations
+    /// Used for XUnit testing of <see cref="EntityFrameworkService{TContext, TEntity}"/> operations
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
     /// <typeparam name="TService"></typeparam>
@@ -14,7 +14,7 @@ namespace EDennis.AspNetUtils
     public class CrudServiceTestFixture<TContext, TService, TEntity>
         where TContext : DbContext
         where TEntity : class
-        where TService : CrudService<TContext, TEntity>
+        where TService : EntityFrameworkService<TContext, TEntity>
     {
         /// <summary>
         /// Cached configurations for tests using this fixture
@@ -22,7 +22,7 @@ namespace EDennis.AspNetUtils
         private readonly static ConcurrentDictionary<string, IConfiguration> _configs = new();
 
         /// <summary>
-        /// Gets a new <see cref="CrudService{TContext, TEntity}"/> object, using the provided
+        /// Gets a new <see cref="EntityFrameworkService{TContext, TEntity}"/> object, using the provided
         /// arguments.
         /// </summary>
         /// <param name="appsettingsFile">The configuration file</param>
@@ -59,7 +59,7 @@ namespace EDennis.AspNetUtils
             //set the DbContext
             if(dbContextType != DbContextType.SqlServer)
             {
-                service.SetDbContext(dbContextType, output);
+                service.EnableTest(dbContextType, output);
             }
 
             return service;

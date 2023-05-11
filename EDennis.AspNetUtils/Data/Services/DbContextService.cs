@@ -91,25 +91,8 @@ namespace EDennis.AspNetUtils
         /// <param name="dbContextType">The type of context used for testing</param>
         /// <param name="output">Xunit object for directing test/logging output to a place that can be read</param>
         /// <returns></returns>
-        public TContext GetTestDbContext(DbContextType dbContextType, ITestOutputHelper output = null)
+        public TContext GetTestServiceContext(ITestOutputHelper output = null)
         {
-            if (dbContextType == DbContextType.SqlServer)
-            {
-                var builder = new DbContextOptionsBuilder<TContext>();
-                builder.UseSqlServer(_sqlServerConnectionString)
-                    .EnableSensitiveDataLogging();
-
-                if (output != null)
-                    builder.LogTo(output.WriteLine);
-
-                SqlServerExceptions.UseExceptionProcessor(builder);
-
-                TContext context = (TContext)Activator.CreateInstance(typeof(TContext), builder.Options);
-                return context;
-
-            }
-            else if (dbContextType == DbContextType.SqlServerOpenTransaction)
-            {
                 DbConnection connection = new SqlConnection(_sqlServerConnectionString);
 
                 var builder = new DbContextOptionsBuilder<TContext>();
@@ -128,25 +111,6 @@ namespace EDennis.AspNetUtils
                 context.Database.UseTransaction(transaction);
                 return context;
 
-            } else
-            {
-                var connection = new SqliteConnection("Data Source=:memory:");
-
-                var builder = new DbContextOptionsBuilder<TContext>();
-                builder.UseSqlite(connection)
-                    .EnableSensitiveDataLogging();
-
-                if (output != null)
-                    builder.LogTo(output.WriteLine);
-
-                SqliteExceptions.UseExceptionProcessor(builder);
-
-                connection.Open();
-
-                TContext context = (TContext)Activator.CreateInstance(typeof(TContext), builder.Options);
-                context.Database.EnsureCreated();
-                return context;
-            }
         }
 
         #endregion

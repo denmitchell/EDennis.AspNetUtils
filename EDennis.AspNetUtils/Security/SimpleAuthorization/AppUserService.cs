@@ -1,10 +1,10 @@
 ﻿namespace EDennis.AspNetUtils
 {
     /// <summary>
-    /// <see cref="CrudService{TContext, TEntity}"/> for <see cref="AppUser"/>
+    /// <see cref="EntityFrameworkService{TContext, TEntity}"/> for <see cref="AppUser"/>
     /// </summary>
     /// <typeparam name="TAppUserRolesDbContext">The relevant DbContext</typeparam>
-    public class AppUserService<TAppUserRolesDbContext> : CrudService<TAppUserRolesDbContext, AppUser>
+    public class AppUserService<TAppUserRolesDbContext> : EntityFrameworkService<TAppUserRolesDbContext, AppUser>
         where TAppUserRolesDbContext : AppUserRolesContext
     {
         /// <summary>

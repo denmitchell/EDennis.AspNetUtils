@@ -38,7 +38,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
 
         /// <summary>
         /// An EDennis Service
-        /// Implementation of <see cref="CrudService{HitsContext, Artist}"/> for
+        /// Implementation of <see cref="EntityFrameworkService{HitsContext, Artist}"/> for
         /// performing CRUD operations on artist records
         /// </summary>
         [Inject]
@@ -46,7 +46,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
 
         /// <summary>
         /// An EDennis Service
-        /// Implementation of <see cref="CrudService{HitsContext, Song}"/> for
+        /// Implementation of <see cref="EntityFrameworkService{HitsContext, Song}"/> for
         /// performing CRUD operations on song records
         /// </summary>
         [Inject]
@@ -194,7 +194,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
 
 
         /// <summary>
-        /// Inserts a new song record using <see cref="CrudService{TContext, TEntity}.CreateAsync(TEntity)"/>
+        /// Inserts a new song record using <see cref="EntityFrameworkService{TContext, TEntity}.CreateAsync(TEntity)"/>
         /// and closes the <see cref="Dialog"/>
         /// </summary>
         /// <returns></returns>

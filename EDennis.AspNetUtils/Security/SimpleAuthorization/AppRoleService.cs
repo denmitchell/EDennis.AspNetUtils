@@ -1,11 +1,11 @@
 ﻿namespace EDennis.AspNetUtils
 {
     /// <summary>
-    /// Extends <see cref="CrudService{TContext, TEntity}"/> for database
+    /// Extends <see cref="EntityFrameworkService{TContext, TEntity}"/> for database
     /// operations on <see cref="AppRole"/>.
     /// </summary>
     /// <typeparam name="TAppUserRolesDbContext">The DbContext used to operate on <see cref="AppRole"/></typeparam>
-    public class AppRoleService<TAppUserRolesDbContext> : CrudService<TAppUserRolesDbContext, AppRole>
+    public class AppRoleService<TAppUserRolesDbContext> : EntityFrameworkService<TAppUserRolesDbContext, AppRole>
         where TAppUserRolesDbContext : AppUserRolesContext
     {
         /// <summary>

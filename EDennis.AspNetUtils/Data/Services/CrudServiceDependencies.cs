@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace EDennis.AspNetUtils
 {
     /// <summary>
-    /// A set of bundled services/objects supporting <see cref="CrudService{TContext, TEntity}"/>.
+    /// A set of bundled services/objects supporting <see cref="EntityFrameworkService{TContext, TEntity}"/>.
     /// By bundling the services, CrudService implementation classes become a little more streamlined.
     /// </summary>
     /// <typeparam name="TContext">The DbContext class</typeparam>

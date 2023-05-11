@@ -25,11 +25,11 @@ namespace EDennis.AspNetUtils
         }
 
         /// <summary>
-        /// Adds an individual <see cref="CrudService{TContext, TEntity}"/>.  Note:
+        /// Adds an individual <see cref="EntityFrameworkService{TContext, TEntity}"/>.  Note:
         /// This method configures DI for the following services:
         /// <list type="bullet">
         /// <item><see cref="CrudServiceDependencies{TContext, TEntity}"/></item>
-        /// <item><see cref="CrudService{TContext, TEntity}"/></item>
+        /// <item><see cref="EntityFrameworkService{TContext, TEntity}"/></item>
         /// <item><see cref="CountCache{TEntity}"/></item>
         /// </list>
         /// </summary>
@@ -38,7 +38,7 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         public CrudServiceConfigurationBuilder<TContext> AddCrudService<TService,TEntity>() 
             where TEntity : class
-            where TService : CrudService<TContext, TEntity>
+            where TService : EntityFrameworkService<TContext, TEntity>
         {
             _builder.Services.TryAddScoped<CrudServiceDependencies<TContext, TEntity>>();
             _builder.Services.TryAddScoped<TService>();

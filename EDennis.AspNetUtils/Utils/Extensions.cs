@@ -122,7 +122,7 @@ namespace EDennis.AspNetUtils
         }
 
         /// <summary>
-        /// This extension method sets up <see cref="CrudService{TContext, TEntity}"/> implementations
+        /// This extension method sets up <see cref="EntityFrameworkService{TContext, TEntity}"/> implementations
         /// for <typeparamref name="TContext"/>.  The extension method also configures DI for
         /// <see cref="DbContextService{TContext}"/>.  The extension method is designed to be followed
         /// upon by <see cref="CrudServiceConfigurationBuilder{TContext}.AddCrudService{TService, TEntity}"/>
