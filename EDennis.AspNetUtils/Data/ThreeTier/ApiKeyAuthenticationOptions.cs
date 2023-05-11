@@ -5,7 +5,7 @@ namespace EDennis.AspNetUtils
     /// <summary>
     /// Model class for ApiKey configurations
     /// </summary>
-    public class ApiKeyAuthenticationOptions : AuthenticationSchemeOptions
+    public class ApiKeyAuthenticationOptions : AuthenticationSchemeOptions, IApiKeyOptions
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace EDennis.AspNetUtils
 
 
         /// <summary>
-        /// The Claims Principal Name
+        /// Header prefix for security claims
         /// </summary>
         public string ClaimHeaderPrefix { get; set; } = "X-Claim-";
 
@@ -39,7 +39,7 @@ namespace EDennis.AspNetUtils
         /// the same key; therefore, this model is most
         /// appropriate for internal APIs.
         /// </summary>
-        public string ApiKeyValue { get; set; }
+        public string ApiKey { get; set; }
 
     }
 }

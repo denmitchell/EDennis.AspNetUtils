@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using System.Runtime.InteropServices;
+using Microsoft.Extensions.Options;
 using System.Text;
 
 namespace EDennis.AspNetUtils
@@ -101,7 +102,10 @@ namespace EDennis.AspNetUtils
                 );
             }
 
-            builder.Services.Configure<SecurityOptions>(builder.Configuration.GetSection(securityConfigKey));
+            if (!builder.Services.Any(s => s.ServiceType == typeof(IOptionsMonitor<SecurityOptions>)))
+            {
+                builder.Services.BindAndConfigure(builder.Configuration, securityConfigKey, out SecurityOptions _);
+            }
 
             if (!builder.Services.Any(s => s.ServiceType == typeof(TAppUserRolesDbContext)))
             {
@@ -132,7 +136,7 @@ namespace EDennis.AspNetUtils
         /// <param name="builder">A reference to the <see cref="WebApplicationBuilder"/></param>
         /// <param name="sectionKey">The key to the DbContexts section holding the connection strings</param>
         /// <returns></returns>
-        public static CrudServiceConfigurationBuilder<TContext> AddCrudServices<TContext>(this WebApplicationBuilder builder, 
+        public static CrudServiceConfigurationBuilder<TContext> AddCrudServices<TContext>(this WebApplicationBuilder builder,
                string sectionKey = "DbContexts")
             where TContext : DbContext
         {
@@ -164,7 +168,7 @@ namespace EDennis.AspNetUtils
             if (!optional && string.IsNullOrEmpty(value))
                 throw new ArgumentException($"Environment variable {key} not set.");
 
-            if(!string.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(value))
                 builder.AddJsonStream(new MemoryStream(Encoding.UTF8.GetBytes(value ?? "")));
 
             return builder;
@@ -198,11 +202,87 @@ namespace EDennis.AspNetUtils
                     o.AccessDeniedPath = FakeAuthenticationOptions.AccessDefinedPath;
                     o.LogoutPath = "/";
                 });
-               
+
 
             return builder;
         }
 
+
+
+
+
+
+        /// <summary>
+        /// Configures DI for a set of named HttpClients.  The name of the HttpClient is
+        /// the key for the client in configuration.  Note: for any given API, if 
+        /// the ApiKey is null (or not present), then it is assumed that some other
+        /// security (e.g., DelegateToken security) will be used.
+        /// </summary>
+        /// <param name="services">Reference to the IServiceCollection instance</param>
+        /// <param name="config">Reference to the IConfiguration instance</param>
+        /// <param name="configKey">Parent key for each API settings section</param>
+        /// <param name="securityConfigKey">Configuration key for a token service used with child APIs</param>
+        /// <returns></returns>
+        public static WebApplicationBuilder AddApiKeyClients(this WebApplicationBuilder builder,
+            string configKey = "Apis", string securityConfigKey = "Security")
+        {
+            //get the settings from configuration and also setup
+            //DI to inject IOptionsMonitor<ApiClientSettingsDictionary>
+            builder.Services.BindAndConfigure(builder.Configuration, configKey, out ApiClientSettingsDictionary apis);
+
+
+            if (!builder.Services.Any(s => s.ServiceType == typeof(IOptionsMonitor<SecurityOptions>)))
+            {
+                builder.Services.BindAndConfigure(builder.Configuration, securityConfigKey, out SecurityOptions _);
+            }
+
+
+            //interate over all API settings in configuration
+            foreach (var api in apis)
+            {
+                //configure DI for a named HttpClient, where the name is 
+                //the configuration key for the individual API
+                IHttpClientBuilder httpClientBuilder = builder.Services.AddHttpClient(api.Key, configure =>
+                {
+                    configure.BaseAddress = new Uri(api.Value.BaseAddress);
+                });
+                httpClientBuilder.AddHttpMessageHandler<ApiKeyMessageHandler>();
+            }
+
+            builder.Services.AddTransient<ApiKeyMessageHandler>();
+            if (!builder.Services.Any(s => s.ServiceType == typeof(IHttpContextAccessor)))
+                builder.Services.AddHttpContextAccessor();
+
+            return builder;
+        }
+
+
+
+
+
+        /// <summary>
+        /// Binds and configures options for a particular type.  The
+        /// deserialized options are returned through the settings out parameter.
+        /// The options are configured in DI so that the DI container can
+        /// inject instances of IOptionsMonitor{T}.
+        /// </summary>
+        /// <typeparam name="T">The model class for the settings</typeparam>
+        /// <param name="services">The IServiceCollection instance</param>
+        /// <param name="config">The IConfiguration instance</param>
+        /// <param name="configKey">The key to the relevant section of configuration</param>
+        /// <param name="settings">The resulting settings object after binding</param>
+        /// <returns></returns>
+        public static IServiceCollection BindAndConfigure<T>(this IServiceCollection services, IConfiguration config, string configKey, out T settings)
+            where T : class, new()
+        {
+            settings = new T();
+            var configSection = config.GetSection(configKey);
+            configSection.Bind(settings);
+
+            services.Configure<T>(configSection.Bind);
+
+            return services;
+        }
 
 
         /// <summary>
@@ -223,7 +303,7 @@ namespace EDennis.AspNetUtils
             {
                 var provider = providers[i];
                 //if the key exists for a parent section, return true
-                if (provider.GetChildKeys(new string[] { }, key).Any())
+                if (provider.GetChildKeys(Array.Empty<string>(), key).Any())
                 {
                     return true;
                     //if the key exists for a value, return true
@@ -285,7 +365,7 @@ namespace EDennis.AspNetUtils
             {
                 return string.Format(
                     "{0}<{1}>{2}",
-                    type.Name.Substring(0, type.Name.IndexOf('`')),
+                    type.Name[..type.Name.IndexOf('`')],
                     string.Join(", ", type.GetGenericArguments().Select(ga => ga.CSharpName())),
                     nullableText);
             }

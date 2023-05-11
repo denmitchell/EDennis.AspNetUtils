@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using System;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace EDennis.AspNetUtils
 {
@@ -61,7 +58,7 @@ namespace EDennis.AspNetUtils
 
 
             //fail if the token's ApiKey claim value doesn't match the expected/correct value
-            if (apiKey != _settings.ApiKeyValue)
+            if (apiKey != _settings.ApiKey)
             {
                 await HandleErrorAsync(Context);
                 return await Task.FromResult(AuthenticateResult.Fail($"Invalid ApiKey."));

@@ -61,7 +61,7 @@ namespace EDennis.AspNetUtils
 
 
         /// <summary>
-        /// Constructs X-ApiKey and X-UserName headers and adds them to the message.
+        /// Constructs X-ApiKey and X-Claim- headers and adds them to the message.
         /// </summary>
         /// <param name="request"></param>
         private void AddHeader(HttpRequestMessage request)
@@ -77,15 +77,15 @@ namespace EDennis.AspNetUtils
 
 
             var clientSettings = entry.Value;
-            var authSettings = clientSettings.ApiKey;
+            var apiKey = clientSettings.ApiKey;
 
             //get all user claims
             var claims = _httpContextAccessor.HttpContext.User?.Claims;
             var userName = claims.FirstOrDefault(c => c.Type == _securityOptions.IdpUserNameClaim);
+            if (apiKey != null)
+                request.Headers.Add(clientSettings.ApiKeyHeaderKey, apiKey);
             if (userName != null)
-                request.Headers.Add(ApiKeyAuthenticationOptions.SysUserHeaderKey, userName.Value);
-            if (authSettings != null)
-                request.Headers.Add(ApiKeyAuthenticationOptions.ApiKeyHeaderKey, userName.Value);
+                request.Headers.Add($"{clientSettings.ClaimHeaderPrefix}c.Type", userName.Value);
 
         }
     }
