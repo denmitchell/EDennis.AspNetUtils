@@ -65,30 +65,8 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Gets a test instance of a DbContext.  At present there are three possibilities:
         /// <list type="table">
-        /// <listheader>
-        /// <term><see cref="DbContextType"/></term>
-        /// <term>Use</term>
-        /// </listheader>
-        /// <item>
-        /// <term><see cref="DbContextType.SqlServer"/></term>
-        /// <term>This is a normal SQL Server DbContext instance with regular (framework-managed)
-        /// transactions.  This type of DbContext is fine for testing read-only methods.</term>
-        /// </item>
-        /// <item>
-        /// <term><see cref="DbContextType.SqlServerOpenTransaction"/></term>
-        /// <term>This is a SQL Server DbContext with an open transaction that is automatically
-        /// rolled back after a test.  This type of DbContext is better for testing methods that
-        /// modify data.</term>
-        /// </item>
-        /// <item>
-        /// <term><see cref="DbContextType.SqliteInMemory"/></term>
-        /// <term>This is a SQLite in-memory DbContext.  This type of DbContext is suitable for 
-        /// testing methods that modify data.</term>
-        /// </item>
-        /// </list>
         /// NOTE: The test DbContext enables Sensitive Data Logging.
         /// </summary>
-        /// <param name="dbContextType">The type of context used for testing</param>
         /// <param name="output">Xunit object for directing test/logging output to a place that can be read</param>
         /// <returns></returns>
         public TContext GetTestServiceContext(ITestOutputHelper output = null)

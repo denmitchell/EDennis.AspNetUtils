@@ -8,7 +8,7 @@ namespace EDennis.AspNetUtils
 {
     /// <summary>
     /// A set of bundled services/objects supporting <see cref="EntityFrameworkService{TContext, TEntity}"/>.
-    /// By bundling the services, CrudService implementation classes become a little more streamlined.
+    /// By bundling the services, CrudController implementation classes become a little more streamlined.
     /// </summary>
     /// <typeparam name="TContext">The DbContext class</typeparam>
     /// <typeparam name="TEntity">The model class</typeparam>
@@ -36,7 +36,7 @@ namespace EDennis.AspNetUtils
         /// <list type="table">
         /// <listheader>
         /// <term>Project Type</term>
-        /// <term>Implementation Class</term>
+        /// <term>CrudService Class</term>
         /// </listheader>
         /// <item>
         /// <term>Blazor Server</term>

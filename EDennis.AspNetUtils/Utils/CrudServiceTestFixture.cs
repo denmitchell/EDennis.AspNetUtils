@@ -33,7 +33,6 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         public TService GetCrudService(string appsettingsFile, string userName, string role,
-            DbContextType dbContextType = DbContextType.SqlServerOpenTransaction,
             ITestOutputHelper output = null)
         {
 
@@ -50,17 +49,13 @@ namespace EDennis.AspNetUtils
                 _configs.TryAdd(appsettingsFile, config);
             }
 
-            //create a test instance of CrudService dependencies
+            //create a test instance of CrudController dependencies
             var deps = CrudServiceDependencies<TContext, TEntity>.GetTestInstance(config, userName, role);
 
             //create an instance of the Crud Service
             TService service = (TService)Activator.CreateInstance(typeof(TService),deps);
 
-            //set the DbContext
-            if(dbContextType != DbContextType.SqlServer)
-            {
-                service.EnableTest(dbContextType, output);
-            }
+            service.EnableTestAsync(output).Wait();
 
             return service;
         }

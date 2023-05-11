@@ -1,6 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.BlazorSample;
-
-namespace EDennis.AspNetUtils.Tests.BlazorSample.Services
+﻿namespace EDennis.AspNetUtils.Tests.BlazorSample.Services
 {
     public class SongService : EntityFrameworkService<HitsContext, Song>
     {

@@ -1,6 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.MvcSample;
-
-namespace EDennis.AspNetUtils.Tests.MvcSample.Services
+﻿namespace EDennis.AspNetUtils.Tests.MvcSample.Services
 {
     public class ArtistService : EntityFrameworkService<HitsContext, Artist>
     {

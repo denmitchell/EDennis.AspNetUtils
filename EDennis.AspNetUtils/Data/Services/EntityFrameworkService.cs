@@ -120,9 +120,9 @@ namespace EDennis.AspNetUtils
         /// <param name="testDbContextType">The nature of the new DbContext</param>
         /// <param name="output">An Xunit helper class for piping logs to the appropriate
         /// output stream during testing</param>
-        public void EnableTest(ITestOutputHelper output = null)
+        public async Task EnableTestAsync(ITestOutputHelper output = null)
         {
-            DbContext = _dbContextService.GetTestServiceContext(output);
+            DbContext = await Task.Run(()=>_dbContextService.GetTestServiceContext(output));
         }
 
 
@@ -418,11 +418,11 @@ namespace EDennis.AspNetUtils
         /// <param name="asOf">Get all modifications after this datetime.
         /// NOTE: do not make this >=.  It will not work!</param>
         /// <returns></returns>
-        public IEnumerable<TEntity> GetModified(DateTime asOf)
+        public async Task<IEnumerable<TEntity>> GetModifiedAsync(DateTime asOf)
         {
-            var results = DbContext.Set<TEntity>()
+            var results = await DbContext.Set<TEntity>()
                 .Where(e => EF.Property<DateTime>(e, SysStartColumn) > asOf)
-                .ToList();
+                .ToListAsync();
 
             return results;
         }
@@ -430,7 +430,7 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Gets the most recent create/update datetime value for a given entity.
         /// When retrieved before an operation is performed, it can be used in 
-        /// combination with <see cref="GetModified(DateTime)"/> to obtain all
+        /// combination with <see cref="GetModifiedAsync(DateTime)"/> to obtain all
         /// entities that were modified as a result of the operation (only when 
         /// isolated testing is performed).
         /// </summary>

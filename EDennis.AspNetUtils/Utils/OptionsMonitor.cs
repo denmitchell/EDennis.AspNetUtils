@@ -22,7 +22,7 @@ namespace EDennis.AspNetUtils
     }
 
     /// <summary>
-    /// Implementation of <see cref="IOptionsMonitor{TOptions}"/> for testing purposes
+    /// CrudService of <see cref="IOptionsMonitor{TOptions}"/> for testing purposes
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     public class OptionsMonitor<TOptions> : IOptionsMonitor<TOptions>

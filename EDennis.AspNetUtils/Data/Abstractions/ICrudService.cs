@@ -14,9 +14,9 @@ namespace EDennis.AspNetUtils
         Task<(List<TEntity> Data, int Count)> GetAsync(string where = null, object[] whereArgs = null, string orderBy = null, int? skip = null, int? take = null, CountType countType = CountType.None, string include = null, bool asNoTracking = true);
         Task<(List<dynamic> Data, int Count)> GetAsync(string select, string where = null, object[] whereArgs = null, string orderBy = null, int? skip = null, int? take = null, CountType countType = CountType.None, string include = null, bool asNoTracking = true);
 
-        IEnumerable<TEntity> GetModified(DateTime asOf);
+        Task<IEnumerable<TEntity>> GetModifiedAsync(DateTime asOf);
 
-        void EnableTest(ITestOutputHelper output = null);
+        Task EnableTestAsync(ITestOutputHelper output = null);
 
     }
 }

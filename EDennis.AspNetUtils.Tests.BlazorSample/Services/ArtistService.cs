@@ -1,7 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.BlazorSample;
-using Microsoft.EntityFrameworkCore;
-
-namespace EDennis.AspNetUtils.Tests.BlazorSample.Services
+﻿namespace EDennis.AspNetUtils.Tests.BlazorSample.Services
 {
     public class ArtistService : EntityFrameworkService<HitsContext, Artist>
     {

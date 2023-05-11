@@ -41,7 +41,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
 
         /// <summary>
         /// An EDennis Service
-        /// Implementation of <see cref="EntityFrameworkService{HitsContext, Artist}"/> for
+        /// CrudService of <see cref="EntityFrameworkService{HitsContext, Artist}"/> for
         /// performing CRUD operations on artist records
         /// </summary>
         [Inject]
@@ -49,7 +49,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
 
         /// <summary>
         /// An EDennis Service
-        /// Implementation of <see cref="EntityFrameworkService{HitsContext, Song}"/> for
+        /// CrudService of <see cref="EntityFrameworkService{HitsContext, Song}"/> for
         /// performing CRUD operations on song records
         /// </summary>
         [Inject]

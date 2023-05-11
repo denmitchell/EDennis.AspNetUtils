@@ -31,8 +31,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Fact]
         public async Task TestGetAll()
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], 
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var recs = await service
                 .GetQueryable()
@@ -51,8 +50,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData(5, "disabled")]
         public async Task TestFind(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -75,8 +73,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData(4)]
         public async Task TestDelete(int guidId)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             //expected remaining Guids after delete
             int[] remaining = Enumerable.Range(1, 5).Except(new int[] { guidId }).ToArray();
@@ -109,8 +106,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData(3, "normal user")]
         public async Task TestUpdate(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -127,8 +123,8 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
             await service
                 .UpdateAsync(qryRec, qryRec.Id);
 
-            var recs = service
-                .GetModified(maxSysStart)
+            var recs = (await service
+                .GetModifiedAsync(maxSysStart))
                 .OrderBy(r => r.SysGuid)
                 .ToList();
 
@@ -146,8 +142,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData(999, "normal user")]
         public async Task TestCreate(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -162,8 +157,8 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
             await service
                 .CreateAsync(AppRole);
 
-            var recs = service
-                .GetModified(maxSysStart)
+            var recs = (await service
+                .GetModifiedAsync(maxSysStart))
                 .OrderBy(r => r.SysGuid)
                 .ToList();
 

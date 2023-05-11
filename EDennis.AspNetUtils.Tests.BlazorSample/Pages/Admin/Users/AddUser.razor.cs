@@ -38,7 +38,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
 
         /// <summary>
         /// An EDennis Service
-        /// Implementation of <see cref="EntityFrameworkService{AppUserRolesContext, AppUser}"/> for
+        /// CrudService of <see cref="EntityFrameworkService{AppUserRolesContext, AppUser}"/> for
         /// performing CRUD operations on user records
         /// </summary>
         [Inject]
@@ -46,7 +46,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
 
         /// <summary>
         /// An EDennis Service
-        /// Implementation of <see cref="EntityFrameworkService{AppUserRolesContext, AppRole}"/> for
+        /// CrudService of <see cref="EntityFrameworkService{AppUserRolesContext, AppRole}"/> for
         /// performing CRUD operations on roles records.
         /// </summary>
         [Inject]

@@ -33,7 +33,7 @@ namespace EDennis.AspNetUtils
         /// <item><see cref="CountCache{TEntity}"/></item>
         /// </list>
         /// </summary>
-        /// <typeparam name="TService">The CrudService Type</typeparam>
+        /// <typeparam name="TService">The CrudController Type</typeparam>
         /// <typeparam name="TEntity">The Entity/Model Type</typeparam>
         /// <returns></returns>
         public CrudServiceConfigurationBuilder<TContext> AddCrudService<TService,TEntity>() 

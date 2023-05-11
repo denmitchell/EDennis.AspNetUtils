@@ -1,5 +1,4 @@
 using EDennis.AspNetUtils.Tests.BlazorSample.Services;
-using Radzen;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
@@ -42,8 +41,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         {
             var whereArgs = whereArgsKey == null ? null : _filterArgs[whereArgsKey];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var (data, count) = await service
                 .GetAsync(where, whereArgs,orderBy,skip,take,countType:CountType.Count);
@@ -58,8 +56,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData("Title.Contains(\"o\")", "ReleaseDate desc", 3, 4, 9, /*guidIds:*/ 11, 16, 3, 15)]
         public async Task TestGetDynamicLinqNoSelect(string where, string orderBy, int skip, int take, int countAcrossPages, params int[] guidIds)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var (data, count) = await service
                 .GetAsync(where,null,orderBy,skip,take, countType: CountType.Count);
@@ -100,8 +97,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
             var whereArgs = whereArgsKey == null ? null : _filterArgs[whereArgsKey];
             var expected = _select[select];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var (data, count) = await service
                 .GetAsync(select,where,whereArgs,orderBy,skip,take, countType: CountType.Count);
@@ -147,8 +143,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         {
             var expected = _select[select];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"],
-                DbContextType.SqlServerOpenTransaction, _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
 
             var (data, count) = await service
                 .GetAsync(select, where, null, orderBy, skip, take, countType: CountType.Count);
