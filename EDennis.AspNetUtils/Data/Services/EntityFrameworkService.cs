@@ -180,7 +180,9 @@ namespace EDennis.AspNetUtils
         public virtual async Task<TEntity> UpdateAsync(
             TEntity input, params object[] id)
         {
-            var existing = await FindRequiredAsync(id);
+            var existing = await FindAsync(id);
+            if (existing == null)
+                return null;
 
             BeforeUpdate(existing); //optional lifecycle method
 
@@ -209,7 +211,10 @@ namespace EDennis.AspNetUtils
         /// <seealso cref="Delete(string)"/>
         public async virtual Task<TEntity> DeleteAsync(params object[] id)
         {
-            var existing = await FindRequiredAsync(id);
+            var existing = await FindAsync(id);
+
+            if (existing == null)
+                return null;
 
             BeforeDelete(existing);
 
@@ -299,19 +304,6 @@ namespace EDennis.AspNetUtils
             => await DbContext.FindAsync<TEntity>(id);
 
 
-        /// <summary>
-        /// Finds a record based upon the provided primary key.  Note that
-        /// this method will throw an exception if the record isn't found.
-        /// See also <see cref="FindAsync(object[])"/>
-        /// </summary>
-        /// <param name="id">The primary key of the target record</param>
-        /// <returns></returns>
-        public async Task<TEntity> FindRequiredAsync(params object[] id)
-        {
-            var existing = await DbContext.FindAsync<TEntity>(id)
-                ?? throw new Exception($"{typeof(TEntity).Name} with key equal to {JsonSerializer.Serialize(id)} not found.");
-            return existing;
-        }
 
         /// <summary>
         /// Merely returns a typed IQueryable.  DevExpress supports binding

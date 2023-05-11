@@ -1,7 +1,15 @@
 ﻿
 namespace EDennis.AspNetUtils
 {
+    /// <summary>
+    /// A Dictionary of <see cref="ApiClientSettings"/> to be used with an ApiClient
+    /// section of configuration
+    /// </summary>
     public class ApiClientSettingsDictionary : Dictionary<string, ApiClientSettings> { }
+
+    /// <summary>
+    /// Hold settings for ApiClients
+    /// </summary>
     public class ApiClientSettings : IApiKeyOptions
     {
 

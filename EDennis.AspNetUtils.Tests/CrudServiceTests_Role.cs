@@ -61,7 +61,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
             Assert.NotNull(qryRec);
 
             var findRec = await service
-                .FindRequiredAsync(qryRec.Id);
+                .FindAsync(qryRec.Id);
 
             Assert.Equal(roleName, findRec.RoleName);
             

@@ -208,9 +208,17 @@ namespace EDennis.AspNetUtils
             return builder;
         }
 
-
+        /// <summary>
+        /// Adds ApiKeyAuthentication to an API.  This is added to a project that exposes the
+        /// API via a controller.
+        /// </summary>
+        /// <param name="services">A reference to the IServiceCollection instance</param>
+        /// <param name="config">A reference to IConfiguration instance</param>
+        /// <param name="configKey">The configuration key for the section (default to Security:ApiKey)</param>
+        /// <param name="additionalConfigure">an optional action to configure authentication options further</param>
+        /// <returns></returns>
         public static AuthenticationBuilder AddApiKeyAuthentication(this IServiceCollection services,
-            IConfiguration config, string configKey = "ApiKey", Action<AuthenticationOptions> additionalConfigure = null
+            IConfiguration config, string configKey = null, Action<AuthenticationOptions> additionalConfigure = null
             )
         {
             configKey ??= ApiKeyAuthenticationOptions.DefaultConfigKey;
@@ -238,9 +246,8 @@ namespace EDennis.AspNetUtils
 
         /// <summary>
         /// Configures DI for a set of named HttpClients.  The name of the HttpClient is
-        /// the key for the client in configuration.  Note: for any given API, if 
-        /// the ApiKey is null (or not present), then it is assumed that some other
-        /// security (e.g., DelegateToken security) will be used.
+        /// the key for the client in configuration.  These ApiClients use ApiKey security
+        /// via <see cref="ApiKeyMessageHandler"/>
         /// </summary>
         /// <param name="services">Reference to the IServiceCollection instance</param>
         /// <param name="config">Reference to the IConfiguration instance</param>

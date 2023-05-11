@@ -1,5 +1,8 @@
 ﻿namespace EDennis.AspNetUtils
 {
+    /// <summary>
+    /// Interface spec for ApiKey options
+    /// </summary>
     public interface IApiKeyOptions
     {
         /// <summary>
