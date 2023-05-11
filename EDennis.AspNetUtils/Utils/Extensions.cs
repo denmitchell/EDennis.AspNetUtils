@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using EDennis.AspNetUtils.Security;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -207,6 +208,29 @@ namespace EDennis.AspNetUtils
             return builder;
         }
 
+
+        public static AuthenticationBuilder AddApiKeyAuthentication(this IServiceCollection services,
+            IConfiguration config, string configKey = "ApiKey", Action<AuthenticationOptions> additionalConfigure = null
+            )
+        {
+            configKey ??= ApiKeyAuthenticationOptions.DefaultConfigKey;
+            if (!services.Any(s => s.ServiceType == typeof(IOptionsMonitor<ApiKeyAuthenticationOptions>)))
+            {
+                services.BindAndConfigure(config, configKey, out ApiKeyAuthenticationOptions _);
+            }
+
+            AuthenticationBuilder builder = null;
+            builder = services.AddAuthentication(
+                    options =>
+                    {
+                        options.DefaultScheme = AuthenticationSchemeConstants.ApiKeyAuthenticationScheme;
+                        additionalConfigure?.Invoke(options);
+                    })
+                .AddScheme<ApiKeyAuthenticationOptions, ApiKeyAuthenticationHandler>(
+                    AuthenticationSchemeConstants.ApiKeyAuthenticationScheme, options => { });
+
+            return builder;
+        }
 
 
 

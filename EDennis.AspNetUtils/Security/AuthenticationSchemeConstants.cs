@@ -1,4 +1,4 @@
-﻿namespace EDennis.AspNetUtils
+﻿namespace EDennis.AspNetUtils.Security
 {
     /// <summary>
     /// Constants for Authentication Schemes
@@ -10,5 +10,6 @@
         /// </summary>
         public const string FakeAuthenticationScheme = "Fake";
 
+        public const string ApiKeyAuthenticationScheme = "ApiKey";
     }
 }
