@@ -60,7 +60,8 @@ namespace EDennis.AspNetUtils
             {
                 serviceSettingsConfigKey ??= "DbContexts";
                 builder.AddEntityFrameworkServices<SimpleAuthContext>(serviceSettingsConfigKey)
-                    .AddEntityFrameworkService<AppUser>();
+                    .AddEntityFrameworkService<AppUser>()
+                    .AddEntityFrameworkService<AppRole>();
             }
             else if (typeof(TCrudServiceImpl) == typeof(EntityFrameworkService<SimpleAuthContext, AppUser>))
             {

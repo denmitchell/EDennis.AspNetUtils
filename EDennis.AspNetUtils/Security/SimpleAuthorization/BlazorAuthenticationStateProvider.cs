@@ -112,7 +112,7 @@ namespace EDennis.AspNetUtils
             {
                 //note: this hangs if you call await ... FirstOrDefaultAsync
                 (List<dynamic> result, int _) = _userService
-                    .GetAsync(select: "Role", where: "UserName eq {0}", new object[] { userName })
+                    .GetAsync(select: "Role", where: "UserName == @0", new object[] { userName })
                     .Result;
 
                 var role = result.FirstOrDefault() as string;

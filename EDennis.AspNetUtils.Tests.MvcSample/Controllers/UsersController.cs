@@ -111,7 +111,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserName,RoleId,Id,SysGuid,SysUser")] AppUser appUser)
+        public async Task<IActionResult> Edit(int id, [Bind("UserName,Role,Id,SysGuid,SysUser")] AppUser appUser)
         {
             //workaround -- Authorization with Roles or Policy, not working 
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
