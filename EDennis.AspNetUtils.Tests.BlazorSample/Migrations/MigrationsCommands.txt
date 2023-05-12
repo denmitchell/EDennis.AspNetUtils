@@ -1,7 +1,10 @@
-﻿Drop-Database -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+﻿<#
+# Execute Add-Migration commands only if you change the data model or introduce additional DbContexts
 
 Add-Migration Initial -Context SimpleAuthContext -Project EDennis.AspNetUtils -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
-Update-Database -Context SimpleAuthContext -Project EDennis.AspNetUtils -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
-
 Add-Migration Initial -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+#>
+
+Drop-Database -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
+Update-Database -Context SimpleAuthContext -Project EDennis.AspNetUtils -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
 Update-Database -Context HitsContext -Project EDennis.AspNetUtils.Tests.BlazorSample -StartupProject EDennis.AspNetUtils.Tests.BlazorSample
