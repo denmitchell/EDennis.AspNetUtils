@@ -44,7 +44,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// performing CRUD operations on artist records
         /// </summary>
         [Inject]
-        public ArtistService ArtistService { get; set; }
+        public ICrudService<Artist> ArtistService { get; set; }
 
         /// <summary>
         /// An EDennis Service
