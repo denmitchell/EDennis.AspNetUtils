@@ -8,6 +8,8 @@ using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Conditionally add support for faking a user, which must be registered
 // in AppUser table
 
@@ -30,10 +32,12 @@ else
 #endif
 
 
+
 //AddAsync CRUD services
 builder.AddEntityFrameworkServices<HitsContext>()
     .AddEntityFrameworkService<ArtistService, Artist>() //ArtistService extends EntityFrameworkService to implement cascade delete on Songs
     .AddEntityFrameworkService<Song>(); //there was no need to extend EntityFrameworkService for Song
+
 
 
 //Radzen services
@@ -47,6 +51,8 @@ builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddControllersWithViews()
     .AddMicrosoftIdentityUI();
 
+
+
 builder.Services.AddAuthorization(options =>
 {
     // By default, all incoming requests will be authorized according to the default policy
@@ -57,16 +63,22 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor()
     .AddMicrosoftIdentityConsentHandler();
 
+
 //AddAsync simple security based upon AppUser and AppRoles tables
 builder.AddSimpleAuthorization<
     EntityFrameworkService<SimpleAuthContext, AppUser>, 
     EntityFrameworkService<SimpleAuthContext,AppRole>>(isBlazorServer: true);
 
+
+
 var app = builder.Build();
 
-ServiceInspector.ServiceDescriptors = builder.Services.Select(s => new ServiceDescriptor(s.ServiceType, s.ImplementationType ?? s.ServiceType, s.Lifetime));
-
+//ServiceInspector.ServiceDescriptors = builder.Services
+//    .OrderBy(s => s.ServiceType.CSharpName())
+//    .Select(s => new ServiceDescriptor(s.ServiceType, s.ImplementationType ?? s.ServiceType, s.Lifetime));
+//File.WriteAllText("Services.json", JsonSerializer.Serialize(ServiceInspector.ServiceDescriptors.Select(s => new { ServiceType = s.ServiceType.CSharpName(), ImplementationType = s.ImplementationType.CSharpName() }), new JsonSerializerOptions { WriteIndented = true }));
 // Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

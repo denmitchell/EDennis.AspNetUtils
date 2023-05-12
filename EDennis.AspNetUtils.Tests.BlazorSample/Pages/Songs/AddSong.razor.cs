@@ -163,9 +163,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
         /// it can be used as the data source for a dropdown list.
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            artistsForArtistId = new Artist[] { await ArtistService.FindAsync(ArtistId) };
+            artistsForArtistId = new Artist[] { ArtistService.Find(ArtistId) };
         }
 
         /// <summary>
@@ -194,15 +194,15 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
 
 
         /// <summary>
-        /// Inserts a new song record using <see cref="EntityFrameworkService{TContext, TEntity}.CreateAsync(TEntity)"/>
+        /// Inserts a new song record using <see cref="EntityFrameworkService{TContext, TEntity}.Create(TEntity)"/>
         /// and closes the <see cref="Dialog"/>
         /// </summary>
         /// <returns></returns>
-        protected async Task FormSubmit()
+        protected void FormSubmit()
         {
             try
             {
-                await SongService.CreateAsync(song);
+                SongService.Create(song);
                 DialogService.Close(song);
             }
             catch (Exception)

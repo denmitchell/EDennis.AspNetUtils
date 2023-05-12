@@ -73,8 +73,8 @@ namespace EDennis.AspNetUtils
 
             var builder = new DbContextOptionsBuilder<TContext>();
             builder.UseSqlServer(connection)
-                .EnableSensitiveDataLogging()
-                .UseExceptionProcessor();
+                .EnableSensitiveDataLogging();
+                //.UseExceptionProcessor();
 
             if (output != null)
                 builder.LogTo(output.WriteLine);
@@ -120,6 +120,22 @@ namespace EDennis.AspNetUtils
         public static DbContextOptions<TContext> GetDbContextOptions(IConfiguration config,
             string sectionKey = "DbContexts")
             => GetDbContextOptions(GetConnectionString(config, sectionKey));
+
+
+
+        public static DbContextOptions GetDbContextOptions(DbContextOptionsBuilder builder,
+            IConfiguration config, string sectionKey = "DbContexts")
+        {
+            builder.UseSqlServer(GetConnectionString(config, sectionKey));
+            //var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+            //    ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
+            //    ?? "Production";
+
+            //if (env == "Development")
+            //    builder.EnableSensitiveDataLogging();
+
+            return builder.Options;
+        }
 
 
         /// <summary>

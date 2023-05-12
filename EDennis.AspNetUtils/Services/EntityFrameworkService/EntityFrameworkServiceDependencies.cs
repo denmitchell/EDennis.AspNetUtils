@@ -33,7 +33,7 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Provides the UserName and Roles  
         /// </summary>
-        public ISimpleAuthorizationProvider SimpleAuthorizationProvider { get; set; }
+        public UserNameProvider UserNameProvider { get; set; }
 
         /// <summary>
         /// Holds configurations for security such as:
@@ -61,14 +61,14 @@ namespace EDennis.AspNetUtils
         /// <param name="countCache">A cache for record counts across pages</param>
         /// <param name="config">A reference to the configuation object</param>
         public EntityFrameworkServiceDependencies(DbContextService<TContext> dbContextService,
-            ISimpleAuthorizationProvider authorizationProvider,
+            UserNameProvider userNameProvider,
             IOptionsMonitor<SecurityOptions> securityOptions,
             CountCache<TEntity> countCache,
             IConfiguration config)
         {
 
             DbContextService = dbContextService;
-            SimpleAuthorizationProvider = authorizationProvider;
+            UserNameProvider = userNameProvider;
             SecurityOptions = securityOptions.CurrentValue;
             CountCache = countCache;
             Configuration = config;
@@ -82,46 +82,18 @@ namespace EDennis.AspNetUtils
         /// <param name="userName">The user name to hard code for the test</param>
         /// <param name="role">The role to hard code for the test</param>
         /// <returns></returns>
-        public static EntityFrameworkServiceDependencies<TContext, TEntity> GetTestInstance(IConfiguration config, string userName, string role)
+        public static EntityFrameworkServiceDependencies<TContext, TEntity> GetTestInstance(IConfiguration config, string userName)
         {
 
             var securityOptions = config.GetOrThrow<SecurityOptions>("Security");
             var iomSecurityOptions = new OptionsMonitor<SecurityOptions>(securityOptions);
 
             var CountCache = new CountCache<TEntity>();
-            var authStateProvider = new TestAuthenticationStateProvider(userName, role);
+            var authStateProvider = new UserNameProvider { UserName = userName };
             var dbContextService = new DbContextService<TContext>(config);
 
             return new EntityFrameworkServiceDependencies<TContext, TEntity>(
                 dbContextService, authStateProvider, iomSecurityOptions, CountCache, config);
-
-        }
-
-        /// <summary>
-        /// An implementation of <see cref="IAuthenticationStateProvider"/> suitable
-        /// for testing
-        /// </summary>
-        class TestAuthenticationStateProvider : ISimpleAuthorizationProvider
-        {
-
-            public TestAuthenticationStateProvider(string userName, string role)
-            {
-                UserName = userName;
-                Role = role;
-            }
-
-            public string UserName { get; set; }
-            public string Role { get; set; }
-
-
-            public string GetRole()
-            {
-                return Role;
-            }
-
-            public void UpdateClaimsPrincipal(ClaimsPrincipal principal)
-            {                
-            }
 
         }
 

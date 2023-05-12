@@ -139,9 +139,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// Retrieves the target artist record from the database
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            artist = await ArtistService.FindAsync(Id);
+            artist = ArtistService.Find(Id);
         }
 
 
@@ -150,11 +150,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// Bound to RadzenTemplateForm's Submit attribute/event
         /// </summary>
         /// <returns></returns>
-        protected async Task FormSubmit()
+        protected void FormSubmit()
         {
             try
             {
-                await ArtistService.UpdateAsync(artist, Id);
+                ArtistService.Update(artist, Id);
                 DialogService.Close(artist);
             }
             catch (Exception)

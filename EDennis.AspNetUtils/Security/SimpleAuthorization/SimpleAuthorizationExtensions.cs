@@ -92,10 +92,11 @@ namespace EDennis.AspNetUtils
         /// </list>
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="isBlazor"></param>
+        /// <param name="isBlazorServer"></param>
         /// <param name="securityConfigKey"></param>
-        private static void AddSecurity(WebApplicationBuilder builder, bool isBlazor, string securityConfigKey = "Security" )
+        private static void AddSecurity(WebApplicationBuilder builder, bool isBlazorServer, string securityConfigKey = "Security" )
         {
+
             var defaultType = builder.Services
                 .FirstOrDefault(s => s.ServiceType == typeof(AuthenticationStateProvider))
                 ?.ServiceType;
@@ -104,11 +105,12 @@ namespace EDennis.AspNetUtils
 
             if (!builder.Services.Any(s => s.ServiceType == typeof(IOptionsMonitor<SecurityOptions>)))
                 builder.Services.BindAndConfigure(builder.Configuration, securityConfigKey, out SecurityOptions _);
-
+            
             builder.Services.AddSingleton<RolesCache>();
+            builder.Services.AddScoped<UserNameProvider, UserNameProvider>();
             builder.Services.AddScoped<ISimpleAuthorizationProvider, SimpleAuthorizationProvider>();
 
-            if (isBlazor)
+            if (isBlazorServer)
                 builder.Services.AddScoped<AuthenticationStateProvider, BlazorAuthenticationStateProvider>();
 
         }

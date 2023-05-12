@@ -49,11 +49,7 @@ namespace EDennis.AspNetUtils
 
             if (_addApiKeyMessageHandler)
                 httpClientBuilder.AddHttpMessageHandler<ApiKeyMessageHandler>();
-
-
-            _builder.Services.TryAddScoped<ApiClientService<TEntity>>();
-            _builder.Services.TryAddScoped<ICrudService<TEntity>>(provider =>
-                provider.GetService<ApiClientService<TEntity>>());
+            _builder.Services.TryAddScoped<ICrudService<TEntity>, ApiClientService<TEntity>>();
 
             return this;
         }

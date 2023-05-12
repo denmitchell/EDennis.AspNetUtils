@@ -22,14 +22,21 @@ namespace EDennis.AspNetUtils
                string sectionKey = "DbContexts")
             where TContext : DbContext
         {
+            builder.Services.TryAddScoped<DbContextService<TContext>>();
+            builder.Services.TryAddScoped<UserNameProvider, UserNameProvider>();
+
+            //builder.Services.AddDbContext<TContext>(options =>
+            //{
+            //    DbContextService<TContext>.GetDbContextOptions(options, builder.Configuration, sectionKey);
+            //});
+
             if (!builder.Services.Any(s => s.ServiceType == typeof(TContext)))
             {
-                builder.Services.AddScoped(provider =>
+                builder.Services.AddTransient(provider =>
                 {
                     return DbContextService<TContext>.GetDbContext(builder.Configuration, sectionKey);
                 });
             }
-            builder.Services.TryAddScoped<DbContextService<TContext>>();
             return new EntityFrameworkServiceBuilder<TContext>(builder);
         }
 

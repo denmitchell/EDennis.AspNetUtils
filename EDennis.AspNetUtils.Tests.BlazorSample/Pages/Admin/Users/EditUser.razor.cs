@@ -176,14 +176,14 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// from the database
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            user = await UserService.FindAsync(Id);
+            user = UserService.Find(Id);
 
             if(SecurityOptions.CurrentValue.AllowMultipleRoles)
                 userRoles = user.Role.Split(',');
 
-            (roles, _) = await RoleService.GetAsync(countType: CountType.None);
+            (roles, _) = RoleService.Get(countType: CountType.None);
         }
 
         /// <summary>
@@ -191,14 +191,14 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// Bound to RadzenTemplateForm's Submit attribute/event
         /// </summary>
         /// <returns></returns>
-        protected async Task FormSubmit()
+        protected void FormSubmit()
         {
             try
             {
                 if (SecurityOptions.CurrentValue.AllowMultipleRoles)
                     user.Role = string.Join(",", userRoles);
 
-                await UserService.UpdateAsync(user, Id);
+                UserService.Update(user, Id);
                 DialogService.Close(user);
             }
             catch

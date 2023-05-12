@@ -32,7 +32,7 @@ namespace EDennis.AspNetUtils
         /// <param name="output">A reference to an XUnit helper object for directing output to a viewable location</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public TService GetCrudService(string appsettingsFile, string userName, string role,
+        public TService GetCrudService(string appsettingsFile, string userName,
             ITestOutputHelper output = null)
         {
 
@@ -51,13 +51,13 @@ namespace EDennis.AspNetUtils
             }
 
             //create a test instance of CrudService dependencies
-            var deps = EntityFrameworkServiceDependencies<TContext, TEntity>.GetTestInstance(config, userName, role);
+            var deps = EntityFrameworkServiceDependencies<TContext, TEntity>.GetTestInstance(config, userName);
 
             //create an instance of the Crud Service
             TService service = (TService)Activator.CreateInstance(typeof(TService), deps);
 
             //set the DbContext
-            service.EnableTestAsync(output).Wait();
+            service.EnableTest(output);
 
             return service;
         }

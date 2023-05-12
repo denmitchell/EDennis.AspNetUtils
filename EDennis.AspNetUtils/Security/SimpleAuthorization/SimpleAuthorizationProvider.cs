@@ -11,14 +11,16 @@ namespace EDennis.AspNetUtils
 
         public RolesCache _rolesCache;
 
-        public string UserName { get; set; }
+        public UserNameProvider UserNameProvider { get; }
 
         public SimpleAuthorizationProvider(IOptionsMonitor<SecurityOptions> securityOptions,
-            ICrudService<AppUser> userService, RolesCache rolesCache)
+            ICrudService<AppUser> userService, RolesCache rolesCache,
+            UserNameProvider userNameProvider)
         {
             _userService = userService;
             _rolesCache = rolesCache;
             _securityOptions = securityOptions.CurrentValue;
+            UserNameProvider = userNameProvider;
         }
 
 
@@ -29,11 +31,11 @@ namespace EDennis.AspNetUtils
                 if (principal.Claims.Any(c => c.Type == "role"))
                     return;
 
-                UserName = principal.Claims.FirstOrDefault(c =>
+                UserNameProvider.UserName = principal.Claims.FirstOrDefault(c =>
                                c.Type.Equals(_securityOptions.IdpUserNameClaim,
                                StringComparison.OrdinalIgnoreCase))?.Value;
 
-                if (UserName != null)
+                if (UserNameProvider.UserName != null)
                 {
                     var role = GetRole();
 
@@ -64,15 +66,14 @@ namespace EDennis.AspNetUtils
 
         public string GetRole()
         {
-            if (!_rolesCache.TryGetValue(UserName,
+            if (!_rolesCache.TryGetValue(UserNameProvider.UserName,
                 out (DateTime ExpiresAt, string Role) entry)
                 || entry.ExpiresAt <= DateTime.Now)
             {
 
                 //note: this hangs if you call await ... FirstOrDefaultAsync
                 (List<dynamic> result, int _) = _userService
-                    .GetAsync(select: "Role", where: "UserName == @0", new object[] { UserName })
-                    .Result;
+                    .Get(select: "Role", where: "UserName == @0", new object[] { UserNameProvider.UserName });
 
                 var role = result.FirstOrDefault() as string;
 
@@ -81,7 +82,7 @@ namespace EDennis.AspNetUtils
 
                 entry = (DateTime.Now.AddMilliseconds(
                     _securityOptions.RefreshInterval), role);
-                _rolesCache.AddOrUpdate(UserName, entry, (u, e) => entry);
+                _rolesCache.AddOrUpdate(UserNameProvider.UserName, entry, (u, e) => entry);
 
             }
             return entry.Role;

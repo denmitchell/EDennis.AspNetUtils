@@ -19,7 +19,7 @@
     <RadzenRow>
         <RadzenColumn SizeMD=10>
             <RadzenDataGrid @ref="usersGrid" Data="@users" TItem="AppUser"
-                            LoadData="@LoadDataAsync" Count="@recCount"
+                            LoadData="@LoadData" Count="@recCount"
                             ColumnWidth="33%"
                             RowDoubleClick="@Edit" 
                             AllowVirtualization="false"

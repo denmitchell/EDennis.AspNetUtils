@@ -9,12 +9,12 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code {
-    [CascadingParameter]
-    public Task<AuthenticationState> AuthenticationStateTask { get; set; }
+    //[CascadingParameter]
+    //public Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
-    protected override void OnInitialized()
-    {
-        var authState = AuthenticationStateTask;
-    }
+    //protected override void OnInitialized()
+    //{
+    //    var authState = AuthenticationStateTask;
+    //}
 
 }

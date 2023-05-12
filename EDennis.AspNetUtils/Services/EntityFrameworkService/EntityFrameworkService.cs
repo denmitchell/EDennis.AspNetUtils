@@ -104,7 +104,7 @@ namespace EDennis.AspNetUtils
             _countCache = deps.CountCache;
 
             DbContext = deps.DbContextService.GetDbContext(deps.Configuration);
-            SetUserName(deps.SimpleAuthorizationProvider);
+            SetUserName(deps.UserNameProvider);
         }
 
         #endregion
@@ -118,9 +118,9 @@ namespace EDennis.AspNetUtils
         /// <param name="testDbContextType">The nature of the new DbContext</param>
         /// <param name="output">An Xunit helper class for piping logs to the appropriate
         /// output stream during testing</param>
-        public async Task EnableTestAsync(ITestOutputHelper output = null)
+        public void EnableTest(ITestOutputHelper output = null)
         {
-            DbContext = await Task.Run(() => _dbContextService.GetTestServiceContext(output));
+            DbContext = _dbContextService.GetTestServiceContext(output);
         }
 
 
@@ -132,9 +132,9 @@ namespace EDennis.AspNetUtils
         /// Name claim.  This class uses <see cref="MvcAuthenticationStateProvider"/>
         /// </summary>
         /// <param name="authorizationProvider"></param>
-        public void SetUserName(ISimpleAuthorizationProvider authorizationProvider)
+        public void SetUserName(UserNameProvider userNameProvider)
         {
-            UserName = authorizationProvider.UserName;
+            UserName = userNameProvider.UserName;
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="input">The entity holding data to insert into the database</param>
         /// <returns></returns>
-        public virtual async Task<TEntity> CreateAsync(TEntity input)
+        public virtual TEntity Create(TEntity input)
         {
             UpdateSysUser();
             BeforeCreate(input); //optional lifecycle method
@@ -152,8 +152,8 @@ namespace EDennis.AspNetUtils
             if (input is IHasSysGuid iHasSysGuid && iHasSysGuid.SysGuid == default)
                 iHasSysGuid.SysGuid = Guid.NewGuid();
 
-            await DbContext.AddAsync(input);
-            await DbContext.SaveChangesAsync();
+            DbContext.Add(input);
+            DbContext.SaveChanges();
 
             AfterCreate(input); //optional lifecycle method
 
@@ -169,10 +169,10 @@ namespace EDennis.AspNetUtils
         /// <param name="input">The entity holding data to update</param>
         /// <param name="id">The primary key of the entity</param>
         /// <returns></returns>
-        public virtual async Task<TEntity> UpdateAsync(
+        public virtual TEntity Update(
             TEntity input, params object[] id)
         {
-            var existing = await FindAsync(id);
+            var existing = Find(id);
             if (existing == null)
                 return null;
 
@@ -185,7 +185,7 @@ namespace EDennis.AspNetUtils
             entry.State = EntityState.Modified;
 
             UpdateSysUser();
-            await DbContext.SaveChangesAsync();
+            DbContext.SaveChanges();
 
             AfterUpdate(existing); //optional lifecycle method
 
@@ -201,9 +201,9 @@ namespace EDennis.AspNetUtils
         /// <param name="key">the primary key of the entity</param>
         /// <returns>OK or NoContent, if successful</returns>
         /// <seealso cref="Delete(string)"/>
-        public async virtual Task<TEntity> DeleteAsync(params object[] id)
+        public virtual TEntity Delete(params object[] id)
         {
-            var existing = await FindAsync(id);
+            var existing = Find(id);
 
             if (existing == null)
                 return null;
@@ -211,9 +211,9 @@ namespace EDennis.AspNetUtils
             BeforeDelete(existing);
 
             UpdateSysUser();
-            await DbContext.SaveChangesAsync();
+            DbContext.SaveChanges();
             DbContext.Remove(existing);
-            await DbContext.SaveChangesAsync();
+            DbContext.SaveChanges();
 
             AfterDelete(existing);
 
@@ -288,12 +288,12 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Finds a record based upon the provided primary key.  Note that
         /// this method will return null if the record isn't found.
-        /// See also <see cref="FindRequiredAsync(object[])"/>
+        /// See also <see cref="FindAsync(object[])"/>
         /// </summary>
         /// <param name="id">The primary key of the target record</param>
         /// <returns></returns>
-        public async Task<TEntity> FindAsync(params object[] id)
-            => await DbContext.FindAsync<TEntity>(id);
+        public TEntity Find(params object[] id)
+            => DbContext.Find<TEntity>(id);
 
 
 
@@ -335,8 +335,8 @@ namespace EDennis.AspNetUtils
         /// <param name="include">string Include expression (for including navigation properties)</param>
         /// <param name="asNoTracking">whether to track entities (for updating)</param>
         /// <returns>Dynamic-typed object</returns>
-        /// <seealso cref="GetAsync(string, object[], string, int?, int?, CountType, string, bool)"/>
-        public virtual async Task<(List<dynamic> Data, int Count)> GetAsync(
+        /// <seealso cref="Get(string, object[], string, int?, int?, CountType, string, bool)"/>
+        public virtual (List<dynamic> Data, int Count) Get(
                 string select,
                 string where = null, object[] whereArgs = null,
                 string orderBy = null, int? skip = null, int? take = null,
@@ -349,8 +349,8 @@ namespace EDennis.AspNetUtils
 
             List<dynamic> data = null;
             if (countType != CountType.CountOnly)
-                data = await query.Select(select)
-                    .ToDynamicListAsync();
+                data = query.Select(select)
+                    .ToDynamicList();
 
             return (data, recCount);
         }
@@ -371,8 +371,8 @@ namespace EDennis.AspNetUtils
         /// <param name="include">string Include expression (for including navigation properties)</param>
         /// <param name="asNoTracking">whether to track entities (for updating)</param>
         /// <returns>Entity-typed object</returns>
-        /// <seealso cref="GetAsync(string, string, object[], string, int?, int?, CountType, string, bool)"/>
-        public virtual async Task<(List<TEntity> Data, int Count)> GetAsync(
+        /// <seealso cref="Get(string, string, object[], string, int?, int?, CountType, string, bool)"/>
+        public virtual (List<TEntity> Data, int Count) Get(
                 string where = null, object[] whereArgs = null,
                 string orderBy = null, int? skip = null, int? take = null,
                 CountType countType = CountType.None, string include = null,
@@ -384,8 +384,7 @@ namespace EDennis.AspNetUtils
 
             List<TEntity> data = null;
             if (countType != CountType.CountOnly)
-                data = await query
-                    .ToListAsync();
+                data = query.ToList();
 
             return (data, recCount);
 
@@ -402,11 +401,11 @@ namespace EDennis.AspNetUtils
         /// <param name="asOf">Get all modifications after this datetime.
         /// NOTE: do not make this >=.  It will not work!</param>
         /// <returns></returns>
-        public async Task<IEnumerable<TEntity>> GetModifiedAsync(DateTime asOf)
+        public IEnumerable<TEntity> GetModified(DateTime asOf)
         {
-            var results = await DbContext.Set<TEntity>()
+            var results = DbContext.Set<TEntity>()
                 .Where(e => EF.Property<DateTime>(e, SysStartColumn) > asOf)
-                .ToListAsync();
+                .ToList();
 
             return results;
         }
@@ -414,7 +413,7 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Gets the most recent create/update datetime value for a given entity.
         /// When retrieved before an operation is performed, it can be used in 
-        /// combination with <see cref="GetModifiedAsync(DateTime)"/> to obtain all
+        /// combination with <see cref="GetModified(DateTime)"/> to obtain all
         /// entities that were modified as a result of the operation (only when 
         /// isolated testing is performed).
         /// </summary>

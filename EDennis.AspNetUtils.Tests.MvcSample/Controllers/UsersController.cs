@@ -28,8 +28,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            var (recs,_) = await _appUserService.GetAsync();
-
+            var (recs, _) = await Task.Run(() => _appUserService.Get());
 
             return View(recs.ToList());
         }
@@ -44,7 +43,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (id == null)
                 return NotFound();
 
-            var appUser = await _appUserService.FindAsync(id);
+            var appUser = await Task.Run(() => _appUserService.Find(id));
 
             if (appUser == null)
                 return NotFound();
@@ -52,7 +51,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             return View(appUser);
         }
 
-        private List<AppRole> GetAppRoles() => (_appRoleService.GetAsync().Result).Data;
+        private List<AppRole> GetAppRoles() => _appRoleService.Get().Data;
 
         // GET: AppUsers/Create
         public IActionResult Create()
@@ -79,7 +78,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
 
             if (ModelState.IsValid)
             {
-                await(_appUserService.CreateAsync(appUser));
+                await Task.Run(() => _appUserService.Create(appUser));
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role);
@@ -97,7 +96,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (id == null)
                 return NotFound();
 
-            var appUser = await _appUserService.FindAsync(id);
+            var appUser = await Task.Run(() => _appUserService.Find(id));
             if (appUser == null)
                 return NotFound();
 
@@ -122,7 +121,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
 
             if (ModelState.IsValid)                
             {
-                await _appUserService.UpdateAsync(appUser, id);
+                await Task.Run(() => _appUserService.Update(appUser, id));
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role );
@@ -145,7 +144,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            await _appUserService.DeleteAsync(id);
+            await Task.Run(() => _appUserService.Delete(id));
 
             return RedirectToAction(nameof(Index));
         }

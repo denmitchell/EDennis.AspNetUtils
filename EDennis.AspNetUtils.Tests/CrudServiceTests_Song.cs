@@ -9,14 +9,6 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
     {
         private readonly EntityFrameworkServiceTestFixture<HitsContext, EntityFrameworkService<HitsContext, Song>, Song> _fixture;
         public const string _appsettingsFile = "appsettings.Test.json";
-        public readonly static Dictionary<string, string> _userRoles = new() {
-            { "Starbuck", "IT" },
-            { "Maria", "admin" },
-            { "Darius", "user" },
-            { "Huan", "readonly" },
-            { "Jack", "disabled" },
-        };
-
         private readonly ITestOutputHelper _output;
 
 
@@ -37,15 +29,15 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData("ReleaseDate > @0", "TestGetPage_Date", "Title", 2, 3, 11, /*guidIds:*/ 6, 7, 5)]
         [InlineData("Title.Contains(@0)", "TestGetPage_Title", "ReleaseDate desc", 3, 4, 9, /*guidIds:*/ 11, 16, 3, 15 )]
-        public async Task TestGetPageNoSelect(string where, string whereArgsKey, string orderBy, int skip, int take, 
+        public void TestGetPageNoSelect(string where, string whereArgsKey, string orderBy, int skip, int take, 
             int countAcrossPages, params int[] guidIds)
         {
             var whereArgs = whereArgsKey == null ? null : _filterArgs[whereArgsKey];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
-            var (data, count) = await service
-                .GetAsync(where, whereArgs,orderBy,skip,take,countType:CountType.Count);
+            var (data, count) = service
+                .Get(where, whereArgs,orderBy,skip,take,countType:CountType.Count);
 
                 Assert.Equal(countAcrossPages, count);
                 XunitUtils.AssertOrderedSysGuids(data, guidIds);            
@@ -55,12 +47,12 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData("ReleaseDate > \"1970-01-01\"", "Title", 2, 3, 11, /*guidIds:*/ 6, 7, 5)]
         [InlineData("Title.Contains(\"o\")", "ReleaseDate desc", 3, 4, 9, /*guidIds:*/ 11, 16, 3, 15)]
-        public async Task TestGetDynamicLinqNoSelect(string where, string orderBy, int skip, int take, int countAcrossPages, params int[] guidIds)
+        public void TestGetDynamicLinqNoSelect(string where, string orderBy, int skip, int take, int countAcrossPages, params int[] guidIds)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
-            var (data, count) = await service
-                .GetAsync(where,null,orderBy,skip,take, countType: CountType.Count);
+            var (data, count) = service
+                .Get(where,null,orderBy,skip,take, countType: CountType.Count);
 
             Assert.Equal(countAcrossPages, count);
             XunitUtils.AssertOrderedSysGuids(data, guidIds);
@@ -93,15 +85,15 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData("new {SysGuid, Title}", "ReleaseDate > @0", "TestGetPage_Date", "Title", 2, 3, 11)]
         [InlineData("new {SysGuid, ReleaseDate}", "Title.Contains(@0)", "TestGetPage_Title", "ReleaseDate desc", 3, 4, 9)]
-        public async Task TestGetPageSelect(string select, string where, string whereArgsKey, string orderBy, int skip, int take, int countAcrossPages)
+        public void TestGetPageSelect(string select, string where, string whereArgsKey, string orderBy, int skip, int take, int countAcrossPages)
         {
             var whereArgs = whereArgsKey == null ? null : _filterArgs[whereArgsKey];
             var expected = _select[select];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
-            var (data, count) = await service
-                .GetAsync(select,where,whereArgs,orderBy,skip,take, countType: CountType.Count);
+            var (data, count) = service
+                .Get(select,where,whereArgs,orderBy,skip,take, countType: CountType.Count);
 
             Assert.Equal(countAcrossPages, count);
 
@@ -140,14 +132,14 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData("new {SysGuid, Title}", "ReleaseDate > \"1970-01-01\"", "Title", 2, 3, 11)]
         [InlineData("new {SysGuid, ReleaseDate}", "Title.Contains(\"o\")", "ReleaseDate desc", 3, 4, 9)]
-        public async Task TestGetDynamicLinqSelect(string select, string where, string orderBy, int skip, int take, int countAcrossPages)
+        public void TestGetDynamicLinqSelect(string select, string where, string orderBy, int skip, int take, int countAcrossPages)
         {
             var expected = _select[select];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
-            var (data, count) = await service
-                .GetAsync(select, where, null, orderBy, skip, take, countType: CountType.Count);
+            var (data, count) = service
+                .Get(select, where, null, orderBy, skip, take, countType: CountType.Count);
 
             Assert.Equal(countAcrossPages, count);
 

@@ -64,9 +64,9 @@ namespace EDennis.AspNetUtils
         /// <param name="input">the record to create</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] TEntity input)
+        public IActionResult Create([FromBody] TEntity input)
         {
-            var result = await CrudService.CreateAsync(input);
+            var result = CrudService.Create(input);
             return new ObjectResult(result) { StatusCode = 200 };
         }
 
@@ -77,9 +77,9 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The primary key of the record to update</param>
         /// <returns></returns>
         [HttpPut("{**key}")]
-        public async Task<IActionResult> UpdateAsync([FromBody] TEntity input, [FromRoute] string key)
+        public IActionResult Update([FromBody] TEntity input, [FromRoute] string key)
         {
-            var result = await CrudService.UpdateAsync(input, GetId(key));
+            var result = CrudService.Update(input, GetId(key));
             if (result == null)
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
 
@@ -92,9 +92,9 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The primary key of the record to update</param>
         /// <returns></returns>
         [HttpDelete("{**key}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] string key)
+        public IActionResult Delete([FromRoute] string key)
         {
-            var result = await CrudService.DeleteAsync(GetId(key));
+            var result = CrudService.Delete(GetId(key));
             if (result == null)
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
 
@@ -108,9 +108,9 @@ namespace EDennis.AspNetUtils
         /// <param name="required">whether to throw an exception if not cound</param>
         /// <returns></returns>
         [HttpGet("{**key}")]
-        public async Task<IActionResult> FindAsync([FromRoute] string key)
+        public IActionResult Find([FromRoute] string key)
         {
-            var result = await CrudService.FindAsync(GetId(key));
+            var result = CrudService.Find(GetId(key));
             if (result == null)
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
 
@@ -133,7 +133,7 @@ namespace EDennis.AspNetUtils
         /// <returns>A Tuple with the first value being a List{TEntity} and the second value being
         /// the count across records</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAsync(
+        public IActionResult Get(
                 [FromQuery] string select = null,
                 [FromQuery] string where = null,
                 [FromQuery] object[] whereArgs = null,
@@ -146,7 +146,7 @@ namespace EDennis.AspNetUtils
         {
             if (select == null)
             {
-                (List<TEntity> Data, int Count) = await CrudService.GetAsync(where, whereArgs, orderBy, skip, take,
+                (List<TEntity> Data, int Count) = CrudService.Get(where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
 
                 var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
@@ -155,7 +155,7 @@ namespace EDennis.AspNetUtils
             }
             else
             {
-                (List<dynamic> Data, int Count) = await CrudService.GetAsync(select, where, whereArgs, orderBy, skip, take,
+                (List<dynamic> Data, int Count) = CrudService.Get(select, where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
 
                 var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
@@ -171,9 +171,9 @@ namespace EDennis.AspNetUtils
         /// <param name="asOf">records modifed after this date are returned</param>
         /// <returns></returns>
         [HttpGet("modified")]
-        public async Task<IActionResult> GetModified([FromQuery] DateTime asOf)
+        public IActionResult GetModified([FromQuery] DateTime asOf)
         {
-            var result = await CrudService.GetModifiedAsync(asOf);
+            var result = CrudService.GetModified(asOf);
             return new ObjectResult(result) { StatusCode = 200 };
         }
 
@@ -184,9 +184,9 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [HttpPost("test")]
-        public async Task EnableTestAsync()
+        public void EnableTestAsync()
         {
-            await CrudService.EnableTestAsync(new ILoggerTestOutputHelper(Logger));
+            CrudService.EnableTest(new ILoggerTestOutputHelper(Logger));
         }
 
 

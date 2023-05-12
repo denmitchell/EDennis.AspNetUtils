@@ -172,10 +172,10 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
         /// it can be used as the data source for a dropdown list.
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            song = await SongService.FindAsync(Id);
-            artistsForArtistId = new Artist[] { await ArtistService.FindAsync(ArtistId) };
+            song = SongService.Find(Id);
+            artistsForArtistId = new Artist[] { ArtistService.Find(ArtistId) };
         }
 
 
@@ -184,11 +184,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
         /// and closes the <see cref="Dialog"/>
         /// </summary>
         /// <returns></returns>
-        protected async Task FormSubmit()
+        protected void FormSubmit()
         {
             try
             {
-                await SongService.UpdateAsync(song,Id);
+                SongService.Update(song,Id);
                 DialogService.Close(song);
             }
             catch (Exception)

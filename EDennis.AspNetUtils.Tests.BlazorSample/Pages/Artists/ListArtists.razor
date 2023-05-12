@@ -17,9 +17,9 @@
         <RadzenColumn SizeMD=10>
             <RadzenDataGrid @ref="artistsGrid" Data="@artists" TItem="Artist" ColumnWidth="33%" Density="Density.Compact"
 
-                            LoadData="@LoadDataAsync" Count="@recCount"
-                            RowDoubleClick="@Edit"                            
-                            RowExpand=@GetSongsAsync
+                            LoadData="@LoadData" Count="@recCount"
+                            RowDoubleClick="@EditAsync"                            
+                            RowExpand=@GetSongs
                             
                             AllowFiltering="true" 
                             FilterPopupRenderMode="PopupRenderMode.OnDemand"

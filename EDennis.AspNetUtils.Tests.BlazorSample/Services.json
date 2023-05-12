@@ -1,0 +1,1526 @@
+[
+  {
+    "ServiceType": "ArrayPool\u003CMicrosoft.AspNetCore.Mvc.ViewFeatures.Buffers.ViewBufferValue\u003E",
+    "ImplementationType": "ArrayPool\u003CMicrosoft.AspNetCore.Mvc.ViewFeatures.Buffers.ViewBufferValue\u003E"
+  },
+  {
+    "ServiceType": "ArrayPool\u003CSystem.Byte\u003E",
+    "ImplementationType": "ArrayPool\u003CSystem.Byte\u003E"
+  },
+  {
+    "ServiceType": "ArrayPool\u003CSystem.Char\u003E",
+    "ImplementationType": "ArrayPool\u003CSystem.Char\u003E"
+  },
+  {
+    "ServiceType": "CountCache\u003CEDennis.AspNetUtils.AppRole\u003E",
+    "ImplementationType": "CountCache\u003CEDennis.AspNetUtils.AppRole\u003E"
+  },
+  {
+    "ServiceType": "CountCache\u003CEDennis.AspNetUtils.AppUser\u003E",
+    "ImplementationType": "CountCache\u003CEDennis.AspNetUtils.AppUser\u003E"
+  },
+  {
+    "ServiceType": "CountCache\u003CEDennis.AspNetUtils.Tests.BlazorSample.Artist\u003E",
+    "ImplementationType": "CountCache\u003CEDennis.AspNetUtils.Tests.BlazorSample.Artist\u003E"
+  },
+  {
+    "ServiceType": "CountCache\u003CEDennis.AspNetUtils.Tests.BlazorSample.Song\u003E",
+    "ImplementationType": "CountCache\u003CEDennis.AspNetUtils.Tests.BlazorSample.Song\u003E"
+  },
+  {
+    "ServiceType": "DbContextService\u003CEDennis.AspNetUtils.SimpleAuthContext\u003E",
+    "ImplementationType": "DbContextService\u003CEDennis.AspNetUtils.SimpleAuthContext\u003E"
+  },
+  {
+    "ServiceType": "DbContextService\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext\u003E",
+    "ImplementationType": "DbContextService\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext\u003E"
+  },
+  {
+    "ServiceType": "EDennis.AspNetUtils.FakeAuthenticationHandler",
+    "ImplementationType": "EDennis.AspNetUtils.FakeAuthenticationHandler"
+  },
+  {
+    "ServiceType": "EDennis.AspNetUtils.ISimpleAuthorizationProvider",
+    "ImplementationType": "EDennis.AspNetUtils.SimpleAuthorizationProvider"
+  },
+  {
+    "ServiceType": "EDennis.AspNetUtils.RolesCache",
+    "ImplementationType": "EDennis.AspNetUtils.RolesCache"
+  },
+  {
+    "ServiceType": "EDennis.AspNetUtils.SimpleAuthContext",
+    "ImplementationType": "EDennis.AspNetUtils.SimpleAuthContext"
+  },
+  {
+    "ServiceType": "EDennis.AspNetUtils.Tests.BlazorSample.HitsContext",
+    "ImplementationType": "EDennis.AspNetUtils.Tests.BlazorSample.HitsContext"
+  },
+  {
+    "ServiceType": "EDennis.AspNetUtils.UserNameProvider",
+    "ImplementationType": "EDennis.AspNetUtils.UserNameProvider"
+  },
+  {
+    "ServiceType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.SimpleAuthContext, EDennis.AspNetUtils.AppRole\u003E",
+    "ImplementationType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.SimpleAuthContext, EDennis.AspNetUtils.AppRole\u003E"
+  },
+  {
+    "ServiceType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.SimpleAuthContext, EDennis.AspNetUtils.AppUser\u003E",
+    "ImplementationType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.SimpleAuthContext, EDennis.AspNetUtils.AppUser\u003E"
+  },
+  {
+    "ServiceType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext, EDennis.AspNetUtils.Tests.BlazorSample.Artist\u003E",
+    "ImplementationType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext, EDennis.AspNetUtils.Tests.BlazorSample.Artist\u003E"
+  },
+  {
+    "ServiceType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext, EDennis.AspNetUtils.Tests.BlazorSample.Song\u003E",
+    "ImplementationType": "EntityFrameworkServiceDependencies\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext, EDennis.AspNetUtils.Tests.BlazorSample.Song\u003E"
+  },
+  {
+    "ServiceType": "HubConnectionHandler\u003CTHub\u003E",
+    "ImplementationType": "HubConnectionHandler\u003CTHub\u003E"
+  },
+  {
+    "ServiceType": "HubDispatcher\u003CTHub\u003E",
+    "ImplementationType": "DefaultHubDispatcher\u003CTHub\u003E"
+  },
+  {
+    "ServiceType": "HubLifetimeManager\u003CTHub\u003E",
+    "ImplementationType": "DefaultHubLifetimeManager\u003CTHub\u003E"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.ContentResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.FileContentResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.FileContentResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.FileStreamResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.FileStreamResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.JsonResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.SystemTextJsonResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.LocalRedirectResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.LocalRedirectResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.ObjectResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.PartialViewResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.PhysicalFileResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.PhysicalFileResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.RedirectResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.RedirectResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.RedirectToActionResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.RedirectToActionResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.RedirectToPageResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.RedirectToPageResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.RedirectToRouteResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.RedirectToRouteResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.ViewComponentResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ViewComponentResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.ViewResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor"
+  },
+  {
+    "ServiceType": "IActionResultExecutor\u003CMicrosoft.AspNetCore.Mvc.VirtualFileResult\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.VirtualFileResultExecutor"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CEDennis.AspNetUtils.FakeAuthenticationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CEDennis.AspNetUtils.FakeAuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CEDennis.AspNetUtils.SecurityOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CEDennis.AspNetUtils.SecurityOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CHubOptions\u003CMicrosoft.AspNetCore.Components.Server.ComponentHub\u003E\u003E",
+    "ImplementationType": "HubOptionsSetup\u003CMicrosoft.AspNetCore.Components.Server.ComponentHub\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CHubOptions\u003CMicrosoft.AspNetCore.Components.Server.ComponentHub\u003E\u003E",
+    "ImplementationType": "IConfigureOptions\u003CHubOptions\u003CMicrosoft.AspNetCore.Components.Server.ComponentHub\u003E\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Antiforgery.AntiforgeryOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.AntiforgeryOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.AuthenticationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.AuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.AuthenticationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.AuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.AuthenticationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.AuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authorization.AuthorizationOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Authorization.AuthorizationOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Builder.ForwardedHeadersOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.ForwardedHeadersOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Builder.WebSocketOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Builder.WebSocketOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Components.Server.CircuitOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.CircuitOptionsJSInteropDetailedErrorsConfiguration"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Components.Server.CircuitOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitOptionsJavaScriptInitializersConfiguration"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.DataProtection.DataProtectionOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.Internal.DataProtectionOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.DataProtection.KeyManagement.KeyManagementOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.Internal.KeyManagementOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Hosting.GenericWebHostServiceOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Hosting.GenericWebHostServiceOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Hosting.GenericWebHostServiceOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Hosting.GenericWebHostServiceOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Http.Connections.ConnectionOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Http.Connections.ConnectionOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.ApiBehaviorOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.ApiBehaviorOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.MvcOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.MvcCoreMvcOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.MvcOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.MvcOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.TempDataMvcOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.MvcViewOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.MvcViewOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.MvcViewOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.MvcRazorMvcViewOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.RazorPagesRazorViewEngineOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.RazorPagesOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Routing.RouteHandlerOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.ConfigureRouteHandlerOptions"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Routing.RouteOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Routing.RouteOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Routing.RouteOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.MvcCoreRouteOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Server.Kestrel.Core.Internal.KestrelServerOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Server.Kestrel.Transport.Quic.QuicTransportOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.Server.Kestrel.Transport.Quic.QuicTransportOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.SignalR.HubOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.SignalR.HubOptionsSetup"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.AspNetCore.SignalR.JsonHubProtocolOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.AspNetCore.SignalR.JsonHubProtocolOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Hosting.HostOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.Extensions.Hosting.HostOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.ConsoleFormatterOptions\u003E",
+    "ImplementationType": "ConsoleLoggerFormatterConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.SystemdConsoleFormatter, Microsoft.Extensions.Logging.Console.ConsoleFormatterOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.ConsoleLoggerOptions\u003E",
+    "ImplementationType": "LoggerProviderConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.ConsoleLoggerOptions, Microsoft.Extensions.Logging.Console.ConsoleLoggerProvider\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.JsonConsoleFormatterOptions\u003E",
+    "ImplementationType": "ConsoleLoggerFormatterConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.JsonConsoleFormatter, Microsoft.Extensions.Logging.Console.JsonConsoleFormatterOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.SimpleConsoleFormatterOptions\u003E",
+    "ImplementationType": "ConsoleLoggerFormatterConfigureOptions\u003CMicrosoft.Extensions.Logging.Console.SimpleConsoleFormatter, Microsoft.Extensions.Logging.Console.SimpleConsoleFormatterOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFactoryOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFactoryOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E",
+    "ImplementationType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E"
+  },
+  {
+    "ServiceType": "IConfigureOptions\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.Logging.EventLogFiltersConfigureOptions"
+  },
+  {
+    "ServiceType": "ICrudService\u003CEDennis.AspNetUtils.AppRole\u003E",
+    "ImplementationType": "EntityFrameworkService\u003CEDennis.AspNetUtils.SimpleAuthContext, EDennis.AspNetUtils.AppRole\u003E"
+  },
+  {
+    "ServiceType": "ICrudService\u003CEDennis.AspNetUtils.AppUser\u003E",
+    "ImplementationType": "EntityFrameworkService\u003CEDennis.AspNetUtils.SimpleAuthContext, EDennis.AspNetUtils.AppUser\u003E"
+  },
+  {
+    "ServiceType": "ICrudService\u003CEDennis.AspNetUtils.Tests.BlazorSample.Artist\u003E",
+    "ImplementationType": "EDennis.AspNetUtils.Tests.BlazorSample.Services.ArtistService"
+  },
+  {
+    "ServiceType": "ICrudService\u003CEDennis.AspNetUtils.Tests.BlazorSample.Song\u003E",
+    "ImplementationType": "EntityFrameworkService\u003CEDennis.AspNetUtils.Tests.BlazorSample.HitsContext, EDennis.AspNetUtils.Tests.BlazorSample.Song\u003E"
+  },
+  {
+    "ServiceType": "IEndpointAddressScheme\u003CMicrosoft.AspNetCore.Routing.RouteValuesAddress\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.RouteValuesAddressScheme"
+  },
+  {
+    "ServiceType": "IEndpointAddressScheme\u003Cstring\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.EndpointNameAddressScheme"
+  },
+  {
+    "ServiceType": "IHtmlHelper\u003CTModel\u003E",
+    "ImplementationType": "HtmlHelper\u003CTModel\u003E"
+  },
+  {
+    "ServiceType": "IHubActivator\u003CTHub\u003E",
+    "ImplementationType": "DefaultHubActivator\u003CTHub\u003E"
+  },
+  {
+    "ServiceType": "IHubContext\u003CTHub, T\u003E",
+    "ImplementationType": "HubContext\u003CTHub, T\u003E"
+  },
+  {
+    "ServiceType": "IHubContext\u003CTHub\u003E",
+    "ImplementationType": "HubContext\u003CTHub\u003E"
+  },
+  {
+    "ServiceType": "ILogger\u003CTCategoryName\u003E",
+    "ImplementationType": "Logger\u003CT\u003E"
+  },
+  {
+    "ServiceType": "ILoggerProviderConfiguration\u003CT\u003E",
+    "ImplementationType": "LoggerProviderConfiguration\u003CT\u003E"
+  },
+  {
+    "ServiceType": "IOptions\u003CTOptions\u003E",
+    "ImplementationType": "UnnamedOptionsManager\u003CTOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.AspNetCore.HostFiltering.HostFilteringOptions\u003E",
+    "ImplementationType": "IOptionsChangeTokenSource\u003CMicrosoft.AspNetCore.HostFiltering.HostFilteringOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.ConsoleFormatterOptions\u003E",
+    "ImplementationType": "ConsoleLoggerFormatterOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.SystemdConsoleFormatter, Microsoft.Extensions.Logging.Console.ConsoleFormatterOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.ConsoleLoggerOptions\u003E",
+    "ImplementationType": "LoggerProviderOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.ConsoleLoggerOptions, Microsoft.Extensions.Logging.Console.ConsoleLoggerProvider\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.JsonConsoleFormatterOptions\u003E",
+    "ImplementationType": "ConsoleLoggerFormatterOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.JsonConsoleFormatter, Microsoft.Extensions.Logging.Console.JsonConsoleFormatterOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.SimpleConsoleFormatterOptions\u003E",
+    "ImplementationType": "ConsoleLoggerFormatterOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.Console.SimpleConsoleFormatter, Microsoft.Extensions.Logging.Console.SimpleConsoleFormatterOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E",
+    "ImplementationType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsChangeTokenSource\u003CMicrosoft.Extensions.Logging.LoggerFilterOptions\u003E",
+    "ImplementationType": "Microsoft.Extensions.Logging.EventLogFiltersConfigureOptionsChangeSource"
+  },
+  {
+    "ServiceType": "IOptionsFactory\u003CTOptions\u003E",
+    "ImplementationType": "OptionsFactory\u003CTOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsMonitor\u003CTOptions\u003E",
+    "ImplementationType": "OptionsMonitor\u003CTOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsMonitorCache\u003CTOptions\u003E",
+    "ImplementationType": "OptionsCache\u003CTOptions\u003E"
+  },
+  {
+    "ServiceType": "IOptionsSnapshot\u003CTOptions\u003E",
+    "ImplementationType": "OptionsManager\u003CTOptions\u003E"
+  },
+  {
+    "ServiceType": "IPostConfigureOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.Cookies.PostConfigureCookieAuthenticationOptions"
+  },
+  {
+    "ServiceType": "IPostConfigureOptions\u003CMicrosoft.AspNetCore.Builder.StaticFileOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.ConfigureStaticFilesOptions"
+  },
+  {
+    "ServiceType": "IPostConfigureOptions\u003CMicrosoft.AspNetCore.HostFiltering.HostFilteringOptions\u003E",
+    "ImplementationType": "IPostConfigureOptions\u003CMicrosoft.AspNetCore.HostFiltering.HostFilteringOptions\u003E"
+  },
+  {
+    "ServiceType": "IPostConfigureOptions\u003CMicrosoft.AspNetCore.Mvc.MvcOptions\u003E",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.MvcCoreMvcOptionsSetup"
+  },
+  {
+    "ServiceType": "IValidateOptions\u003CEDennis.AspNetUtils.FakeAuthenticationOptions\u003E",
+    "ImplementationType": "IValidateOptions\u003CEDennis.AspNetUtils.FakeAuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IValidateOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E",
+    "ImplementationType": "IValidateOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "IValidateOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E",
+    "ImplementationType": "IValidateOptions\u003CMicrosoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions\u003E"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Antiforgery.IAntiforgery",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Antiforgery.IAntiforgeryAdditionalDataProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryAdditionalDataProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenGenerator",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenGenerator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenSerializer",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenStore",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenStore"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Antiforgery.IClaimUidExtractor",
+    "ImplementationType": "Microsoft.AspNetCore.Antiforgery.DefaultClaimUidExtractor"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.IAuthenticationConfigurationProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.DefaultAuthenticationConfigurationProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.AuthenticationHandlerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.IAuthenticationService",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.AuthenticationService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.IClaimsTransformation",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.NoopClaimsTransformation"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authentication.ISystemClock",
+    "ImplementationType": "Microsoft.AspNetCore.Authentication.SystemClock"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationEvaluator",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.DefaultAuthorizationEvaluator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationHandler",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Infrastructure.PassThroughAuthorizationHandler"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationHandlerContextFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.DefaultAuthorizationHandlerContextFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationHandlerProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.DefaultAuthorizationHandlerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationMiddlewareResultHandler",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.DefaultAuthorizationPolicyProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.IAuthorizationService",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.DefaultAuthorizationService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyMarkerService",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.AuthorizationPolicyMarkerService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluator",
+    "ImplementationType": "Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider",
+    "ImplementationType": "EDennis.AspNetUtils.BlazorAuthenticationStateProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.ComponentParametersTypeCache",
+    "ImplementationType": "Microsoft.AspNetCore.Components.ComponentParametersTypeCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Infrastructure.ComponentStatePersistenceManager",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Infrastructure.ComponentStatePersistenceManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.NavigationManager",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.HttpNavigationManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.NavigationManager",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.RemoteNavigationManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.PersistentComponentState",
+    "ImplementationType": "Microsoft.AspNetCore.Components.PersistentComponentState"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Rendering.HtmlRenderer",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Rendering.HtmlRenderer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.RootComponentTypeCache",
+    "ImplementationType": "Microsoft.AspNetCore.Components.RootComponentTypeCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Routing.INavigationInterception",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.UnsupportedNavigationInterception"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Routing.INavigationInterception",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.RemoteNavigationInterception"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.Circuit",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.Circuit"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitHandler",
+    "ImplementationType": "Microsoft.Identity.Web.MicrosoftIdentityServiceHandler"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitIdFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitIdFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitRegistry",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitRegistry"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.ICircuitAccessor",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.DefaultCircuitAccessor"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.ICircuitFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.Circuits.ICircuitHandleRegistry",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.CircuitHandleRegistry"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.ComponentParameterDeserializer",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.ComponentParameterDeserializer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.IServerComponentDeserializer",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.ServerComponentDeserializer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage.ProtectedLocalStorage",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage.ProtectedLocalStorage"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage.ProtectedSessionStorage",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage.ProtectedSessionStorage"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Components.Web.IErrorBoundaryLogger",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.PrerenderingErrorBoundaryLogger"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Connections.IConnectionListenerFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Connections.IMultiplexedConnectionListenerFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.QuicTransportFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Cors.Infrastructure.ICorsPolicyProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Cors.Infrastructure.DefaultCorsPolicyProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Cors.Infrastructure.ICorsService",
+    "ImplementationType": "Microsoft.AspNetCore.Cors.Infrastructure.CorsService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.IDataProtectionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.IDataProtectionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.Infrastructure.IApplicationDiscriminator",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.Internal.HostingApplicationDiscriminator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.Internal.IActivator",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.TypeForwardingActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.IRegistryPolicyResolver",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.RegistryPolicyResolver"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.KeyManagement.IKeyManager",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IDefaultKeyResolver",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.KeyManagement.DefaultKeyResolver"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.IKeyRingProvider",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.DataProtection.XmlEncryption.ICertificateResolver",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.XmlEncryption.CertificateResolver"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.Builder.ApplicationBuilderFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IApplicationLifetime",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.GenericWebHostApplicationLifetime"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IHostingEnvironment",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.IHostingEnvironment"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IStartupFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.IStartupFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IStartupFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.IStartupFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IStartupFilter",
+    "ImplementationType": "Microsoft.AspNetCore.HostFilteringStartupFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IStartupFilter",
+    "ImplementationType": "Microsoft.AspNetCore.ForwardedHeadersStartupFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IStartupFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.IWebHostEnvironment",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.IWebHostEnvironment"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Hosting.Server.IServer",
+    "ImplementationType": "Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionDispatcher",
+    "ImplementationType": "Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionDispatcher"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionManager",
+    "ImplementationType": "Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Http.IHttpContextFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Http.DefaultHttpContextFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Http.IMiddlewareFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Http.MiddlewareFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Http.IProblemDetailsWriter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.DefaultApiProblemDetailsWriter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Abstractions.IActionDescriptorProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.ControllerActionDescriptorProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Abstractions.IActionDescriptorProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.CompiledPageActionDescriptorProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Abstractions.IActionInvokerProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Abstractions.IActionInvokerProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvokerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ActionConstraints.ActionConstraintCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ActionConstraints.ActionConstraintCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ActionConstraints.IActionConstraintProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ActionConstraints.DefaultActionConstraintProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionGroupCollectionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApiExplorer.DefaultApiDescriptionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModelFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModelFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.DefaultApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.ApiBehaviorApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.AuthorizationApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Cors.CorsApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.TempDataApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.ViewDataAttributeApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelPartsProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.DefaultPageApplicationModelPartsProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.DefaultPageApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.AutoValidateAntiforgeryPageApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.AuthorizationPageApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.TempDataFilterPageApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.ViewDataAttributePageApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.ResponseCacheFilterApplicationModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationModels.CompiledPageRouteModelProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Controllers.IControllerActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Controllers.DefaultControllerActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Controllers.IControllerActivatorProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Controllers.IControllerFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Controllers.DefaultControllerFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Controllers.IControllerFactoryProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Controllers.IControllerPropertyActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Controllers.DefaultControllerPropertyActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Controllers.IControllerPropertyActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionaryControllerPropertyActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Cors.CorsAuthorizationFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Cors.CorsAuthorizationFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.DataAnnotations.IValidationAttributeAdapterProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.DataAnnotations.ValidationAttributeAdapterProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.DisableRequestSizeLimitFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.DisableRequestSizeLimitFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.IFilterProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.DefaultFilterProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilder",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilder"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterConfigurationProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterConfigurationProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.PageSaveTempDataPropertyFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.PageSaveTempDataPropertyFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.RequestFormLimitsFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.RequestFormLimitsFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Filters.RequestSizeLimitFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Filters.RequestSizeLimitFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Formatters.FormatFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Formatters.FormatFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionEndpointDataSourceFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionEndpointDataSourceFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorChangeProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.HotReload.HotReloadService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.DefaultActionDescriptorCollectionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IActionInvokerFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ActionInvokerFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IActionResultTypeMapper",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ActionResultTypeMapper"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IActionSelector",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ActionSelector"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IClientErrorFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsClientErrorFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IHttpRequestStreamReaderFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.MemoryPoolHttpRequestStreamReaderFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.IHttpResponseStreamWriterFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.MemoryPoolHttpResponseStreamWriterFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.ITypeActivatorCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.TypeActivatorCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.OrderedEndpointsSequenceProviderCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.OrderedEndpointsSequenceProviderCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.OutputFormatterSelector",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.DefaultOutputFormatterSelector"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Infrastructure.DefaultProblemDetailsFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.IViewComponentHelper",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentHelper"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelMetadataProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ICompositeMetadataDetailsProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ICompositeMetadataDetailsProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ClientValidatorCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ClientValidatorCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ModelBinding.Validation.IObjectModelValidator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ModelBinding.Validation.IObjectModelValidator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.Compilation.IViewCompilerProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultViewCompilerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.Infrastructure.TagHelperMemoryCacheProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.Infrastructure.TagHelperMemoryCacheProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.IRazorPageActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.RazorPageActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.IRazorPageFactoryProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.Compilation.DefaultRazorPageFactoryProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.IRazorViewEngine",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.ITagHelperActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.Infrastructure.DefaultTagHelperActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.ITagHelperFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.DefaultTagHelperFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.RazorHotReload",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.RazorHotReload"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.TagHelperComponentManager"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentPropertyActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentPropertyActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DynamicPageEndpointSelectorCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DynamicPageEndpointSelectorCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.IPageHandlerMethodSelector",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DefaultPageHandlerMethodSelector"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.IPageLoader",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.IPageLoader"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionEndpointDataSourceFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionEndpointDataSourceFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionEndpointDataSourceIdProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionEndpointDataSourceIdProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvokerCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvokerCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageLoader",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DefaultPageLoader"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageResultExecutor",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageResultExecutor"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.IPageActivatorProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DefaultPageActivatorProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.IPageFactoryProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DefaultPageFactoryProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.IPageModelActivatorProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DefaultPageModelActivatorProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.RazorPages.IPageModelFactoryProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DefaultPageModelFactoryProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Rendering.SystemTextJsonHelper"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.ActionEndpointFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.ActionEndpointFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.ControllerActionEndpointDataSourceIdProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.ControllerActionEndpointDataSourceIdProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.DynamicControllerEndpointSelectorCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.DynamicControllerEndpointSelectorCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.IRequestDelegateFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.IRequestDelegateFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageRequestDelegateFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.IUrlHelperFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.UrlHelperFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.MvcAttributeRouteHandler",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.MvcAttributeRouteHandler"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.Routing.MvcRouteHandler",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.MvcRouteHandler"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.TagHelpers.Cache.IDistributedCacheTagHelperFormatter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.TagHelpers.Cache.DistributedCacheTagHelperFormatter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.TagHelpers.Cache.IDistributedCacheTagHelperService",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.TagHelpers.Cache.DistributedCacheTagHelperService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.TagHelpers.Cache.IDistributedCacheTagHelperStorage",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.TagHelpers.Cache.DistributedCacheTagHelperStorage"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.TagHelpers.CacheTagHelperMemoryCacheFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.TagHelpers.CacheTagHelperMemoryCacheFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.IViewComponentActivator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentActivator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.IViewComponentDescriptorCollectionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentDescriptorCollectionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.IViewComponentDescriptorProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentDescriptorProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.IViewComponentFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.IViewComponentInvokerFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentInvokerFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.IViewComponentSelector",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentSelector"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewComponents.ViewComponentInvokerCache",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewComponents.ViewComponentInvokerCache"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewEngines.ICompositeViewEngine",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewEngines.CompositeViewEngine"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers.IViewBufferScope",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers.MemoryPoolViewBufferScope"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.AutoValidateAntiforgeryTokenAuthorizationFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.AutoValidateAntiforgeryTokenAuthorizationFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.ControllerSaveTempDataPropertyFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.ControllerSaveTempDataPropertyFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.ValidateAntiforgeryTokenAuthorizationFilter",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.ValidateAntiforgeryTokenAuthorizationFilter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.IComponentRenderer",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ComponentRenderer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.IFileVersionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Razor.Infrastructure.DefaultFileVersionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.IHtmlGenerator",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.DefaultHtmlGenerator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Infrastructure.TempDataSerializer",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.Infrastructure.DefaultTempDataSerializer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionaryFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.TempDataDictionaryFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ModelExpressionProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ModelExpressionProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ServerComponentSerializer",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ServerComponentSerializer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.StaticComponentRenderer",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.StaticComponentRenderer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.ValidationHtmlAttributeProvider",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.DefaultValidationHtmlAttributeProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Mvc.ViewFeatures.WebAssemblyComponentSerializer",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.WebAssemblyComponentSerializer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.EndpointDataSource",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.EndpointDataSource"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.IInlineConstraintResolver",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.DefaultInlineConstraintResolver"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Internal.DfaGraphWriter",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Internal.DfaGraphWriter"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.LinkGenerator",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.DefaultLinkGenerator"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.LinkParser",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.DefaultLinkParser"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.MatcherPolicy",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.HttpMethodMatcherPolicy"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.MatcherPolicy",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.HostMatcherPolicy"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.MatcherPolicy",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.AcceptsMatcherPolicy"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.MatcherPolicy",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.ActionConstraintMatcherPolicy"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.MatcherPolicy",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.Routing.DynamicControllerEndpointMatcherPolicy"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.MatcherPolicy",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.DynamicPageEndpointMatcherPolicy"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Matching.DataSourceDependentMatcher\u002BLifetime",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.DataSourceDependentMatcher\u002BLifetime"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Matching.DfaMatcherBuilder",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.DfaMatcherBuilder"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Matching.EndpointMetadataComparer",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.EndpointMetadataComparer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Matching.EndpointSelector",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Matching.MatcherFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Matching.DfaMatcherFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.ParameterPolicyFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.DefaultParameterPolicyFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Patterns.RoutePatternTransformer",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Patterns.DefaultRoutePatternTransformer"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.RoutingMarkerService",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.RoutingMarkerService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Template.TemplateBinderFactory",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Template.DefaultTemplateBinderFactory"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.Routing.Tree.TreeRouteBuilder",
+    "ImplementationType": "Microsoft.AspNetCore.Routing.Tree.TreeRouteBuilder"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.SignalR.IHubProtocolResolver",
+    "ImplementationType": "Microsoft.AspNetCore.SignalR.Internal.DefaultHubProtocolResolver"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.SignalR.Internal.SignalRCoreMarkerService",
+    "ImplementationType": "Microsoft.AspNetCore.SignalR.Internal.SignalRCoreMarkerService"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.SignalR.IUserIdProvider",
+    "ImplementationType": "Microsoft.AspNetCore.SignalR.DefaultUserIdProvider"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.SignalR.Protocol.IHubProtocol",
+    "ImplementationType": "Microsoft.AspNetCore.SignalR.Protocol.JsonHubProtocol"
+  },
+  {
+    "ServiceType": "Microsoft.AspNetCore.SignalR.Protocol.IHubProtocol",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.BlazorPack.BlazorPackHubProtocol"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Caching.Distributed.IDistributedCache",
+    "ImplementationType": "Microsoft.Extensions.Caching.Distributed.MemoryDistributedCache"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Caching.Memory.IMemoryCache",
+    "ImplementationType": "Microsoft.Extensions.Caching.Memory.MemoryCache"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Configuration.IConfiguration",
+    "ImplementationType": "Microsoft.Extensions.Configuration.IConfiguration"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.DependencyInjection.MvcMarkerService",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.MvcMarkerService"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.DependencyInjection.SignalRMarkerService",
+    "ImplementationType": "Microsoft.Extensions.DependencyInjection.SignalRMarkerService"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.HostBuilderContext",
+    "ImplementationType": "Microsoft.Extensions.Hosting.HostBuilderContext"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IApplicationLifetime",
+    "ImplementationType": "Microsoft.Extensions.Hosting.IApplicationLifetime"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHost",
+    "ImplementationType": "Microsoft.Extensions.Hosting.IHost"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHostApplicationLifetime",
+    "ImplementationType": "Microsoft.Extensions.Hosting.Internal.ApplicationLifetime"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHostedService",
+    "ImplementationType": "Microsoft.AspNetCore.DataProtection.Internal.DataProtectionHostedService"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHostedService",
+    "ImplementationType": "Microsoft.AspNetCore.Hosting.GenericWebHostService"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHostEnvironment",
+    "ImplementationType": "Microsoft.Extensions.Hosting.IHostEnvironment"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHostingEnvironment",
+    "ImplementationType": "Microsoft.Extensions.Hosting.IHostingEnvironment"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Hosting.IHostLifetime",
+    "ImplementationType": "Microsoft.Extensions.Hosting.Internal.ConsoleLifetime"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.Configuration.ILoggerProviderConfigurationFactory",
+    "ImplementationType": "Microsoft.Extensions.Logging.Configuration.LoggerProviderConfigurationFactory"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.Configuration.LoggingConfiguration",
+    "ImplementationType": "Microsoft.Extensions.Logging.Configuration.LoggingConfiguration"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.Console.ConsoleFormatter",
+    "ImplementationType": "Microsoft.Extensions.Logging.Console.JsonConsoleFormatter"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.Console.ConsoleFormatter",
+    "ImplementationType": "Microsoft.Extensions.Logging.Console.SystemdConsoleFormatter"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.Console.ConsoleFormatter",
+    "ImplementationType": "Microsoft.Extensions.Logging.Console.SimpleConsoleFormatter"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.EventSource.LoggingEventSource",
+    "ImplementationType": "Microsoft.Extensions.Logging.EventSource.LoggingEventSource"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.ILoggerFactory",
+    "ImplementationType": "Microsoft.Extensions.Logging.LoggerFactory"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.ILoggerProvider",
+    "ImplementationType": "Microsoft.Extensions.Logging.Console.ConsoleLoggerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.ILoggerProvider",
+    "ImplementationType": "Microsoft.Extensions.Logging.Debug.DebugLoggerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.ILoggerProvider",
+    "ImplementationType": "Microsoft.Extensions.Logging.EventSource.EventSourceLoggerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.Logging.ILoggerProvider",
+    "ImplementationType": "Microsoft.Extensions.Logging.EventLog.EventLogLoggerProvider"
+  },
+  {
+    "ServiceType": "Microsoft.Extensions.ObjectPool.ObjectPoolProvider",
+    "ImplementationType": "Microsoft.Extensions.ObjectPool.DefaultObjectPoolProvider"
+  },
+  {
+    "ServiceType": "Microsoft.Identity.Web.MicrosoftIdentityConsentAndConditionalAccessHandler",
+    "ImplementationType": "Microsoft.Identity.Web.MicrosoftIdentityConsentAndConditionalAccessHandler"
+  },
+  {
+    "ServiceType": "Microsoft.JSInterop.IJSRuntime",
+    "ImplementationType": "Microsoft.AspNetCore.Mvc.ViewFeatures.UnsupportedJavaScriptRuntime"
+  },
+  {
+    "ServiceType": "Microsoft.JSInterop.IJSRuntime",
+    "ImplementationType": "Microsoft.AspNetCore.Components.Server.Circuits.RemoteJSRuntime"
+  },
+  {
+    "ServiceType": "ObjectPool\u003CMicrosoft.AspNetCore.Antiforgery.AntiforgerySerializationContext\u003E",
+    "ImplementationType": "ObjectPool\u003CMicrosoft.AspNetCore.Antiforgery.AntiforgerySerializationContext\u003E"
+  },
+  {
+    "ServiceType": "ObjectPool\u003CMicrosoft.AspNetCore.Routing.UriBuildingContext\u003E",
+    "ImplementationType": "ObjectPool\u003CMicrosoft.AspNetCore.Routing.UriBuildingContext\u003E"
+  },
+  {
+    "ServiceType": "Radzen.ContextMenuService",
+    "ImplementationType": "Radzen.ContextMenuService"
+  },
+  {
+    "ServiceType": "Radzen.DialogService",
+    "ImplementationType": "Radzen.DialogService"
+  },
+  {
+    "ServiceType": "Radzen.NotificationService",
+    "ImplementationType": "Radzen.NotificationService"
+  },
+  {
+    "ServiceType": "Radzen.TooltipService",
+    "ImplementationType": "Radzen.TooltipService"
+  },
+  {
+    "ServiceType": "System.Diagnostics.ActivitySource",
+    "ImplementationType": "System.Diagnostics.ActivitySource"
+  },
+  {
+    "ServiceType": "System.Diagnostics.DiagnosticListener",
+    "ImplementationType": "System.Diagnostics.DiagnosticListener"
+  },
+  {
+    "ServiceType": "System.Diagnostics.DiagnosticSource",
+    "ImplementationType": "System.Diagnostics.DiagnosticSource"
+  },
+  {
+    "ServiceType": "System.Diagnostics.DistributedContextPropagator",
+    "ImplementationType": "System.Diagnostics.DistributedContextPropagator"
+  },
+  {
+    "ServiceType": "System.Text.Encodings.Web.HtmlEncoder",
+    "ImplementationType": "System.Text.Encodings.Web.HtmlEncoder"
+  },
+  {
+    "ServiceType": "System.Text.Encodings.Web.JavaScriptEncoder",
+    "ImplementationType": "System.Text.Encodings.Web.JavaScriptEncoder"
+  },
+  {
+    "ServiceType": "System.Text.Encodings.Web.UrlEncoder",
+    "ImplementationType": "System.Text.Encodings.Web.UrlEncoder"
+  }
+]

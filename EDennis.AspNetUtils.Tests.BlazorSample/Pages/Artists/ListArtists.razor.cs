@@ -124,14 +124,14 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         protected RadzenDataGrid<Song> songsGrid;
 
         /// <summary>
-        /// The artist records returned by LoadDataAsync below 
+        /// The artist records returned by LoadData below 
         /// This variable is bound to RadzenDataGrid's Data attribute (Data="@artists")
         /// </summary>
         protected IEnumerable<Artist> artists;
 
         /// <summary>
         /// The count of records across all pages, which is returned by 
-        /// ArtistService.GetAsync (see below).
+        /// ArtistService.Get (see below).
         /// This variable is bound to RadzenDataGrid's Count attribute (Count="@recCount")
         /// </summary>
         protected int recCount = -1; //countType of records across all pages; only needed for paging;
@@ -142,13 +142,13 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// <summary>
         /// Retrieves artist records from <see cref="ArtistService"/>.  This method applies
         /// any filters (where), sorting (orderBy), and paging (skip, take) from the grid
-        /// This method is bound to the RadzenDataGrid's LoadData attribute (LoadData="@LoadDataAsync")
+        /// This method is bound to the RadzenDataGrid's LoadData attribute (LoadData="@LoadData")
         /// </summary>
         /// <param name="args">filters, sorting, and paging arguments</param>
         /// <returns></returns>
-        public async Task LoadDataAsync(LoadDataArgs args)
+        public void LoadData(LoadDataArgs args)
         {
-            (artists, recCount) = await ArtistService.GetAsync(
+            (artists, recCount) = ArtistService.Get(
                 where: args.Filter,
                 orderBy: args.OrderBy,
                 include: "Songs", //include associated song recs in the retrieved artist recs
@@ -156,10 +156,6 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
                 take: args.Top,
                 countType: CountType.Count //needed to support paging
             );
-
-            //StateHasChanged must be called when the method is async
-            //(when using LoadDataAsync, rather than LoadData)
-            StateHasChanged();
         }
 
         /// <summary>
@@ -198,12 +194,12 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// <summary>
         /// Allows updating an existing artist record via <see cref="DialogService"/>
         /// and <see cref="EditArtist"/>.
-        /// This method is bound to the RadzenDataGrid's RowDoubleClick attribute/event (RowDoubleClick="@Edit")
+        /// This method is bound to the RadzenDataGrid's RowDoubleClick attribute/event (RowDoubleClick="@EditAsync")
         /// (toward the bottom of ListArtists.razor)
         /// </summary>
         /// <param name="args">artist sent from MouseClick, here containing the clicked artist record</param>
         /// <returns></returns>
-        protected async Task Edit(DataGridRowMouseEventArgs<Artist> args)
+        protected async Task EditAsync(DataGridRowMouseEventArgs<Artist> args)
             => await EditAsync(args.Data, null);
 
 
@@ -221,7 +217,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
             {
                 if (await DialogService.Confirm("Are you sure you want to delete this record?") == true)
                 {
-                    var deleteResult = await ArtistService.DeleteAsync(artist.Id);
+                    var deleteResult = ArtistService.Delete(artist.Id);
 
                     if (deleteResult != null)
                     {
@@ -251,10 +247,10 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// </summary>
         /// <param name="artist">The associated artist record</param>
         /// <returns></returns>
-        protected async Task GetSongsAsync(Artist artist)
+        protected void GetSongs(Artist artist)
         {
             //artist = song;
-            var (songs, _) = await SongService.GetAsync(
+            var (songs, _) = SongService.Get(
                 where: $"ArtistId eq {artist.Id}",
                 orderBy: "ReleaseDate",
                 include: "Artist",
@@ -277,7 +273,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         protected async Task AddSongAsync(Artist artist, MouseEventArgs _)
         {
             await DialogService.OpenAsync<AddSong>("Add Songs", new Dictionary<string, object> { { "ArtistId", artist.Id } });
-            await GetSongsAsync(artist);
+            GetSongs(artist);
             await songsGrid.Reload();
         }
 
@@ -291,7 +287,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         protected async Task EditSongAsync(Artist artist, Song song)
         {
             await DialogService.OpenAsync<EditSong>("Edit Songs", new Dictionary<string, object> { { "ArtistId", artist.Id }, { "Id", song.Id }});
-            await GetSongsAsync(artist);
+            GetSongs(artist);
             await songsGrid.Reload();
         }
 
@@ -307,9 +303,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
             {
                 if (await DialogService.Confirm("Are you sure you want to delete this record?") == true)
                 {
-                    var deleteResult = await SongService.DeleteAsync(song.Id);
+                    var deleteResult = SongService.Delete(song.Id);
 
-                    await GetSongsAsync(artist);
+                    GetSongs(artist);
 
                     if (deleteResult != null)
                     {

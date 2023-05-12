@@ -134,11 +134,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// Bound to RadzenTemplateForm's Submit attribute/event
         /// </summary>
         /// <returns></returns>
-        protected async Task FormSubmit()
+        protected void FormSubmit()
         {
             try
             {
-                await ArtistService.CreateAsync(artist);
+                ArtistService.Create(artist);
                 DialogService.Close(artist);
             }
             catch (Exception)

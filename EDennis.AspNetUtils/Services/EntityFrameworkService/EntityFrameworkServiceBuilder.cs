@@ -40,11 +40,7 @@ namespace EDennis.AspNetUtils
             where TEntity : class
         {
             _builder.Services.TryAddScoped<EntityFrameworkServiceDependencies<TContext, TEntity>>();
-
-            _builder.Services.TryAddScoped<EntityFrameworkService<TContext, TEntity>>();
-            _builder.Services.TryAddScoped<ICrudService<TEntity>>(provider =>
-                provider.GetService<EntityFrameworkService<TContext, TEntity>>());
-
+            _builder.Services.TryAddScoped<ICrudService<TEntity>, EntityFrameworkService<TContext, TEntity>>();
             _builder.Services.TryAddScoped<CountCache<TEntity>>();
             return this;
         }
@@ -67,11 +63,7 @@ namespace EDennis.AspNetUtils
         where TService : EntityFrameworkService<TContext,TEntity>
     {
         _builder.Services.TryAddScoped<EntityFrameworkServiceDependencies<TContext, TEntity>>();
-
-        _builder.Services.TryAddScoped<TService>();
-        _builder.Services.TryAddScoped<ICrudService<TEntity>>(provider =>
-            provider.GetService<TService>());
-
+        _builder.Services.TryAddScoped<ICrudService<TEntity>,TService>();
         _builder.Services.TryAddScoped<CountCache<TEntity>>();
         return this;
     }

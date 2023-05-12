@@ -117,7 +117,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
 
 
         /// <summary>
-        /// The user records returned by LoadDataAsync below 
+        /// The user records returned by LoadData below 
         /// This variable is bound to RadzenDataGrid's Data attribute (Data="@users")
         /// </summary>
         protected IEnumerable<AppUser> users;
@@ -125,7 +125,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
 
         /// <summary>
         /// The count of records across all pages, which is returned by 
-        /// UserService.GetAsync (see below).
+        /// UserService.Get (see below).
         /// This variable is bound to RadzenDataGrid's Count attribute (Count="@recCount")
         /// </summary>
         protected int recCount = -1;
@@ -137,16 +137,16 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// <summary>
         /// Retrieves user records from <see cref="UserService"/>.  This method applies
         /// any filters (where), sorting (orderBy), and paging (skip, take) from the grid
-        /// This method is bound to the RadzenDataGrid's LoadData attribute (LoadData="@LoadDataAsync")
+        /// This method is bound to the RadzenDataGrid's LoadData attribute (LoadData="@LoadData")
         /// </summary>
         /// <param name="args">filters, sorting, and paging arguments</param>
         /// <returns></returns>
-        public async Task LoadDataAsync(LoadDataArgs args)
+        public void LoadData(LoadDataArgs args)
         {
-            //Note: the return type of GetAsync is a two-variable tuple.
+            //Note: the return type of Get is a two-variable tuple.
             //By using variable names defined above, the output is piped to
             //those two variables. 
-            (users, recCount) = await UserService.GetAsync(
+            (users, recCount) = UserService.Get(
                 where: args.Filter,
                 orderBy: args.OrderBy,
                 skip: args.Skip,
@@ -154,9 +154,6 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
                 countType: CountType.Count //needed to support paging
             );
 
-            //StateHasChanged must be called when the method is async
-            //(when using LoadDataAsync, rather than LoadData)
-            StateHasChanged(); 
         }
 
         /// <summary>
@@ -194,7 +191,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// <summary>
         /// Allows updating an existing user record via <see cref="DialogService"/>
         /// and <see cref="EditUser"/>.
-        /// This method is bound to the RadzenDataGrid's RowDoubleClick attribute/event (RowDoubleClick="@Edit")
+        /// This method is bound to the RadzenDataGrid's RowDoubleClick attribute/event (RowDoubleClick="@EditAsync")
         /// (toward the bottom of ListUsers.razor)
         /// </summary>
         /// <param name="args">data sent from MouseClick, here containing the clicked user record</param>
@@ -217,7 +214,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
             {
                 if (await DialogService.Confirm("Are you sure you want to delete this record?") == true)
                 {
-                    var deleteResult = await UserService.DeleteAsync(user.Id);
+                    var deleteResult = UserService.Delete(user.Id);
 
                     if (deleteResult != null)
                     {

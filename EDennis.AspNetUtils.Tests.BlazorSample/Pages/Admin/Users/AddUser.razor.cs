@@ -153,11 +153,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// from the database
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             user = new AppUser();
             userRoles = Array.Empty<string>();
-            (roles, _) = await RoleService.GetAsync(countType: CountType.None);
+            (roles, _) = RoleService.Get(countType: CountType.None);
         }
 
         /// <summary>
@@ -165,12 +165,12 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// Bound to RadzenTemplateForm's Submit attribute/event
         /// </summary>
         /// <returns></returns>
-        protected async Task FormSubmit()
+        protected void FormSubmit()
         {
             try
             {
                 user.Role = string.Join(",", userRoles);
-                await UserService.CreateAsync(user);
+                UserService.Create(user);
                 DialogService.Close(user);
             }
             catch

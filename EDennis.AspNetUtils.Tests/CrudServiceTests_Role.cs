@@ -10,14 +10,6 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
             EntityFrameworkService<SimpleAuthContext, AppRole>, 
             AppRole> _fixture;
         public const string _appsettingsFile = "appsettings.Test.json";
-        public readonly static Dictionary<string, string> _userRoles = new() {
-            { "Starbuck", "IT" },
-            { "Maria", "admin" },
-            { "Darius", "user" },
-            { "Huan", "readonly" },
-            { "Jack", "disabled" },
-        };
-
         private readonly ITestOutputHelper _output;
 
 
@@ -31,15 +23,15 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
 
         [Fact]
-        public async Task TestGetAll()
+        public void TestGetAll()
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
-            var recs = await service
+            var recs = service
                 .GetQueryable()
                 .Where(r => r.Id < 0) //only test roles, having negative ids
                 .OrderBy(r => r.SysGuid)
-                .ToListAsync();
+                .ToList();
 
             XunitUtils.AssertOrderedSysGuids(recs, 1, 2, 3, 4, 5);
 
@@ -50,20 +42,19 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData(1, "IT")]
         [InlineData(3, "user")]
         [InlineData(5, "disabled")]
-        public async Task TestFind(int guidId, string roleName)
+        public void TestFind(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
             var guid = GuidUtils.FromId(guidId);
 
-            var qryRec = await service
+            var qryRec = service
                 .GetQueryable()
-                .FirstOrDefaultAsync(r => r.SysGuid == guid);
+                .FirstOrDefault(r => r.SysGuid == guid);
 
             Assert.NotNull(qryRec);
 
-            var findRec = await service
-                .FindAsync(qryRec.Id);
+            var findRec = service.Find(qryRec.Id);
 
             Assert.Equal(roleName, findRec.RoleName);
             
@@ -73,30 +64,29 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData(2)]
         [InlineData(4)]
-        public async Task TestDelete(int guidId)
+        public void TestDelete(int guidId)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
             //expected remaining Guids after delete
             int[] remaining = Enumerable.Range(1, 5).Except(new int[] { guidId }).ToArray();
 
             var guid = GuidUtils.FromId(guidId);
 
-            var qryRec = await service
+            var qryRec = service
                 .GetQueryable()
-                .FirstOrDefaultAsync(r => r.SysGuid == guid);
+                .FirstOrDefault(r => r.SysGuid == guid);
 
             Assert.NotNull(qryRec);
 
-            await service
-                .DeleteAsync(qryRec.Id);
+            service.Delete(qryRec.Id);
 
 
-            var recs = await service
+            var recs = service
                 .GetQueryable()
                 .Where(r => r.Id < 0) //only test roles, having negative ids
                 .OrderBy(r => r.SysGuid)
-                .ToListAsync();
+                .ToList();
 
             XunitUtils.AssertOrderedSysGuids(recs, remaining);
 
@@ -106,15 +96,14 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData(1, "super user")]
         [InlineData(3, "normal user")]
-        public async Task TestUpdate(int guidId, string roleName)
+        public void TestUpdate(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
             var guid = GuidUtils.FromId(guidId);
 
-            var qryRec = await service
-                .GetQueryable()
-                .FirstOrDefaultAsync(r => r.SysGuid == guid);
+            var qryRec = service.GetQueryable()
+                .FirstOrDefault(r => r.SysGuid == guid);
 
             Assert.NotNull(qryRec);
 
@@ -122,11 +111,10 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
             var maxSysStart = service.GetMaxSysStart();
 
-            await service
-                .UpdateAsync(qryRec, qryRec.Id);
+            service.Update(qryRec, qryRec.Id);
 
-            var recs = (await service
-                .GetModifiedAsync(maxSysStart))
+            var recs = service
+                .GetModified(maxSysStart)
                 .OrderBy(r => r.SysGuid)
                 .ToList();
 
@@ -142,9 +130,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData(998, "super user")]
         [InlineData(999, "normal user")]
-        public async Task TestCreate(int guidId, string roleName)
+        public void TestCreate(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _userRoles["Starbuck"], _output);
+            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -156,11 +144,10 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
             var maxSysStart = service.GetMaxSysStart();
 
-            await service
-                .CreateAsync(AppRole);
+            service.Create(AppRole);
 
-            var recs = (await service
-                .GetModifiedAsync(maxSysStart))
+            var recs = service
+                .GetModified(maxSysStart)
                 .OrderBy(r => r.SysGuid)
                 .ToList();
 
