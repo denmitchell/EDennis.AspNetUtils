@@ -31,24 +31,9 @@ namespace EDennis.AspNetUtils
         public CountCache<TEntity> CountCache { get; set; }
 
         /// <summary>
-        /// Provides the authenticated claims principal.  Note that MVC and Blazor Server
-        /// have separate implementations for this:
-        /// <list type="table">
-        /// <listheader>
-        /// <term>Project Type</term>
-        /// <term>Implementation Class</term>
-        /// </listheader>
-        /// <item>
-        /// <term>Blazor Server</term>
-        /// <term><see cref="BlazorAuthenticationStateProvider{TAppUserRolesDbContext}"/></term>
-        /// </item>
-        /// <item>
-        /// <term>MVC</term>
-        /// <term><see cref="MvcAuthenticationStateProvider"/></term>
-        /// </item>
-        /// </list>
+        /// Provides the UserName and Roles  
         /// </summary>
-        public IAuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        public ISimpleAuthorizationProvider SimpleAuthorizationProvider { get; set; }
 
         /// <summary>
         /// Holds configurations for security such as:
@@ -71,19 +56,19 @@ namespace EDennis.AspNetUtils
         /// with the provided/injected service/>
         /// </summary>
         /// <param name="dbContextService">The service for creating a DbContext</param>
-        /// <param name="authStateProvider">Provides access to the authenticated user</param>
+        /// <param name="authorizationProvider">Provides access to the authenticated user</param>
         /// <param name="securityOptions">Security options</param>
         /// <param name="countCache">A cache for record counts across pages</param>
         /// <param name="config">A reference to the configuation object</param>
         public EntityFrameworkServiceDependencies(DbContextService<TContext> dbContextService,
-            IAuthenticationStateProvider authStateProvider,
+            ISimpleAuthorizationProvider authorizationProvider,
             IOptionsMonitor<SecurityOptions> securityOptions,
             CountCache<TEntity> countCache,
             IConfiguration config)
         {
 
             DbContextService = dbContextService;
-            AuthenticationStateProvider = authStateProvider;
+            SimpleAuthorizationProvider = authorizationProvider;
             SecurityOptions = securityOptions.CurrentValue;
             CountCache = countCache;
             Configuration = config;
@@ -116,28 +101,27 @@ namespace EDennis.AspNetUtils
         /// An implementation of <see cref="IAuthenticationStateProvider"/> suitable
         /// for testing
         /// </summary>
-        class TestAuthenticationStateProvider : IAuthenticationStateProvider
+        class TestAuthenticationStateProvider : ISimpleAuthorizationProvider
         {
-            public string IdpUserNameClaim { get; }
-            public ClaimsPrincipal User { get; set; }
 
-            public TestAuthenticationStateProvider(string userName, string role,
-                string idpUserNameClaim = "preferred_username")
+            public TestAuthenticationStateProvider(string userName, string role)
             {
-                IdpUserNameClaim = idpUserNameClaim;
-                User = new ClaimsPrincipal(
-                    new ClaimsIdentity(new Claim[]
-                    {
-                    new Claim(IdpUserNameClaim,userName),
-                    new Claim(ClaimTypes.Name,userName),
-                    new Claim("name",userName),
-                    new Claim("role",role),
-                    new Claim(ClaimTypes.Role,role),
-                    }));
+                UserName = userName;
+                Role = role;
             }
 
-            public Task<AuthenticationState> GetAuthenticationStateAsync()
-                => Task.FromResult(new AuthenticationState(User));
+            public string UserName { get; set; }
+            public string Role { get; set; }
+
+
+            public string GetRole()
+            {
+                return Role;
+            }
+
+            public void UpdateClaimsPrincipal(ClaimsPrincipal principal)
+            {                
+            }
 
         }
 

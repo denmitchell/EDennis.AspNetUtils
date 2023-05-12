@@ -104,7 +104,7 @@ namespace EDennis.AspNetUtils
             _countCache = deps.CountCache;
 
             DbContext = deps.DbContextService.GetDbContext(deps.Configuration);
-            SetUserName(deps.AuthenticationStateProvider, deps.SecurityOptions);
+            SetUserName(deps.SimpleAuthorizationProvider);
         }
 
         #endregion
@@ -131,16 +131,10 @@ namespace EDennis.AspNetUtils
         /// Sets the UserName property of this service based upon the Claims Principal's 
         /// Name claim.  This class uses <see cref="MvcAuthenticationStateProvider"/>
         /// </summary>
-        /// <param name="authenticationStateProvider"></param>
-        /// <param name="securityOptions"></param>
-        public void SetUserName(IAuthenticationStateProvider authenticationStateProvider,
-            SecurityOptions securityOptions)
+        /// <param name="authorizationProvider"></param>
+        public void SetUserName(ISimpleAuthorizationProvider authorizationProvider)
         {
-            Task.Run(async () =>
-            {
-                var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
-                UserName = authState.User.Claims.FirstOrDefault(c => c.Type == securityOptions.IdpUserNameClaim)?.Value;
-            });
+            UserName = authorizationProvider.UserName;
         }
 
         /// <summary>

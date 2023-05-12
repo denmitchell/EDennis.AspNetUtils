@@ -32,8 +32,9 @@ else
 #endif
 
 //Add simple security based upon AppUser and AppRoles tables
-// (includes registering the DbContext, AppUserService and AppRoleService
-builder.AddSimpleAuthorization<EntityFrameworkService<SimpleAuthContext,AppUser>>(isBlazor: false);
+builder.AddSimpleAuthorization<
+    EntityFrameworkService<SimpleAuthContext, AppUser>,
+    EntityFrameworkService<SimpleAuthContext, AppRole>>(isBlazorServer: false);
 
 
 builder.Services.AddAuthorization(options =>

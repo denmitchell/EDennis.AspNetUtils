@@ -29,8 +29,6 @@ else
 }
 #endif
 
-//AddAsync simple security based upon AppUser and AppRoles tables
-builder.AddSimpleAuthorization<EntityFrameworkService<SimpleAuthContext,AppUser>>(isBlazor: true);
 
 //AddAsync CRUD services
 builder.AddEntityFrameworkServices<HitsContext>()
@@ -58,6 +56,11 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor()
     .AddMicrosoftIdentityConsentHandler();
+
+//AddAsync simple security based upon AppUser and AppRoles tables
+builder.AddSimpleAuthorization<
+    EntityFrameworkService<SimpleAuthContext, AppUser>, 
+    EntityFrameworkService<SimpleAuthContext,AppRole>>(isBlazorServer: true);
 
 var app = builder.Build();
 
