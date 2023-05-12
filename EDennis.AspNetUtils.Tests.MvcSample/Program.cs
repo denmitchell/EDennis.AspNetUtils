@@ -1,5 +1,4 @@
 using EDennis.AspNetUtils;
-using EDennis.AspNetUtils.Tests.MvcSample;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -17,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 #if DEBUG
 var fakeUser = builder.Configuration["FakeUser"];
 if (fakeUser != null)
-    builder.Services.AddFakeUserAuthentication();
+    builder.Services.AddFakeAuthentication();
 else
 {
 #endif
@@ -34,7 +33,7 @@ else
 
 //Add simple security based upon AppUser and AppRoles tables
 // (includes registering the DbContext, AppUserService and AppRoleService
-builder.AddSimpleAuthorization<AppUserRolesContext>(isBlazor: false);
+builder.AddSimpleAuthorization<EntityFrameworkService<SimpleAuthContext,AppUser>>(isBlazor: false);
 
 
 builder.Services.AddAuthorization(options =>
@@ -69,7 +68,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMvcAuthenticationProvider<AppUserRolesContext>();
+app.UseMvcAuthenticationProvider();
 
 app.MapControllerRoute(
     name: "default",

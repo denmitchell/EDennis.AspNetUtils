@@ -1,4 +1,4 @@
-﻿namespace EDennis.AspNetUtils.Security
+﻿namespace EDennis.AspNetUtils
 {
     /// <summary>
     /// Constants for Authentication Schemes

@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace EDennis.AspNetUtils
 {
@@ -7,7 +6,7 @@ namespace EDennis.AspNetUtils
     /// A base DbContext for CRUD operations on <see cref="App"/>
     /// <see cref="AppUser"/> and <see cref="AppRole"/> entities.
     /// </summary>
-    public partial class AppUserRolesContext : DbContext
+    public partial class SimpleAuthContext : DbContext
     {
 
         /// <summary>
@@ -41,10 +40,10 @@ namespace EDennis.AspNetUtils
         public virtual IEnumerable<AppUser> UserData { get; set; }
 
         /// <summary>
-        /// Constructs a new instance of <see cref="AppUserRolesContext"/>
+        /// Constructs a new instance of <see cref="SimpleAuthContext"/>
         /// </summary>
         /// <param name="options"></param>
-        public AppUserRolesContext(DbContextOptions<AppUserRolesContext> options
+        public SimpleAuthContext(DbContextOptions<SimpleAuthContext> options
             ) : base(options)
         {
         }

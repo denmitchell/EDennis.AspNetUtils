@@ -1,4 +1,3 @@
-using EDennis.AspNetUtils.Tests.BlazorSample;
 using Microsoft.EntityFrameworkCore;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample

@@ -70,9 +70,10 @@ namespace EDennis.AspNetUtils
             //try to get the token from the header
             var claimsHeaders = Context.Request.Headers
                 .Where(c => c.Key.StartsWith(_settings.ClaimHeaderPrefix))
-                .SelectMany(c => {
+                .SelectMany(c =>
+                {
                     var key = c.Key[_settings.ClaimHeaderPrefix.Length..];
-                    return c.Value.ToArray().Select(v=> new Claim(key, v));
+                    return c.Value.ToArray().Select(v => new Claim(key, v));
                 });
 
 
@@ -93,7 +94,8 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         private async Task HandleErrorAsync(HttpContext context)
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 var url = context.Request.Path.Value.Split('?')[0];
                 var exception = new ArgumentException($"Attempt to access @{url} without ApiKey");
                 Logger.LogError(exception, "Attempt to access API @{Url} without ApiKey", url);

@@ -38,19 +38,19 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
 
         /// <summary>
         /// An EDennis Service
-        /// CrudService of <see cref="EntityFrameworkService{AppUserRolesContext, AppUser}"/> for
+        /// Implementation of <see cref="EntityFrameworkService{AppUserRolesContext, AppUser}"/> for
         /// performing CRUD operations on user records
         /// </summary>
         [Inject]
-        protected AppUserService<AppUserRolesContext> UserService { get; set; }
+        protected ICrudService<AppUser> UserService { get; set; }
 
         /// <summary>
         /// An EDennis Service
-        /// CrudService of <see cref="EntityFrameworkService{AppUserRolesContext, AppRole}"/> for
+        /// Implementation of <see cref="EntityFrameworkService{AppUserRolesContext, AppRole}"/> for
         /// performing CRUD operations on roles records.
         /// </summary>
         [Inject]
-        protected AppRoleService<AppUserRolesContext> RoleService { get; set; }
+        protected ICrudService<AppRole> RoleService { get; set; }
 
 
         /// <summary>

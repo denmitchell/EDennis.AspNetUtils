@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 #if DEBUG
 var fakeUser = builder.Configuration["FakeUser"];
 if (fakeUser != null)
-    builder.Services.AddFakeUserAuthentication();
+    builder.Services.AddFakeAuthentication();
 else
 {
 #endif
@@ -30,13 +30,12 @@ else
 #endif
 
 //AddAsync simple security based upon AppUser and AppRoles tables
-// (includes registering the DbContext, AppUserService and AppRoleService
-builder.AddSimpleAuthorization<AppUserRolesContext>(isBlazor: true);
+builder.AddSimpleAuthorization<EntityFrameworkService<SimpleAuthContext,AppUser>>(isBlazor: true);
 
 //AddAsync CRUD services
-builder.AddCrudServices<HitsContext>()
-    .AddCrudService<ArtistService, Artist>()
-    .AddCrudService<SongService, Song>();
+builder.AddEntityFrameworkServices<HitsContext>()
+    .AddEntityFrameworkService<ArtistService, Artist>() //ArtistService extends EntityFrameworkService to implement cascade delete on Songs
+    .AddEntityFrameworkService<Song>(); //there was no need to extend EntityFrameworkService for Song
 
 
 //Radzen services
@@ -59,7 +58,6 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor()
     .AddMicrosoftIdentityConsentHandler();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

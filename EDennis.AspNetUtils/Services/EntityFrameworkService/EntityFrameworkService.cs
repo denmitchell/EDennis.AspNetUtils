@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Radzen;
 using System.Linq.Dynamic.Core;
-using System.Text.Json;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils
@@ -22,7 +20,7 @@ namespace EDennis.AspNetUtils
     /// </summary>
     /// <typeparam name="TContext">The DbContext class</typeparam>
     /// <typeparam name="TEntity">The model/entity class</typeparam>
-    public abstract class EntityFrameworkService<TContext, TEntity> : ICrudService<TEntity> where TContext : DbContext
+    public class EntityFrameworkService<TContext, TEntity> : ICrudService<TEntity> where TContext : DbContext
         where TEntity : class
     {
         #region Variables
@@ -93,14 +91,14 @@ namespace EDennis.AspNetUtils
 
         /// <summary>
         /// Constructs a new instance of <see cref="EntityFrameworkService{TContext, TEntity}"/> with
-        /// various <see cref="CrudServiceDependencies{TContext, TEntity}"/> injected.
+        /// various <see cref="EntityFrameworkServiceDependencies{TContext, TEntity}"/> injected.
         /// The constructor sets up a reference to the DbContext, the DbContextService
         /// (for replacing the DbContext during testing), and the <see cref="CountCache{TEntity}"/>.
         /// The constructor also uses the <see cref="MvcAuthenticationStateProvider"/> to
         /// set the UserName property from the Claims Principal name.
         /// </summary>
         /// <param name="deps">A bundled set of dependencies to inject</param>
-        public EntityFrameworkService(CrudServiceDependencies<TContext, TEntity> deps)
+        public EntityFrameworkService(EntityFrameworkServiceDependencies<TContext, TEntity> deps)
         {
             _dbContextService = deps.DbContextService;
             _countCache = deps.CountCache;
@@ -122,7 +120,7 @@ namespace EDennis.AspNetUtils
         /// output stream during testing</param>
         public async Task EnableTestAsync(ITestOutputHelper output = null)
         {
-            DbContext = await Task.Run(()=>_dbContextService.GetTestServiceContext(output));
+            DbContext = await Task.Run(() => _dbContextService.GetTestServiceContext(output));
         }
 
 

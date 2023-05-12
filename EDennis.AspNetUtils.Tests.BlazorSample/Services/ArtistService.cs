@@ -2,7 +2,7 @@
 {
     public class ArtistService : EntityFrameworkService<HitsContext, Artist>
     {
-        public ArtistService(CrudServiceDependencies<HitsContext, Artist> deps): base(deps) { }
+        public ArtistService(EntityFrameworkServiceDependencies<HitsContext, Artist> deps): base(deps) { }
 
 
         /// <summary>

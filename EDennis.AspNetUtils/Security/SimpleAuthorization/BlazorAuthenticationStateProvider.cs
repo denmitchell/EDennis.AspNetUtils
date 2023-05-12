@@ -11,41 +11,43 @@ namespace EDennis.AspNetUtils
     /// roles associated with the authenticated user for the current Blazor application.
     /// </summary>
     /// <typeparam name="TAppUserRolesDbContext">The DbContext used to retrieve roles from the database</typeparam>
-    public class BlazorAuthenticationStateProvider<TAppUserRolesDbContext> 
+    public class BlazorAuthenticationStateProvider
         : ServerAuthenticationStateProvider, IAuthenticationStateProvider
-        where TAppUserRolesDbContext : AppUserRolesContext
     {
 
         /// <summary>
         /// Returns the ClaimsPrincipal.  
         /// NOTE: set is not implemented here
         /// </summary>
-        public ClaimsPrincipal User 
-        { 
-            get 
+        public ClaimsPrincipal User
+        {
+            get
             {
                 return base.GetAuthenticationStateAsync().Result.User;
-            } set {
+            }
+            set
+            {
                 throw new NotImplementedException("User is readonly for Blazor");
             }
         }
 
         private readonly SecurityOptions _securityOptions;
         private readonly RolesCache _rolesCache;
-        private readonly TAppUserRolesDbContext _appUserRolesDbContext;
+        private readonly ICrudService<AppUser> _userService;
 
         /// <summary>
-        /// Constructs a new <see cref="BlazorAuthenticationStateProvider{TAppUserRolesDbContext}"/>
+        /// Constructs a new <see cref="BlazorAuthenticationStateProvider"/>
         /// with the provided services and options
         /// </summary>
         /// <param name="appUserRolesDbContext">The DbContext used to register users and assign roles</param>
         /// <param name="securityOptions">Basic options for security, including the claim used as the UserName</param>
         /// <param name="rolesCache">A temporary cache of roles assigned to the user.</param>
         public BlazorAuthenticationStateProvider(
-            TAppUserRolesDbContext appUserRolesDbContext,
+            ICrudService<AppUser> userService,
             IOptionsMonitor<SecurityOptions> securityOptions,
-            RolesCache rolesCache) {
-            _appUserRolesDbContext = appUserRolesDbContext;
+            RolesCache rolesCache)
+        {
+            _userService = userService;
             _securityOptions = securityOptions.CurrentValue;
             _rolesCache = rolesCache;
         }
@@ -56,7 +58,7 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var authState =  await base.GetAuthenticationStateAsync();
+            var authState = await base.GetAuthenticationStateAsync();
 
             if (!authState.User.Claims.Any(c => c.Type == "role"))
             {
@@ -108,18 +110,19 @@ namespace EDennis.AspNetUtils
                 out (DateTime ExpiresAt, string Role) entry)
                 || entry.ExpiresAt <= DateTime.Now)
             {
-                    //note: this hangs if you call await ... FirstOrDefaultAsync
-                    var role = _appUserRolesDbContext.AppUsers
-                                .Where(u => u.UserName == userName)
-                                .Select(u => u.Role)
-                                .FirstOrDefault();
+                //note: this hangs if you call await ... FirstOrDefaultAsync
+                (List<dynamic> result, int _) = _userService
+                    .GetAsync(select: "Role", where: "UserName eq {0}", new object[] { userName })
+                    .Result;
 
-                    if (role == default)
-                        return "undefined"; //don't cache this
+                var role = result.FirstOrDefault() as string;
 
-                    entry = (DateTime.Now.AddMilliseconds(
-                        _securityOptions.RefreshInterval), role);
-                    _rolesCache.AddOrUpdate(userName, entry, (u, e) => entry);
+                if (role == default)
+                    return "undefined"; //don't cache this
+
+                entry = (DateTime.Now.AddMilliseconds(
+                    _securityOptions.RefreshInterval), role);
+                _rolesCache.AddOrUpdate(userName, entry, (u, e) => entry);
 
 
             }

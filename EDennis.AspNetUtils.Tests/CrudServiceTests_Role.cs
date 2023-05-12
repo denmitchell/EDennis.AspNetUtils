@@ -3,10 +3,12 @@ using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 {
-    public class CrudServiceTests_Role : IClassFixture<CrudServiceTestFixture<AppUserRolesContext,
-        AppRoleService<AppUserRolesContext>, AppRole>>
+    public class CrudServiceTests_Role : IClassFixture<EntityFrameworkServiceTestFixture<SimpleAuthContext,
+        EntityFrameworkService<SimpleAuthContext,AppRole>, AppRole>>
     {
-        private readonly CrudServiceTestFixture<AppUserRolesContext, AppRoleService<AppUserRolesContext>, AppRole> _fixture;
+        private readonly EntityFrameworkServiceTestFixture<SimpleAuthContext,
+            EntityFrameworkService<SimpleAuthContext, AppRole>, 
+            AppRole> _fixture;
         public const string _appsettingsFile = "appsettings.Test.json";
         public readonly static Dictionary<string, string> _userRoles = new() {
             { "Starbuck", "IT" },
@@ -19,8 +21,8 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         private readonly ITestOutputHelper _output;
 
 
-        public CrudServiceTests_Role(CrudServiceTestFixture<AppUserRolesContext,
-        AppRoleService<AppUserRolesContext>, AppRole> fixture, ITestOutputHelper output) { 
+        public CrudServiceTests_Role(EntityFrameworkServiceTestFixture<SimpleAuthContext,
+        EntityFrameworkService<SimpleAuthContext, AppRole>, AppRole> fixture, ITestOutputHelper output) { 
             _fixture = fixture;
             _output = output;
         }

@@ -50,7 +50,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs
         /// performing CRUD operations on song records
         /// </summary>
         [Inject]
-        public SongService SongService { get; set; }
+        public ICrudService<Song> SongService { get; set; }
 
 
         #endregion

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
@@ -13,15 +12,14 @@ namespace EDennis.AspNetUtils
     /// authorization middleware.
     /// </summary>
     /// <typeparam name="TAppUserRolesDbContext"></typeparam>
-    public class MvcAuthenticationStateProviderMiddleware<TAppUserRolesDbContext>
-        where TAppUserRolesDbContext : AppUserRolesContext
+    public class MvcAuthenticationStateProviderMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly SecurityOptions _securityOptions;
         private readonly RolesCache _rolesCache;
 
         /// <summary>
-        /// Constructs a new instance of <see cref="MvcAuthenticationStateProviderMiddleware{TAppUserRolesDbContext}"/>
+        /// Constructs a new instance of <see cref="MvcAuthenticationStateProviderMiddleware"/>
         /// with the provided options and roles cache.
         /// </summary>
         /// <param name="next">A delegate to invoke the next middleware in the pipeline</param>
@@ -46,7 +44,7 @@ namespace EDennis.AspNetUtils
         /// <param name="appUserRolesDbContext">The DbContext used for retrieving the user's role from the database</param>
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, MvcAuthenticationStateProvider authStateProvider,
-                        TAppUserRolesDbContext appUserRolesDbContext)
+                        ICrudService<AppUser> userService)
         {
             if (context.User != null)
             {
@@ -58,7 +56,7 @@ namespace EDennis.AspNetUtils
 
                 if (userName != null)
                 {
-                    var role = GetRole(userName, appUserRolesDbContext);
+                    var role = GetRole(userName, userService);
 
 
                     Claim[] claims;
@@ -98,7 +96,7 @@ namespace EDennis.AspNetUtils
         /// <param name="userName">The user name of the user</param>
         /// <param name="appUserRolesDbContext">The DbContext used to retrieve the user's role</param>
         /// <returns></returns>
-        private string GetRole(string userName, TAppUserRolesDbContext appUserRolesDbContext)
+        private string GetRole(string userName, ICrudService<AppUser> userService)
         {
 
             if (!_rolesCache.TryGetValue(userName,
@@ -107,10 +105,12 @@ namespace EDennis.AspNetUtils
             {
 
                 //note: this hangs if you call await ... FirstOrDefaultAsync
-                var role = appUserRolesDbContext.AppUsers
-                            .Where(u => u.UserName == userName)
-                            .Select(u => u.Role)
-                            .FirstOrDefault();
+                (List<dynamic> result, int _) = userService
+                    .GetAsync(select: "Role", where: "UserName eq {0}", new object[] { userName })
+                    .Result;
+
+                var role = result.FirstOrDefault() as string;
+
 
                 if (role == default)
                     return "undefined"; //don't cache this
@@ -130,10 +130,9 @@ namespace EDennis.AspNetUtils
     /// </summary>
     public static class MvcAuthenticationProviderMiddlewareExtensions
     {
-        public static IApplicationBuilder UseMvcAuthenticationProvider<TAppUserRolesDbContext>(this IApplicationBuilder app)
-            where TAppUserRolesDbContext : AppUserRolesContext
+        public static IApplicationBuilder UseMvcAuthenticationProvider(this IApplicationBuilder app)
         {
-            app.UseMiddleware<MvcAuthenticationStateProviderMiddleware<TAppUserRolesDbContext>>();
+            app.UseMiddleware<MvcAuthenticationStateProviderMiddleware>();
             return app;
         }
     }

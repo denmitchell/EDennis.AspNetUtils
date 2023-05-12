@@ -1,6 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.MvcSample;
-
-namespace EDennis.AspNetUtils.Tests.MvcSample
+﻿namespace EDennis.AspNetUtils.Tests.MvcSample
 {
     public static class TestRecords
     {

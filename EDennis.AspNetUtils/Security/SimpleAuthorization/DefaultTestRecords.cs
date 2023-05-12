@@ -1,5 +1,4 @@
-﻿
-namespace EDennis.AspNetUtils.Tests.BlazorSample
+﻿namespace EDennis.AspNetUtils
 {
     public static class DefaultTestRecords
     {
@@ -51,7 +50,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample
                     Id = -1,
                     UserName = "Starbuck",
                     SysGuid = GuidUtils.FromId(1),
-                    Role = "IT" 
+                    Role = "IT"
                 },
                 new AppUser
                 {

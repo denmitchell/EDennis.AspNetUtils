@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using EDennis.AspNetUtils.Tests.MvcSample;
 
 namespace EDennis.AspNetUtils.Tests.MvcSample
 {

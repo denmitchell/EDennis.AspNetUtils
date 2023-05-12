@@ -8,11 +8,11 @@ namespace EDennis.AspNetUtils
 {
     /// <summary>
     /// A set of bundled services/objects supporting <see cref="EntityFrameworkService{TContext, TEntity}"/>.
-    /// By bundling the services, CrudController implementation classes become a little more streamlined.
+    /// By bundling the services, CrudService implementation classes become a little more streamlined.
     /// </summary>
     /// <typeparam name="TContext">The DbContext class</typeparam>
     /// <typeparam name="TEntity">The model class</typeparam>
-    public class CrudServiceDependencies<TContext, TEntity>
+    public class EntityFrameworkServiceDependencies<TContext, TEntity>
         where TContext : DbContext
         where TEntity : class
     {
@@ -36,7 +36,7 @@ namespace EDennis.AspNetUtils
         /// <list type="table">
         /// <listheader>
         /// <term>Project Type</term>
-        /// <term>CrudService Class</term>
+        /// <term>Implementation Class</term>
         /// </listheader>
         /// <item>
         /// <term>Blazor Server</term>
@@ -75,7 +75,7 @@ namespace EDennis.AspNetUtils
         /// <param name="securityOptions">Security options</param>
         /// <param name="countCache">A cache for record counts across pages</param>
         /// <param name="config">A reference to the configuation object</param>
-        public CrudServiceDependencies(DbContextService<TContext> dbContextService,
+        public EntityFrameworkServiceDependencies(DbContextService<TContext> dbContextService,
             IAuthenticationStateProvider authStateProvider,
             IOptionsMonitor<SecurityOptions> securityOptions,
             CountCache<TEntity> countCache,
@@ -91,13 +91,13 @@ namespace EDennis.AspNetUtils
 
 
         /// <summary>
-        /// Gets a test instance of <see cref="CrudServiceDependencies{TContext, TEntity}"/>
+        /// Gets a test instance of <see cref="EntityFrameworkServiceDependencies{TContext, TEntity}"/>
         /// </summary>
         /// <param name="config">A reference to the configuration object</param>
         /// <param name="userName">The user name to hard code for the test</param>
         /// <param name="role">The role to hard code for the test</param>
         /// <returns></returns>
-        public static CrudServiceDependencies<TContext, TEntity> GetTestInstance(IConfiguration config, string userName, string role )
+        public static EntityFrameworkServiceDependencies<TContext, TEntity> GetTestInstance(IConfiguration config, string userName, string role)
         {
 
             var securityOptions = config.GetOrThrow<SecurityOptions>("Security");
@@ -107,7 +107,7 @@ namespace EDennis.AspNetUtils
             var authStateProvider = new TestAuthenticationStateProvider(userName, role);
             var dbContextService = new DbContextService<TContext>(config);
 
-            return new CrudServiceDependencies<TContext, TEntity>(
+            return new EntityFrameworkServiceDependencies<TContext, TEntity>(
                 dbContextService, authStateProvider, iomSecurityOptions, CountCache, config);
 
         }

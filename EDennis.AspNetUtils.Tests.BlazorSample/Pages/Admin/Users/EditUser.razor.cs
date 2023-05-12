@@ -42,7 +42,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// performing CRUD operations on user records
         /// </summary>
         [Inject]
-        protected AppUserService<AppUserRolesContext> UserService { get; set; }
+        protected ICrudService<AppUser> UserService { get; set; }
 
         /// <summary>
         /// An EDennis Service
@@ -50,7 +50,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
         /// performing CRUD operations on roles records.
         /// </summary>
         [Inject]
-        protected AppRoleService<AppUserRolesContext> RoleService { get; set; }
+        protected ICrudService<AppRole> RoleService { get; set; }
 
 
         /// <summary>

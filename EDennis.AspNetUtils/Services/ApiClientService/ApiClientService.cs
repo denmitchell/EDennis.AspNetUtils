@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Xunit.Abstractions;
 
-namespace EDennis.AspNetUtils.Data.Services
+namespace EDennis.AspNetUtils
 {
     /// <summary>
     /// Implementation of <see cref="ICrudService{TEntity}"/> for ApiClients using
@@ -48,7 +48,7 @@ namespace EDennis.AspNetUtils.Data.Services
         /// <returns></returns>
         public async Task<TEntity> CreateAsync(TEntity input)
         {
-            var errorMessage = $"Problem creating {typeof(TEntity).Name} instance at {ControllerPath} with {JsonSerializer.Serialize(input)}";            
+            var errorMessage = $"Problem creating {typeof(TEntity).Name} instance at {ControllerPath} with {JsonSerializer.Serialize(input)}";
             var response = await HttpClient.PostAsync(ControllerPath, GetContent(input));
             return await GetObjectAsync(response, errorMessage);
         }
@@ -61,7 +61,7 @@ namespace EDennis.AspNetUtils.Data.Services
         /// <returns></returns>
         public async Task<TEntity> UpdateAsync(TEntity input, params object[] id)
         {
-            var idPathParam = string.Join('/',id.Select(i=> i.ToString()));
+            var idPathParam = string.Join('/', id.Select(i => i.ToString()));
             var errorMessage = $"Problem creating {typeof(TEntity).Name} instance at {ControllerPath}/{idPathParam} with {JsonSerializer.Serialize(input)}";
             var response = await HttpClient.PutAsync($"{ControllerPath}/{idPathParam}", GetContent(input));
             return await GetObjectAsync(response, errorMessage);
@@ -166,7 +166,7 @@ namespace EDennis.AspNetUtils.Data.Services
         {
             var errorMessage = $"Problem enabling test at {ControllerPath}/test";
             var response = await HttpClient.PostAsync($"{ControllerPath}/test", null);
-            if(!response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
                 throw new Exception(errorMessage);
         }
 

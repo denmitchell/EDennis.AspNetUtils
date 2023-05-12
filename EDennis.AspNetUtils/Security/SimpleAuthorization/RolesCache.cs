@@ -6,7 +6,7 @@ namespace EDennis.AspNetUtils
     /// A temporary cache that holds the role of each user by user name (cache key).  This
     /// cache should have a singleton lifetime
     /// </summary>
-    public class RolesCache: ConcurrentDictionary<string, (DateTime ExpiresAt, string Role)>
+    public class RolesCache : ConcurrentDictionary<string, (DateTime ExpiresAt, string Role)>
     {
     }
 }

@@ -1,12 +1,13 @@
 using EDennis.AspNetUtils.Tests.BlazorSample.Services;
+using Radzen;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 {
-    public class CrudServiceTests_Song : IClassFixture<CrudServiceTestFixture<HitsContext,
-        SongService, Song>>
+    public class CrudServiceTests_Song : IClassFixture<EntityFrameworkServiceTestFixture<HitsContext,
+        EntityFrameworkService<HitsContext,Song>, Song>>
     {
-        private readonly CrudServiceTestFixture<HitsContext, SongService, Song> _fixture;
+        private readonly EntityFrameworkServiceTestFixture<HitsContext, EntityFrameworkService<HitsContext, Song>, Song> _fixture;
         public const string _appsettingsFile = "appsettings.Test.json";
         public readonly static Dictionary<string, string> _userRoles = new() {
             { "Starbuck", "IT" },
@@ -19,8 +20,8 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         private readonly ITestOutputHelper _output;
 
 
-        public CrudServiceTests_Song(CrudServiceTestFixture<HitsContext,
-        SongService, Song> fixture, ITestOutputHelper output)
+        public CrudServiceTests_Song(EntityFrameworkServiceTestFixture<HitsContext,
+        EntityFrameworkService<HitsContext, Song>, Song> fixture, ITestOutputHelper output)
         {
             _fixture = fixture;
             _output = output;

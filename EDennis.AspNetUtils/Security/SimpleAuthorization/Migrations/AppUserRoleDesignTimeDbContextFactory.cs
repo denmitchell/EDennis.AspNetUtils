@@ -1,5 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.BlazorSample;
-using EntityFramework.Exceptions.SqlServer;
+﻿using EntityFramework.Exceptions.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +12,7 @@ namespace EDennis.AspNetUtils
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
     public abstract class AppUserRoleDesignTimeDbContextFactory<TAppUserRolesContext> : IDesignTimeDbContextFactory<TAppUserRolesContext>
-    where TAppUserRolesContext : AppUserRolesContext
+    where TAppUserRolesContext : SimpleAuthContext
     {
         public virtual IEnumerable<AppRole> AppRoleData
             => DefaultTestRecords.GetAppRoles();
@@ -39,14 +38,14 @@ namespace EDennis.AspNetUtils
                 .AddJsonFile($"appsettings.{env}.json")
                 .Build();
 
-            var cxnString = DbContextService<AppUserRolesContext>.GetConnectionString(config);
+            var cxnString = DbContextService<SimpleAuthContext>.GetConnectionString(config);
 
-            var builder = new DbContextOptionsBuilder<AppUserRolesContext>();
+            var builder = new DbContextOptionsBuilder<SimpleAuthContext>();
             builder.UseSqlServer(cxnString)
                 .EnableSensitiveDataLogging()
                 .UseExceptionProcessor();
 
-            Action<AppUserRolesContext> modelEnhancements = c =>
+            Action<SimpleAuthContext> modelEnhancements = c =>
             {
                 c.RoleData = AppRoleData;
                 c.UserData = AppUserData;

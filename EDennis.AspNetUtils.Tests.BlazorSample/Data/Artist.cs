@@ -1,4 +1,3 @@
-using EDennis.AspNetUtils.Tests.BlazorSample;
 using System.ComponentModel.DataAnnotations;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample

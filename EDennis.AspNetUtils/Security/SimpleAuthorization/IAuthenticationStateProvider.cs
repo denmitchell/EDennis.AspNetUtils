@@ -4,7 +4,7 @@ using System.Security.Claims;
 namespace EDennis.AspNetUtils
 {
     /// <summary>
-    /// Interface supporting <see cref="BlazorAuthenticationStateProvider{TAppUserRolesDbContext}"/>
+    /// Interface supporting <see cref="BlazorAuthenticationStateProvider"/>
     /// and <see cref="MvcAuthenticationStateProvider"/>
     /// </summary>
     public interface IAuthenticationStateProvider

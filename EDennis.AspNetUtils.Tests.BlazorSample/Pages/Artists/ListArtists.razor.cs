@@ -1,8 +1,7 @@
-using EDennis.AspNetUtils.Tests.BlazorSample.Services;
 using EDennis.AspNetUtils.Tests.BlazorSample.Pages.Songs;
+using EDennis.AspNetUtils.Tests.BlazorSample.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
 
@@ -50,10 +49,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists
         /// <summary>
         /// An EDennis Service
         /// CrudService of <see cref="EntityFrameworkService{HitsContext, Song}"/> for
-        /// performing CRUD operations on song records
+        /// performing CRUD operations on song records.
+        /// Note: there was no need to extend CRUD service for song
         /// </summary>
         [Inject]
-        public SongService SongService { get; set; }
+        public ICrudService<Song> SongService { get; set; }
 
         #endregion
         #region Other Available Services

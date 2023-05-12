@@ -1,7 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.MvcSample;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +9,16 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly AppUserService<AppUserRolesContext> _service;
+        private readonly ICrudService<AppUser> _appUserService;
+        private readonly ICrudService<AppRole> _appRoleService;
         private readonly SecurityOptions _securityOptions;
 
-        public UsersController(AppUserService<AppUserRolesContext> service, IOptionsMonitor<SecurityOptions> securityOptions)
+        public UsersController(ICrudService<AppUser> appUserService,
+            ICrudService<AppRole> appRoleService,  
+            IOptionsMonitor<SecurityOptions> securityOptions)
         {
-            _service = service;
+            _appUserService = appUserService;
+            _appRoleService = appRoleService;
             _securityOptions = securityOptions.CurrentValue;
         }
 
@@ -27,10 +28,10 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            var recs = _service.GetQueryable();
+            var (recs,_) = await _appUserService.GetAsync();
 
 
-            return View(await recs.ToListAsync());
+            return View(recs.ToList());
         }
 
         // GET: AppUsers/Details/5
@@ -43,14 +44,15 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (id == null)
                 return NotFound();
 
-            var appUser = await _service.GetQueryable()
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var appUser = await _appUserService.FindAsync(id);
 
             if (appUser == null)
                 return NotFound();
 
             return View(appUser);
         }
+
+        private List<AppRole> GetAppRoles() => (_appRoleService.GetAsync().Result).Data;
 
         // GET: AppUsers/Create
         public IActionResult Create()
@@ -59,7 +61,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            ViewData["Role"] = new SelectList(_service.DbContext.AppRoles, "Id", "RoleName");
+            ViewData["Role"] = new SelectList(GetAppRoles(), "Id", "RoleName");
             ViewData["AllowMultipleRoles"] = _securityOptions.AllowMultipleRoles;
             return View();
         }
@@ -77,10 +79,10 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
 
             if (ModelState.IsValid)
             {
-                await(_service.CreateAsync(appUser));
+                await(_appUserService.CreateAsync(appUser));
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Role"] = new SelectList(_service.DbContext.AppRoles, "RoleName", "RoleName", appUser.Role);
+            ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role);
             ViewData["AllowMultipleRoles"] = _securityOptions.AllowMultipleRoles;
             return View(appUser);
         }
@@ -95,11 +97,11 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (id == null)
                 return NotFound();
 
-            var appUser = await _service.FindAsync(id);
+            var appUser = await _appUserService.FindAsync(id);
             if (appUser == null)
                 return NotFound();
 
-            ViewData["Role"] = new SelectList(_service.DbContext.AppRoles, "RoleName", "RoleName", appUser.Role);
+            ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role);
             ViewData["AllowMultipleRoles"] = _securityOptions.AllowMultipleRoles;
             return View(appUser);
         }
@@ -120,10 +122,10 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
 
             if (ModelState.IsValid)                
             {
-                await _service.UpdateAsync(appUser, id);
+                await _appUserService.UpdateAsync(appUser, id);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Role"] = new SelectList(_service.DbContext.AppRoles, "RoleName", "RoleName", appUser.Role );
+            ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role );
             ViewData["AllowMultipleRoles"] = _securityOptions.AllowMultipleRoles;
             return View(appUser);
         }
@@ -143,18 +145,10 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            if (_service.DbContext.AppUsers == null)
-            {
-                return Problem("Entity set 'AppUserRolesContext.AppUsers'  is null.");
-            }
-            await _service.DeleteAsync(id);
+            await _appUserService.DeleteAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AppUserExists(int id)
-        {
-            return (_service.DbContext.AppUsers?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }

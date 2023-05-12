@@ -1,7 +1,6 @@
 using EDennis.AspNetUtils.Tests.BlazorSample.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using Radzen;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Artists

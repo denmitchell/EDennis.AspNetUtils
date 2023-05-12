@@ -12,7 +12,7 @@ namespace EDennis.AspNetUtils
     /// <typeparam name="TEntity"></typeparam>
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class CrudController<TEntity> : Controller 
+    public abstract class CrudController<TEntity> : Controller
         where TEntity : class
     {
         /// <summary>
@@ -47,7 +47,7 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         [NonAction]
         public virtual object[] GetId(string idParam)
-            => idParam.Split('/').Select(i=>(object)int.Parse(i)).ToArray();
+            => idParam.Split('/').Select(i => (object)int.Parse(i)).ToArray();
 
         /// <summary>
         /// Resolves a string value to a <see cref="CountType"/> enum. 
@@ -144,7 +144,7 @@ namespace EDennis.AspNetUtils
                 [FromQuery] string include = null,
                 [FromQuery] bool asNoTracking = true)
         {
-            if(select == null)
+            if (select == null)
             {
                 (List<TEntity> Data, int Count) = await CrudService.GetAsync(where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
@@ -152,7 +152,8 @@ namespace EDennis.AspNetUtils
                 var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
                 return new ContentResult { Content = json, ContentType = "application/json", StatusCode = 200 };
 
-            } else
+            }
+            else
             {
                 (List<dynamic> Data, int Count) = await CrudService.GetAsync(select, where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
@@ -170,7 +171,7 @@ namespace EDennis.AspNetUtils
         /// <param name="asOf">records modifed after this date are returned</param>
         /// <returns></returns>
         [HttpGet("modified")]
-        public async Task<IActionResult> GetModified([FromQuery] DateTime asOf) 
+        public async Task<IActionResult> GetModified([FromQuery] DateTime asOf)
         {
             var result = await CrudService.GetModifiedAsync(asOf);
             return new ObjectResult(result) { StatusCode = 200 };
@@ -192,7 +193,7 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Serialization options to ensure proper serialization of tuple results
         /// </summary>
-        private static JsonSerializerOptions _jsonSerializerOptions = new ()
+        private static JsonSerializerOptions _jsonSerializerOptions = new()
         {
             IncludeFields = true
         };
@@ -213,10 +214,10 @@ namespace EDennis.AspNetUtils
             _logger = logger;
         }
 
-        public void WriteLine(string message) 
+        public void WriteLine(string message)
             => _logger.LogDebug(message);
 
-        public void WriteLine(string format, params object[] args) 
+        public void WriteLine(string format, params object[] args)
             => _logger.LogDebug(format, args);
     }
 

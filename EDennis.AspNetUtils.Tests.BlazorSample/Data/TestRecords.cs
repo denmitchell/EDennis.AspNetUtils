@@ -1,6 +1,4 @@
-﻿using EDennis.AspNetUtils.Tests.BlazorSample;
-
-namespace EDennis.AspNetUtils.Tests.BlazorSample
+﻿namespace EDennis.AspNetUtils.Tests.BlazorSample
 {
     public static class TestRecords
     {

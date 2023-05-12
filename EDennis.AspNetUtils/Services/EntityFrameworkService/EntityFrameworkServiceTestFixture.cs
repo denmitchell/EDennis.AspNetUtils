@@ -11,7 +11,7 @@ namespace EDennis.AspNetUtils
     /// <typeparam name="TContext"></typeparam>
     /// <typeparam name="TService"></typeparam>
     /// <typeparam name="TEntity"></typeparam>
-    public class CrudServiceTestFixture<TContext, TService, TEntity>
+    public class EntityFrameworkServiceTestFixture<TContext, TService, TEntity>
         where TContext : DbContext
         where TEntity : class
         where TService : EntityFrameworkService<TContext, TEntity>
@@ -41,7 +41,8 @@ namespace EDennis.AspNetUtils
             if (!File.Exists(appsettingsFilePath))
                 throw new Exception($"Invalid appsettings path: {appsettingsFilePath}");
 
-            if (!_configs.TryGetValue(appsettingsFile, out var config)) {
+            if (!_configs.TryGetValue(appsettingsFile, out var config))
+            {
                 config = new ConfigurationBuilder()
                     .AddJsonFile(appsettingsFilePath)
                     .AddEnvironmentVariables()
@@ -49,12 +50,13 @@ namespace EDennis.AspNetUtils
                 _configs.TryAdd(appsettingsFile, config);
             }
 
-            //create a test instance of CrudController dependencies
-            var deps = CrudServiceDependencies<TContext, TEntity>.GetTestInstance(config, userName, role);
+            //create a test instance of CrudService dependencies
+            var deps = EntityFrameworkServiceDependencies<TContext, TEntity>.GetTestInstance(config, userName, role);
 
             //create an instance of the Crud Service
-            TService service = (TService)Activator.CreateInstance(typeof(TService),deps);
+            TService service = (TService)Activator.CreateInstance(typeof(TService), deps);
 
+            //set the DbContext
             service.EnableTestAsync(output).Wait();
 
             return service;

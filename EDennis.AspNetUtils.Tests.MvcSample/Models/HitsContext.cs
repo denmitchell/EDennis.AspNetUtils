@@ -1,4 +1,3 @@
-using EDennis.AspNetUtils.Tests.MvcSample;
 using Microsoft.EntityFrameworkCore;
 
 namespace EDennis.AspNetUtils.Tests.MvcSample

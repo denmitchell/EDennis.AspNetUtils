@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Options;
 using Radzen;
 using Radzen.Blazor;
 
@@ -45,11 +44,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Pages.Admin.Users
 
         /// <summary>
         /// An EDennis Service
-        /// CrudService of <see cref="EntityFrameworkService{AppUserRolesContext, AppUser}"/> for
+        /// Implementation of <see cref="EntityFrameworkService{AppUserRolesContext, AppUser}"/> for
         /// performing CRUD operations on user records
         /// </summary>
         [Inject]
-        protected AppUserService<AppUserRolesContext> UserService { get; set; }
+        protected ICrudService<AppUser> UserService { get; set; }
 
 
 

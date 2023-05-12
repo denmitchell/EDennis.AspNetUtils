@@ -1,7 +1,5 @@
-﻿using SqlServerExceptions = EntityFramework.Exceptions.SqlServer.ExceptionProcessorExtensions;
-using SqliteExceptions = EntityFramework.Exceptions.Sqlite.ExceptionProcessorExtensions;
+﻿using EntityFramework.Exceptions.SqlServer;
 using Microsoft.Data.SqlClient;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data.Common;
@@ -16,7 +14,7 @@ namespace EDennis.AspNetUtils
     /// normal (framework-managed) transactions and open transactions (for testing)
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    public class DbContextService<TContext> 
+    public class DbContextService<TContext>
         where TContext : DbContext
     {
 
@@ -71,23 +69,23 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         public TContext GetTestServiceContext(ITestOutputHelper output = null)
         {
-                DbConnection connection = new SqlConnection(_sqlServerConnectionString);
+            DbConnection connection = new SqlConnection(_sqlServerConnectionString);
 
-                var builder = new DbContextOptionsBuilder<TContext>();
-                builder.UseSqlServer(connection)
-                    .EnableSensitiveDataLogging();
+            var builder = new DbContextOptionsBuilder<TContext>();
+            builder.UseSqlServer(connection)
+                .EnableSensitiveDataLogging()
+                .UseExceptionProcessor();
 
-                if (output != null)
-                    builder.LogTo(output.WriteLine);
+            if (output != null)
+                builder.LogTo(output.WriteLine);
 
-                SqlServerExceptions.UseExceptionProcessor(builder);
 
-                connection.Open();
-                var transaction = connection.BeginTransaction();
+            connection.Open();
+            var transaction = connection.BeginTransaction();
 
-                TContext context = (TContext)Activator.CreateInstance(typeof(TContext), builder.Options);
-                context.Database.UseTransaction(transaction);
-                return context;
+            TContext context = (TContext)Activator.CreateInstance(typeof(TContext), builder.Options);
+            context.Database.UseTransaction(transaction);
+            return context;
 
         }
 
@@ -133,7 +131,6 @@ namespace EDennis.AspNetUtils
         {
             var builder = new DbContextOptionsBuilder<TContext>();
             builder.UseSqlServer(cxnString);
-            SqlServerExceptions.UseExceptionProcessor(builder);
 
             return builder.Options;
         }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -14,7 +13,6 @@ namespace EDennis.AspNetUtils
     /// of FakeUser=Maria (or some other user)  
     /// </summary>
     public class FakeAuthenticationHandler : AuthenticationHandler<FakeAuthenticationOptions>
-        //IAuthenticationService
     {
         private readonly IConfiguration _config;
         private readonly SecurityOptions _securityOptions;

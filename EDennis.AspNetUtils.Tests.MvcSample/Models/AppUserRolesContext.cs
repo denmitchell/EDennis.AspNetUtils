@@ -1,9 +1,6 @@
-﻿using EDennis.AspNetUtils.Tests.MvcSample;
-using Microsoft.EntityFrameworkCore;
-
-namespace EDennis.AspNetUtils.Tests.MvcSample
+﻿namespace EDennis.AspNetUtils.Tests.MvcSample
 {
-    public class DesignTimeDbContextFactory_AppUserContext : AppUserRoleDesignTimeDbContextFactory<AppUserRolesContext>
+    public class DesignTimeDbContextFactory_AppUserContext : AppUserRoleDesignTimeDbContextFactory<SimpleAuthContext>
     {
         public IEnumerable<AppRole> RoleData => TestRecords.GetAppRoles();
         public IEnumerable<AppUser> UserData => TestRecords.GetAppUsers();
