@@ -1,50 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="NewFolder\**" />
+		<EmbeddedResource Remove="NewFolder\**" />
+		<None Remove="NewFolder\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.Test.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="appsettings.Test.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="appsettings.Test.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="appsettings.Test.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.2.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+		<PackageReference Include="xunit" Version="2.4.2" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="3.2.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample\EDennis.AspNetUtils.Tests.BlazorSample.csproj" />
-    <ProjectReference Include="..\EDennis.AspNetUtils.Tests.MvcSample\EDennis.AspNetUtils.Tests.MvcSample.csproj" />
-    <ProjectReference Include="..\EDennis.AspNetUtils\EDennis.AspNetUtils.csproj" />
-    <ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample\EDennis.AspNetUtils.Tests.BlazorSample.csproj" />
-    <ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample\EDennis.AspNetUtils.Tests.BlazorSample.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample.Shared\EDennis.AspNetUtils.Tests.BlazorSample.Shared.csproj" />
+		<ProjectReference Include="..\EDennis.AspNetUtils.Tests.BlazorSample.BS\EDennis.AspNetUtils.Tests.BlazorSample.BS.csproj" />
+		<ProjectReference Include="..\EDennis.AspNetUtils.Tests.MvcSample\EDennis.AspNetUtils.Tests.MvcSample.csproj" />
+		<ProjectReference Include="..\EDennis.AspNetUtils\EDennis.AspNetUtils.csproj" />
+	</ItemGroup>
 
 </Project>

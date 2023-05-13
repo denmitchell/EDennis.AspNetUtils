@@ -1,5 +1,4 @@
-using EDennis.AspNetUtils.Tests.BlazorSample.Services;
-using Radzen;
+using EDennis.AspNetUtils.Tests.BlazorSample.Shared.Models;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
