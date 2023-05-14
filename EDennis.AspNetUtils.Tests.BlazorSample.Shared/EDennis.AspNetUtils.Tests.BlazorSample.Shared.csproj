@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -17,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\EDennis.AspNetUtils\EDennis.AspNetUtils.csproj" />
+	  <ProjectReference Include="..\EDennis.AspNetUtils.Core\EDennis.AspNetUtils.Core.csproj" />
 	</ItemGroup>
 
 </Project>

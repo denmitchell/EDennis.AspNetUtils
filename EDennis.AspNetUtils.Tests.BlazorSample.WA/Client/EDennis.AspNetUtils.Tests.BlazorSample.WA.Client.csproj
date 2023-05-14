@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EDennis.AspNetUtils.Core\EDennis.AspNetUtils.Core.csproj" />
+    <ProjectReference Include="..\..\EDennis.AspNetUtils.Tests.BlazorSample.Shared\EDennis.AspNetUtils.Tests.BlazorSample.Shared.csproj" />
   </ItemGroup>
 
 </Project>
