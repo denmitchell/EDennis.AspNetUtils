@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/EDennis.AspNetUtils.Tests.BlazorSample.BS/appsettings.Development.json
+/EDennis.AspNetUtils.Tests.MvcSample/appsettings.Development.json
