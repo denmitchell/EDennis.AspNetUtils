@@ -128,31 +128,6 @@ namespace EDennis.AspNetUtils
         }
 
 
-
-        /// <summary>
-        /// Retrieves (minified) JSON from an environment variable, parses
-        /// that JSON as though it were an additional appsettings file, and
-        /// adds the resulting key/value pairs to configuration
-        /// </summary>
-        /// <param name="builder">The configuration services</param>
-        /// <param name="key">The environment variable name</param>
-        /// <returns>the configuration services (for fluent construction)</returns>
-        /// <exception cref="ArgumentException">when the environment variable isn't defined</exception>
-        public static IConfigurationBuilder AddJsonEnvironmentVariable(this IConfigurationBuilder builder, string key, bool optional = true)
-        {
-            var value = Environment.GetEnvironmentVariable(key);
-            if (!optional && string.IsNullOrEmpty(value))
-                throw new ArgumentException($"Environment variable {key} not set.");
-
-            if (!string.IsNullOrEmpty(value))
-                builder.AddJsonStream(new MemoryStream(Encoding.UTF8.GetBytes(value ?? "")));
-
-            return builder;
-        }
-
-
-
-
         /// <summary>
         /// from https://stackoverflow.com/a/21269486
         /// Get full type name with full namespace names

@@ -21,9 +21,6 @@ else
 {
 #endif
 
-    builder.Configuration.AddJsonEnvironmentVariable(
-        $"{typeof(Program).Assembly.GetName().Name}.Configuration");
-
     builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 

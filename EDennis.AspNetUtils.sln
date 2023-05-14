@@ -13,6 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.BlazorSample.Shared", "EDennis.AspNetUtils.Tests.BlazorSample.Shared\EDennis.AspNetUtils.Tests.BlazorSample.Shared.csproj", "{5623569F-FAE3-444F-8D73-2929A1ADA939}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Server", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Server\EDennis.AspNetUtils.Tests.BlazorSample.WA.Server.csproj", "{E1267514-E9EA-488E-812F-47E1C8B50374}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Client", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Client\EDennis.AspNetUtils.Tests.BlazorSample.WA.Client.csproj", "{B24D8415-9C11-480D-842F-BE3C44236838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Shared", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Shared\EDennis.AspNetUtils.Tests.BlazorSample.WA.Shared.csproj", "{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Core", "EDennis.AspNetUtils.Core\EDennis.AspNetUtils.Core.csproj", "{C639C1F2-4876-40FE-9605-8FE113282EEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +47,22 @@ Global
 		{5623569F-FAE3-444F-8D73-2929A1ADA939}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5623569F-FAE3-444F-8D73-2929A1ADA939}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5623569F-FAE3-444F-8D73-2929A1ADA939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1267514-E9EA-488E-812F-47E1C8B50374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1267514-E9EA-488E-812F-47E1C8B50374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1267514-E9EA-488E-812F-47E1C8B50374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1267514-E9EA-488E-812F-47E1C8B50374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24D8415-9C11-480D-842F-BE3C44236838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24D8415-9C11-480D-842F-BE3C44236838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24D8415-9C11-480D-842F-BE3C44236838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24D8415-9C11-480D-842F-BE3C44236838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C639C1F2-4876-40FE-9605-8FE113282EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C639C1F2-4876-40FE-9605-8FE113282EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C639C1F2-4876-40FE-9605-8FE113282EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C639C1F2-4876-40FE-9605-8FE113282EEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

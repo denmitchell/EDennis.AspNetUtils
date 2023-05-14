@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -17,7 +18,7 @@ namespace EDennis.AspNetUtils
         /// <param name="configKey">Parent key for each API settings section</param>
         /// <param name="securityConfigKey">Configuration key for a token service used with child APIs</param>
         /// <returns></returns>
-        public static ApiClientServiceBuilder AddApiClientServices(this WebApplicationBuilder builder,
+        public static ApiClientServiceBuilder AddApiClientServices(this WebApplicationBuilder builder, 
             bool addApiKeyMessageHandler = true, string configKey = "Apis", string securityConfigKey = "Security")
         {
             //get the settings from configuration and also setup

@@ -1,0 +1,14 @@
+{
+  "ImportantNote": "My AzureAd settings are in appsettings.json, which is excluded via .gitignore"
+  /*
+  "AzureAd": {
+    "ClientId": "00000000-0000-0000-0000-000000000000",
+    "Authority": "https://login.microsoftonline.com/000000.onmicrosoft.com",
+    "ValidateAuthority": true
+  },
+  "ServerApi": {
+    "BaseUrl": "api://00000000-0000-0000-0000-000000000000",
+    "Scopes": "api://00000000-0000-0000-0000-000000000000/access_as_user"
+  }
+  */
+}
