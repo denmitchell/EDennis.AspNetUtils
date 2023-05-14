@@ -42,6 +42,7 @@ namespace EDennis.AspNetUtils
             if (!_apis.TryGetValue(typeof(TEntity).Name, out ApiClientSettings api))
                 throw new Exception($"Configuration for ApiClient {typeof(TEntity).Name} not set");
 
+
             IHttpClientBuilder httpClientBuilder = _builder.Services.AddHttpClient<ApiClientService<TEntity>>(configure =>
             {
                 configure.BaseAddress = new Uri(api.BaseAddress);

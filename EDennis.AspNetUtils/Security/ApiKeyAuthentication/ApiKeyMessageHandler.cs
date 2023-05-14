@@ -18,6 +18,7 @@ namespace EDennis.AspNetUtils
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApiClientSettingsDictionary _dict;
+        private readonly ApiKeySettings _apiKeySettings;
         private readonly SecurityOptions _securityOptions;
 
         /// <summary>
@@ -28,11 +29,13 @@ namespace EDennis.AspNetUtils
         /// <param name="dict">Dictionary of all settings for API Clients</param>
         public ApiKeyMessageHandler(IHttpContextAccessor httpContextAccessor,
             IOptionsMonitor<ApiClientSettingsDictionary> dict,
+            IOptionsMonitor<ApiKeySettings> apiKeySettings,
             IOptionsMonitor<SecurityOptions> securityOptions)
         {
             _httpContextAccessor = httpContextAccessor;
             _dict = dict.CurrentValue;
             _securityOptions = securityOptions.CurrentValue;
+            _apiKeySettings = apiKeySettings.CurrentValue;
         }
 
         /// <summary>
@@ -77,15 +80,15 @@ namespace EDennis.AspNetUtils
 
 
             var clientSettings = entry.Value;
-            var apiKey = clientSettings.ApiKey;
+            var apiKey = clientSettings.Properties["ApiKey"];
 
             //get all user claims
             var claims = _httpContextAccessor.HttpContext.User?.Claims;
             var userName = claims.FirstOrDefault(c => c.Type == _securityOptions.IdpUserNameClaim);
             if (apiKey != null)
-                request.Headers.Add(clientSettings.ApiKeyHeaderKey, apiKey);
+                request.Headers.Add(_apiKeySettings.ApiKeyHeaderKey, apiKey);
             if (userName != null)
-                request.Headers.Add($"{clientSettings.ClaimHeaderPrefix}c.Type", userName.Value);
+                request.Headers.Add($"{_apiKeySettings.ClaimHeaderPrefix}c.Type", userName.Value);
 
         }
     }

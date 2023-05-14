@@ -15,6 +15,9 @@
 
     public class SecurityOptions
     {
+
+        public const string DefaultConfigKey = "Security";
+
         /// <summary>
         /// The claim type from Azure used as the UserName
         /// </summary>

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -6,12 +6,6 @@ using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils
 {
-    /// <summary>
-    /// Implementation of <see cref="ICrudService{TEntity}"/> for ApiClients using
-    /// <see cref="HttpClient"/> to communicate with an API.  Note that Exceptions 
-    /// are thrown when APIs return
-    /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
     public class ApiClientService<TEntity> : ICrudService<TEntity> where TEntity : class
     {
 
@@ -29,9 +23,9 @@ namespace EDennis.AspNetUtils
         /// Constructs a new QueryApiClient with the provided IHttpClientFactory.
         /// </summary>
         /// <param name="clientFactory">factory for creating a named HttpClient</param>
-        public ApiClientService(IHttpClientFactory clientFactory)
+        public ApiClientService(HttpClient client)
         {
-            HttpClient = clientFactory.CreateClient(typeof(TEntity).Name);
+            HttpClient = client;
             ControllerPath ??= $"api/{typeof(TEntity).Name}Controller";
         }
 
