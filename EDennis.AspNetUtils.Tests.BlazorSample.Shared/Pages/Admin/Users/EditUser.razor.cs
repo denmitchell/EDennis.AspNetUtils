@@ -176,14 +176,14 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
         /// from the database
         /// </summary>
         /// <returns></returns>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            user = UserService.Find(Id);
+            user = await UserService.FindAsync(Id);
 
             if(SecurityOptions.CurrentValue.AllowMultipleRoles)
                 userRoles = user.Role.Split(',');
 
-            (roles, _) = RoleService.Get(countType: CountType.None);
+            (roles, _) = await RoleService.GetAsync(countType: CountType.None);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
                 if (SecurityOptions.CurrentValue.AllowMultipleRoles)
                     user.Role = string.Join(",", userRoles);
 
-                UserService.Update(user, Id);
+                UserService.UpdateAsync(user, Id);
                 DialogService.Close(user);
             }
             catch

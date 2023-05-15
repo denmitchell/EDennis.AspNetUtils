@@ -117,7 +117,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
 
 
         /// <summary>
-        /// The user records returned by LoadData below 
+        /// The user records returned by LoadDataAsync below 
         /// This variable is bound to RadzenDataGrid's Data attribute (Data="@users")
         /// </summary>
         protected IEnumerable<AppUser> users;
@@ -125,7 +125,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
 
         /// <summary>
         /// The count of records across all pages, which is returned by 
-        /// UserService.Get (see below).
+        /// UserService.GetAsync (see below).
         /// This variable is bound to RadzenDataGrid's Count attribute (Count="@recCount")
         /// </summary>
         protected int recCount = -1;
@@ -137,16 +137,16 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
         /// <summary>
         /// Retrieves user records from <see cref="UserService"/>.  This method applies
         /// any filters (where), sorting (orderBy), and paging (skip, take) from the grid
-        /// This method is bound to the RadzenDataGrid's LoadData attribute (LoadData="@LoadData")
+        /// This method is bound to the RadzenDataGrid's LoadDataAsync attribute (LoadDataAsync="@LoadDataAsync")
         /// </summary>
         /// <param name="args">filters, sorting, and paging arguments</param>
         /// <returns></returns>
-        public void LoadData(LoadDataArgs args)
+        public async Task LoadDataAsync(LoadDataArgs args)
         {
-            //Note: the return type of Get is a two-variable tuple.
+            //Note: the return type of GetAsync is a two-variable tuple.
             //By using variable names defined above, the output is piped to
             //those two variables. 
-            (users, recCount) = UserService.Get(
+            (users, recCount) = await UserService.GetAsync(
                 where: args.Filter,
                 orderBy: args.OrderBy,
                 skip: args.Skip,
@@ -214,7 +214,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
             {
                 if (await DialogService.Confirm("Are you sure you want to delete this record?") == true)
                 {
-                    var deleteResult = UserService.Delete(user.Id);
+                    var deleteResult = UserService.DeleteAsync(user.Id);
 
                     if (deleteResult != null)
                     {

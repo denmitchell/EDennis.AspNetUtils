@@ -130,7 +130,7 @@ namespace EDennis.AspNetUtils
 
         /// <summary>
         /// from https://stackoverflow.com/a/21269486
-        /// Get full type name with full namespace names
+        /// GetAsync full type name with full namespace names
         /// </summary>
         /// <param name="type">
         /// The type to get the C# name for (may be a generic type or a nullable type).

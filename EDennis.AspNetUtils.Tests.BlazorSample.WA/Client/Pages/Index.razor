@@ -1,9 +1,13 @@
-﻿@page "/"
+@page "/"
+@using Microsoft.AspNetCore.Authorization;
 
+@attribute [Authorize]
 <PageTitle>Index</PageTitle>
+<RadzenRow Gap="5" RowGap="5">
+    <RadzenColumn Size="12">
+        <RadzenText Text="Sample Web Assembly App" TextStyle="Radzen.Blazor.TextStyle.DisplayH2" TagName="Radzen.Blazor.TagName.Auto"></RadzenText>
+        <RadzenText Text="Using Microsoft Authentication Library and Simple Authorization" TextStyle="Radzen.Blazor.TextStyle.H4" TagName="Radzen.Blazor.TagName.H2" class="mt-5"></RadzenText>
+        <RadzenText Text="Featuring Radzen Blazor components" TextStyle="Radzen.Blazor.TextStyle.Body1" TagName="Radzen.Blazor.TagName.Auto" class="mt-4" Style="font-size: 20px; line-height: 24px"></RadzenText>
+    </RadzenColumn>
+</RadzenRow>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />

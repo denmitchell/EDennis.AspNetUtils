@@ -36,7 +36,7 @@ namespace EDennis.AspNetUtils
             if (authState?.User == null || authState.User.Identity == null || !authState.User.Identity.IsAuthenticated)
                 return authState;
             else
-               _authProvider.UpdateClaimsPrincipal(authState.User);
+               await _authProvider.UpdateClaimsPrincipalAsync(authState.User);
 
             return authState;
         }

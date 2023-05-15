@@ -24,7 +24,7 @@ namespace EDennis.AspNetUtils
         }
 
 
-        public void UpdateClaimsPrincipal(ClaimsPrincipal principal)
+        public async Task UpdateClaimsPrincipalAsync(ClaimsPrincipal principal)
         {
             if (principal != null)
             {
@@ -37,7 +37,7 @@ namespace EDennis.AspNetUtils
 
                 if (UserNameProvider.UserName != null)
                 {
-                    var role = GetRole();
+                    var role = await GetRoleAsync();
 
                     Claim[] claims;
 
@@ -64,7 +64,7 @@ namespace EDennis.AspNetUtils
 
         }
 
-        public string GetRole()
+        public async Task<string> GetRoleAsync()
         {
             if (!_rolesCache.TryGetValue(UserNameProvider.UserName,
                 out (DateTime ExpiresAt, string Role) entry)
@@ -72,8 +72,8 @@ namespace EDennis.AspNetUtils
             {
 
                 //note: this hangs if you call await ... FirstOrDefaultAsync
-                (List<dynamic> result, int _) = _userService
-                    .Get(select: "Role", where: "UserName == @0", new object[] { UserNameProvider.UserName });
+                (List<dynamic> result, int _) = await _userService
+                    .GetAsync(select: "Role", where: "UserName == @0", new object[] { UserNameProvider.UserName });
 
                 var role = result.FirstOrDefault() as string;
 

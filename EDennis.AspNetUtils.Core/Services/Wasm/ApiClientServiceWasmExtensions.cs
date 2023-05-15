@@ -16,7 +16,7 @@ namespace EDennis.AspNetUtils
         /// <param name="builder">builder from Program.cs</param>
         /// <param name="serviceName">The name of the service</param>
         /// <returns></returns>
-        public static WebAssemblyHostBuilder AddApiClientService(this WebAssemblyHostBuilder builder,
+        public static WebAssemblyApiClientServiceBuilder AddApiClientServices(this WebAssemblyHostBuilder builder,
             string serviceName = null)
         {
             serviceName ??= "ServerApi";
@@ -27,11 +27,8 @@ namespace EDennis.AspNetUtils
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient(serviceName));
 
-            return builder;
+            return new WebAssemblyApiClientServiceBuilder(builder);
         }
-
-
-
 
 
     }

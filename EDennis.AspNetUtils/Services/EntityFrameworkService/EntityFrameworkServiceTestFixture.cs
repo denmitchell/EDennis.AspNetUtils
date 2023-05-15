@@ -32,7 +32,7 @@ namespace EDennis.AspNetUtils
         /// <param name="output">A reference to an XUnit helper object for directing output to a viewable location</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public TService GetCrudService(string appsettingsFile, string userName,
+        public async Task<TService> GetCrudServiceAsync(string appsettingsFile, string userName,
             ITestOutputHelper output = null)
         {
 
@@ -57,7 +57,7 @@ namespace EDennis.AspNetUtils
             TService service = (TService)Activator.CreateInstance(typeof(TService), deps);
 
             //set the DbContext
-            service.EnableTest(output);
+            await service.EnableTestAsync(output);
 
             return service;
         }

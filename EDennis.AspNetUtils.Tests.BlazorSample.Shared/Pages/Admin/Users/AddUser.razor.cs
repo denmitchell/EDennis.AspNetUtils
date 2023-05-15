@@ -153,11 +153,11 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
         /// from the database
         /// </summary>
         /// <returns></returns>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             user = new AppUser();
             userRoles = Array.Empty<string>();
-            (roles, _) = RoleService.Get(countType: CountType.None);
+            (roles, _) = await RoleService.GetAsync(countType: CountType.None);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Admin.Users
             try
             {
                 user.Role = string.Join(",", userRoles);
-                UserService.Create(user);
+                UserService.CreateAsync(user);
                 DialogService.Close(user);
             }
             catch

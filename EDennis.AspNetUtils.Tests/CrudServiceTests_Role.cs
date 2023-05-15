@@ -23,9 +23,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
 
         [Fact]
-        public void TestGetAll()
+        public async Task TestGetAllAsync()
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var recs = service
                 .GetQueryable()
@@ -42,9 +42,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData(1, "IT")]
         [InlineData(3, "user")]
         [InlineData(5, "disabled")]
-        public void TestFind(int guidId, string roleName)
+        public async Task TestFindAsync(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -54,7 +54,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
             Assert.NotNull(qryRec);
 
-            var findRec = service.Find(qryRec.Id);
+            var findRec = await service.FindAsync(qryRec.Id);
 
             Assert.Equal(roleName, findRec.RoleName);
             
@@ -64,9 +64,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData(2)]
         [InlineData(4)]
-        public void TestDelete(int guidId)
+        public async Task TestDeleteAsync(int guidId)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             //expected remaining Guids after delete
             int[] remaining = Enumerable.Range(1, 5).Except(new int[] { guidId }).ToArray();
@@ -79,7 +79,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
             Assert.NotNull(qryRec);
 
-            service.Delete(qryRec.Id);
+            await service.DeleteAsync(qryRec.Id);
 
 
             var recs = service
@@ -96,9 +96,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData(1, "super user")]
         [InlineData(3, "normal user")]
-        public void TestUpdate(int guidId, string roleName)
+        public async Task TestUpdateAsync(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -109,16 +109,18 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
             qryRec.RoleName = roleName;
 
-            var maxSysStart = service.GetMaxSysStart();
+            var maxSysStart = await service.GetMaxSysStartAsync();
 
-            service.Update(qryRec, qryRec.Id);
+            await service.UpdateAsync(qryRec, qryRec.Id);
 
-            var recs = service
-                .GetModified(maxSysStart)
+            var recs = await service
+                .GetModifiedAsync(maxSysStart);
+
+            var list = recs
                 .OrderBy(r => r.SysGuid)
                 .ToList();
 
-            Assert.Collection<AppRole>(recs,
+            Assert.Collection(list,
                 actual =>
                 {
                     Assert.Equal(roleName, actual.RoleName);
@@ -130,9 +132,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [Theory]
         [InlineData(998, "super user")]
         [InlineData(999, "normal user")]
-        public void TestCreate(int guidId, string roleName)
+        public async Task TestCreate(int guidId, string roleName)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var guid = GuidUtils.FromId(guidId);
 
@@ -142,16 +144,16 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
                 SysGuid = guid
             };
 
-            var maxSysStart = service.GetMaxSysStart();
+            var maxSysStart = await service.GetMaxSysStartAsync();
 
-            service.Create(AppRole);
+            var recs = await service
+                .GetModifiedAsync(maxSysStart);
 
-            var recs = service
-                .GetModified(maxSysStart)
+            var list = recs
                 .OrderBy(r => r.SysGuid)
                 .ToList();
 
-            Assert.Collection<AppRole>(recs,
+            Assert.Collection(list,
                 actual =>
                 {
                     Assert.Equal(roleName, actual.RoleName);

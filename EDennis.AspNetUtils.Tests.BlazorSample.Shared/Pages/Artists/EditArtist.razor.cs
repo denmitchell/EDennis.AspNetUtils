@@ -139,9 +139,9 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Artists
         /// Retrieves the target artist record from the database
         /// </summary>
         /// <returns></returns>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            artist = ArtistService.Find(Id);
+            artist = await ArtistService.FindAsync(Id);
         }
 
 
@@ -154,7 +154,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Artists
         {
             try
             {
-                ArtistService.Update(artist, Id);
+                ArtistService.UpdateAsync(artist, Id);
                 DialogService.Close(artist);
             }
             catch (Exception)

@@ -8,7 +8,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.WA.Server
 
 
         /// <summary>
-        /// Delete all songs belonging to the artist before deleting the artist
+        /// DeleteAsync all songs belonging to the artist before deleting the artist
         /// </summary>
         /// <param name="existing"></param>
         public override void BeforeDelete(Artist existing)

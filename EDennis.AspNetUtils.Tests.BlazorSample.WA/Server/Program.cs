@@ -32,7 +32,7 @@ builder.Services.AddAuthorization(options => {
     options.AddDefaultUserAdministrationPolicies();
     options.AddDefaultPolicies<Artist>();
     options.AddDefaultPolicies<Song>();
-    // /*EX: */ options.AddPolicy($"{nameof(Artist)}.Get", policy => policy.RequireRole("IT,admin,user,readonly"));
+    // /*EX: */ options.AddPolicy($"{nameof(Artist)}.GetAsync", policy => policy.RequireRole("IT,admin,user,readonly"));
 });
 
 

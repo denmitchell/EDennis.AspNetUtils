@@ -2,8 +2,18 @@
 @inject NavigationManager Navigation
 
 @code {
+    [Parameter]
+    public bool IsAuthenticated { get; set; }
+
     protected override void OnInitialized()
     {
-        Navigation.NavigateToLogin("authentication/login");
+        if (!IsAuthenticated)
+        {
+            Navigation.NavigateToLogin("authentication/login");
+        }
+        else
+        {
+            Navigation.NavigateTo("Unauthorized", true);
+        }
     }
 }

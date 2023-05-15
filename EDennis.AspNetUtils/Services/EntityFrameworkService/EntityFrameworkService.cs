@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System.Linq.Dynamic.Core;
+using System.Runtime.CompilerServices;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils
@@ -118,9 +120,9 @@ namespace EDennis.AspNetUtils
         /// <param name="testDbContextType">The nature of the new DbContext</param>
         /// <param name="output">An Xunit helper class for piping logs to the appropriate
         /// output stream during testing</param>
-        public void EnableTest(ITestOutputHelper output = null)
+        public virtual async Task EnableTestAsync(ITestOutputHelper output = null)
         {
-            DbContext = _dbContextService.GetTestServiceContext(output);
+            DbContext = await Task.Run(()=>_dbContextService.GetTestServiceContext(output));
         }
 
 
@@ -132,7 +134,7 @@ namespace EDennis.AspNetUtils
         /// Name claim.  This class uses <see cref="MvcAuthenticationStateProvider"/>
         /// </summary>
         /// <param name="authorizationProvider"></param>
-        public void SetUserName(UserNameProvider userNameProvider)
+        public virtual void SetUserName(UserNameProvider userNameProvider)
         {
             UserName = userNameProvider.UserName;
         }
@@ -143,9 +145,9 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="input">The entity holding data to insert into the database</param>
         /// <returns></returns>
-        public virtual TEntity Create(TEntity input)
+        public virtual async Task<TEntity> CreateAsync(TEntity input)
         {
-            UpdateSysUser();
+            await UpdateSysUserAsync();
             BeforeCreate(input); //optional lifecycle method
 
             //update SysGuid when relevant
@@ -153,7 +155,7 @@ namespace EDennis.AspNetUtils
                 iHasSysGuid.SysGuid = Guid.NewGuid();
 
             DbContext.Add(input);
-            DbContext.SaveChanges();
+            await DbContext.SaveChangesAsync();
 
             AfterCreate(input); //optional lifecycle method
 
@@ -169,10 +171,10 @@ namespace EDennis.AspNetUtils
         /// <param name="input">The entity holding data to update</param>
         /// <param name="id">The primary key of the entity</param>
         /// <returns></returns>
-        public virtual TEntity Update(
+        public virtual async Task<TEntity> UpdateAsync(
             TEntity input, params object[] id)
         {
-            var existing = Find(id);
+            var existing = await FindAsync(id);
             if (existing == null)
                 return null;
 
@@ -184,8 +186,8 @@ namespace EDennis.AspNetUtils
             entry.CurrentValues.SetValues(input);
             entry.State = EntityState.Modified;
 
-            UpdateSysUser();
-            DbContext.SaveChanges();
+            await UpdateSysUserAsync();
+            await DbContext.SaveChangesAsync();
 
             AfterUpdate(existing); //optional lifecycle method
 
@@ -201,19 +203,19 @@ namespace EDennis.AspNetUtils
         /// <param name="key">the primary key of the entity</param>
         /// <returns>OK or NoContent, if successful</returns>
         /// <seealso cref="Delete(string)"/>
-        public virtual TEntity Delete(params object[] id)
+        public virtual async Task<TEntity> DeleteAsync(params object[] id)
         {
-            var existing = Find(id);
+            var existing = await FindAsync(id);
 
             if (existing == null)
                 return null;
 
             BeforeDelete(existing);
 
-            UpdateSysUser();
-            DbContext.SaveChanges();
+            await UpdateSysUserAsync();
+            await DbContext.SaveChangesAsync();
             DbContext.Remove(existing);
-            DbContext.SaveChanges();
+            await DbContext.SaveChangesAsync();
 
             AfterDelete(existing);
 
@@ -223,61 +225,64 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Updates SysUser in all changed entities that implement IHasSysUser
         /// </summary>
-        public virtual void UpdateSysUser()
+        public virtual async Task UpdateSysUserAsync()
         {
-            var entries = DbContext.ChangeTracker.Entries().ToList();
-            for (int i = 0; i < entries.Count; i++)
+            await Task.Run(() =>
             {
-                var entry = entries[i];
-                if (entry.Entity is IHasSysUser entity)
-                    switch (entry.State)
-                    {
-                        case EntityState.Added:
-                        case EntityState.Modified:
-                        case EntityState.Deleted:
-                            entity.SysUser = UserName;
-                            break;
-                        default:
-                            break;
-                    }
-            }
+                var entries = DbContext.ChangeTracker.Entries().ToList();
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    var entry = entries[i];
+                    if (entry.Entity is IHasSysUser entity)
+                        switch (entry.State)
+                        {
+                            case EntityState.Added:
+                            case EntityState.Modified:
+                            case EntityState.Deleted:
+                                entity.SysUser = UserName;
+                                break;
+                            default:
+                                break;
+                        }
+                }
+            });
         }
 
         #endregion
         #region Lifecycle Methods
 
         /// <summary>
-        /// Overrideable method that will be executed before Create
+        /// Overrideable method that will be executed before CreateAsync
         /// </summary>
         /// <param name="input">The entity to create</param>
         public virtual void BeforeCreate(TEntity input) { }
 
         /// <summary>
-        /// Overrideable method that will be executed after Create
+        /// Overrideable method that will be executed after CreateAsync
         /// </summary>
         /// <param name="input">The entity to create</param>
         public virtual void AfterCreate(TEntity input) { }
 
         /// <summary>
-        /// Overrideable method that will be executed before Update
+        /// Overrideable method that will be executed before UpdateAsync
         /// </summary>
         /// <param name="existing">The entity to update</param>
         public virtual void BeforeUpdate(TEntity existing) { }
 
         /// <summary>
-        /// Overrideable method that will be executed after Update
+        /// Overrideable method that will be executed after UpdateAsync
         /// </summary>
         /// <param name="existing">The entity to update</param>
         public virtual void AfterUpdate(TEntity existing) { }
 
         /// <summary>
-        /// Overrideable method that will be executed before Delete
+        /// Overrideable method that will be executed before DeleteAsync
         /// </summary>
         /// <param name="existing">The entity to delete</param>
         public virtual void BeforeDelete(TEntity existing) { }
 
         /// <summary>
-        /// Overrideable method that will be executed after Delete
+        /// Overrideable method that will be executed after DeleteAsync
         /// </summary>
         /// <param name="existing">The entity to delete</param>
         public virtual void AfterDelete(TEntity existing) { }
@@ -292,8 +297,8 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="id">The primary key of the target record</param>
         /// <returns></returns>
-        public TEntity Find(params object[] id)
-            => DbContext.Find<TEntity>(id);
+        public async Task<TEntity> FindAsync(params object[] id)
+            => await DbContext.FindAsync<TEntity>(id);
 
 
 
@@ -302,7 +307,7 @@ namespace EDennis.AspNetUtils
         /// IQueryables to their data grid.
         /// </summary>
         /// <returns></returns>
-        public virtual IQueryable<TEntity> GetQueryable(bool asNoTracking = true)
+        public IQueryable<TEntity> GetQueryable(bool asNoTracking = true)
         {
             var dbSet = DbContext
                 .Set<TEntity>();
@@ -335,8 +340,8 @@ namespace EDennis.AspNetUtils
         /// <param name="include">string Include expression (for including navigation properties)</param>
         /// <param name="asNoTracking">whether to track entities (for updating)</param>
         /// <returns>Dynamic-typed object</returns>
-        /// <seealso cref="Get(string, object[], string, int?, int?, CountType, string, bool)"/>
-        public virtual (List<dynamic> Data, int Count) Get(
+        /// <seealso cref="GetAsync(string, object[], string, int?, int?, CountType, string, bool)"/>
+        public virtual async Task<(List<dynamic> Data, int Count)> GetAsync(
                 string select,
                 string where = null, object[] whereArgs = null,
                 string orderBy = null, int? skip = null, int? take = null,
@@ -344,13 +349,19 @@ namespace EDennis.AspNetUtils
                 bool asNoTracking = true
                 )
         {
-
-            var (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
-
             List<dynamic> data = null;
-            if (countType != CountType.CountOnly)
-                data = query.Select(select)
-                    .ToDynamicList();
+            int recCount = -1;
+
+            await Task.Run(() =>
+            {
+                var (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
+
+                List<dynamic> data = null;
+                if (countType != CountType.CountOnly)
+                    data = query.Select(select)
+                        .ToDynamicList();
+
+            });
 
             return (data, recCount);
         }
@@ -371,23 +382,28 @@ namespace EDennis.AspNetUtils
         /// <param name="include">string Include expression (for including navigation properties)</param>
         /// <param name="asNoTracking">whether to track entities (for updating)</param>
         /// <returns>Entity-typed object</returns>
-        /// <seealso cref="Get(string, string, object[], string, int?, int?, CountType, string, bool)"/>
-        public virtual (List<TEntity> Data, int Count) Get(
+        /// <seealso cref="GetAsync(string, string, object[], string, int?, int?, CountType, string, bool)"/>
+        public virtual async Task<(List<TEntity> Data, int Count)> GetAsync(
                 string where = null, object[] whereArgs = null,
                 string orderBy = null, int? skip = null, int? take = null,
                 CountType countType = CountType.None, string include = null,
                 bool asNoTracking = true
                 )
         {
+            List<TEntity> data = null;
+            int recCount = -1;
 
-            var (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
+            await Task.Run(() =>
+            {
+                var (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
 
             List<TEntity> data = null;
             if (countType != CountType.CountOnly)
                 data = query.ToList();
 
-            return (data, recCount);
+            });
 
+            return (data, recCount);
         }
 
 
@@ -398,14 +414,14 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Gets any modified records (helpful for testing purposes)
         /// </summary>
-        /// <param name="asOf">Get all modifications after this datetime.
+        /// <param name="asOf">GetAsync all modifications after this datetime.
         /// NOTE: do not make this >=.  It will not work!</param>
         /// <returns></returns>
-        public IEnumerable<TEntity> GetModified(DateTime asOf)
+        public virtual async Task<IEnumerable<TEntity>> GetModifiedAsync(DateTime asOf)
         {
-            var results = DbContext.Set<TEntity>()
+            var results = await DbContext.Set<TEntity>()
                 .Where(e => EF.Property<DateTime>(e, SysStartColumn) > asOf)
-                .ToList();
+                .ToListAsync();
 
             return results;
         }
@@ -413,18 +429,18 @@ namespace EDennis.AspNetUtils
         /// <summary>
         /// Gets the most recent create/update datetime value for a given entity.
         /// When retrieved before an operation is performed, it can be used in 
-        /// combination with <see cref="GetModified(DateTime)"/> to obtain all
+        /// combination with <see cref="GetModifiedAsync(DateTime)"/> to obtain all
         /// entities that were modified as a result of the operation (only when 
         /// isolated testing is performed).
         /// </summary>
         /// <returns></returns>
-        public DateTime GetMaxSysStart()
+        public async Task<DateTime> GetMaxSysStartAsync()
         {
             FormattedString sql = new($"SELECT MAX({SysStartColumn}) Value FROM {GetTableName()}");
 
-            return DbContext.Database
+            return await DbContext.Database
                 .SqlQuery<DateTime>(sql)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
 
@@ -511,7 +527,7 @@ namespace EDennis.AspNetUtils
 
     /// <summary>
     /// Workaround class to support dynamically building SQL string for 
-    /// <see cref="EntityFrameworkService{TContext, TEntity}.GetMaxSysStart"/>
+    /// <see cref="EntityFrameworkService{TContext, TEntity}.GetMaxSysStartAsync"/>
     /// </summary>
     public class FormattedString : FormattableString
     {

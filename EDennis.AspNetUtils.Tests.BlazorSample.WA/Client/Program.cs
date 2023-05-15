@@ -1,4 +1,5 @@
 using EDennis.AspNetUtils;
+using EDennis.AspNetUtils.Tests.BlazorSample.Shared.Models;
 using EDennis.AspNetUtils.Tests.BlazorSample.WA.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -15,8 +16,15 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
 
-builder.AddApiClientService("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI");
+builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI")
+    .AddApiClientService<AppUser>()
+    .AddApiClientService<Artist>()
+    .AddApiClientService<Song>();
+
+
 builder.AddMsalAuthentication();
+
+
 
 await builder.Build().RunAsync();
 

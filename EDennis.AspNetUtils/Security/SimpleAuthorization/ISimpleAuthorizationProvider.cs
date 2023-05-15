@@ -4,8 +4,8 @@ namespace EDennis.AspNetUtils
 {
     public interface ISimpleAuthorizationProvider
     {
-        string GetRole();
+        Task<string> GetRoleAsync();
         UserNameProvider UserNameProvider { get; }
-        void UpdateClaimsPrincipal(ClaimsPrincipal principal);
+        Task UpdateClaimsPrincipalAsync(ClaimsPrincipal principal);
     }
 }

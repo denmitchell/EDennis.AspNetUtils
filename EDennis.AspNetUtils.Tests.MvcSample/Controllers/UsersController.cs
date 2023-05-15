@@ -28,7 +28,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            var (recs, _) = await Task.Run(() => _appUserService.Get());
+            var (recs, _) = await Task.Run(() => _appUserService.GetAsync());
 
             return View(recs.ToList());
         }
@@ -43,7 +43,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (id == null)
                 return NotFound();
 
-            var appUser = await Task.Run(() => _appUserService.Find(id));
+            var appUser = await Task.Run(() => _appUserService.FindAsync(id));
 
             if (appUser == null)
                 return NotFound();
@@ -51,9 +51,10 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             return View(appUser);
         }
 
-        private List<AppRole> GetAppRoles() => _appRoleService.Get().Data;
+        private List<AppRole> GetAppRoles() 
+            => _appRoleService.GetAsync().Result.Data;
 
-        // GET: AppUsers/Create
+        // GET: AppUsers/CreateAsync
         public IActionResult Create()
         {
             //workaround -- Authorization with Roles or Policy, not working 
@@ -65,12 +66,12 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             return View();
         }
 
-        // POST: AppUsers/Create
+        // POST: AppUsers/CreateAsync
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserName,RoleId,Id")] AppUser appUser)
+        public async Task<IActionResult> CreateAsync([Bind("UserName,RoleId,Id")] AppUser appUser)
         {
             //workaround -- Authorization with Roles or Policy, not working 
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
@@ -78,7 +79,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
 
             if (ModelState.IsValid)
             {
-                await Task.Run(() => _appUserService.Create(appUser));
+                await Task.Run(() => _appUserService.CreateAsync(appUser));
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role);
@@ -96,7 +97,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (id == null)
                 return NotFound();
 
-            var appUser = await Task.Run(() => _appUserService.Find(id));
+            var appUser = await Task.Run(() => _appUserService.FindAsync(id));
             if (appUser == null)
                 return NotFound();
 
@@ -121,7 +122,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
 
             if (ModelState.IsValid)                
             {
-                await Task.Run(() => _appUserService.Update(appUser, id));
+                await Task.Run(() => _appUserService.UpdateAsync(appUser, id));
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Role"] = new SelectList(GetAppRoles(), "RoleName", "RoleName", appUser.Role );
@@ -129,13 +130,13 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             return View(appUser);
         }
 
-        // GET: AppUsers/Delete/5
+        // GET: AppUsers/DeleteAsync/5
         public async Task<IActionResult> Delete(int? id)
         {
             return await Details(id);
         }
 
-        // POST: AppUsers/Delete/5
+        // POST: AppUsers/DeleteAsync/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -144,7 +145,7 @@ namespace EDennis.AspNetUtils.Tests.MvcSample.Controllers
             if (!HttpContext.User.IsInRole("IT") && !HttpContext.User.IsInRole("admin"))
                 return new StatusCodeResult(403);
 
-            await Task.Run(() => _appUserService.Delete(id));
+            await Task.Run(() => _appUserService.DeleteAsync(id));
 
             return RedirectToAction(nameof(Index));
         }

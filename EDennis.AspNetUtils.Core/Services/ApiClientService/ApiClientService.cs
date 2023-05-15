@@ -34,11 +34,11 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="input">the record to create</param>
         /// <returns></returns>
-        public TEntity Create(TEntity input)
+        public async Task<TEntity> CreateAsync(TEntity input)
         {
             var errorMessage = $"Problem creating {typeof(TEntity).Name} instance at {ControllerPath} with {JsonSerializer.Serialize(input)}";
-            var response = HttpClient.PostAsync(ControllerPath, GetContent(input)).Result;
-            return GetObject(response, errorMessage);
+            var response = await HttpClient.PostAsync(ControllerPath, GetContent(input));
+            return await GetObjectAsync(response, errorMessage);
         }
 
         /// <summary>
@@ -47,12 +47,12 @@ namespace EDennis.AspNetUtils
         /// <param name="input">Data to use for the update</param>
         /// <param name="id">The primary key of the record to update</param>
         /// <returns></returns>
-        public TEntity Update(TEntity input, params object[] id)
+        public async Task<TEntity> UpdateAsync(TEntity input, params object[] id)
         {
             var idPathParam = string.Join('/', id.Select(i => i.ToString()));
             var errorMessage = $"Problem creating {typeof(TEntity).Name} instance at {ControllerPath}/{idPathParam} with {JsonSerializer.Serialize(input)}";
-            var response = HttpClient.PutAsync($"{ControllerPath}/{idPathParam}", GetContent(input)).Result;
-            return GetObject(response, errorMessage);
+            var response = await HttpClient.PutAsync($"{ControllerPath}/{idPathParam}", GetContent(input));
+            return await GetObjectAsync(response, errorMessage);
         }
 
         /// <summary>
@@ -60,12 +60,12 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="id">The primary key of the record to update</param>
         /// <returns></returns>
-        public TEntity Delete(params object[] id)
+        public async Task<TEntity> DeleteAsync(params object[] id)
         {
             var idPathParam = string.Join('/', id.Select(i => i.ToString()));
             var errorMessage = $"Problem deleting {typeof(TEntity).Name} instance at {ControllerPath}/{idPathParam}";
-            var response = HttpClient.DeleteAsync($"{ControllerPath}/{idPathParam}").Result;
-            return GetObject(response, errorMessage);
+            var response = await HttpClient.DeleteAsync($"{ControllerPath}/{idPathParam}");
+            return await GetObjectAsync(response, errorMessage);
         }
 
         /// <summary>
@@ -73,12 +73,12 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="id">The primary key of the record to get</param>
         /// <returns></returns>
-        public TEntity Find(params object[] id)
+        public async Task<TEntity> FindAsync(params object[] id)
         {
             var idPathParam = string.Join('/', id.Select(i => i.ToString()));
             var errorMessage = $"Problem getting {typeof(TEntity).Name} instance at {ControllerPath}/{idPathParam}";
-            var response = HttpClient.GetAsync($"{ControllerPath}/{idPathParam}").Result;
-            return GetObject(response, errorMessage);
+            var response = await HttpClient.GetAsync($"{ControllerPath}/{idPathParam}");
+            return await GetObjectAsync(response, errorMessage);
         }
 
 
@@ -95,15 +95,15 @@ namespace EDennis.AspNetUtils
         /// <param name="asNoTracking">whether to not track the entity</param>
         /// <returns>A Tuple with the first value being a List{TEntity} and the second value being
         /// the count across records</returns>
-        public (List<TEntity> Data, int Count) Get(string where = null,
+        public async Task<(List<TEntity> Data, int Count)> GetAsync(string where = null,
                 object[] whereArgs = null, string orderBy = null, int? skip = null,
                 int? take = null, CountType countType = CountType.None,
                 string include = null, bool asNoTracking = true)
         {
             var queryString = QueryString(null, where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
             var errorMessage = $"Problem getting List<{typeof(TEntity).Name}> instance at {ControllerPath}/{queryString}";
-            var response = HttpClient.GetAsync($"{ControllerPath}/{queryString}").Result;
-            return GetTuple<TEntity>(response, errorMessage);
+            var response = await HttpClient.GetAsync($"{ControllerPath}/{queryString}");
+            return await GetTupleAsync<TEntity>(response, errorMessage);
         }
 
         /// <summary>
@@ -120,15 +120,15 @@ namespace EDennis.AspNetUtils
         /// <param name="asNoTracking">whether to not track the entity</param>
         /// <returns>A Tuple with the first value being a List{dynamic} and the second value being
         /// the count across records</returns>
-        public (List<dynamic> Data, int Count) Get(string select,
+        public async Task<(List<dynamic> Data, int Count)> GetAsync(string select,
                 string where = null, object[] whereArgs = null, string orderBy = null,
                 int? skip = null, int? take = null, CountType countType = CountType.None,
                 string include = null, bool asNoTracking = true)
         {
             var queryString = QueryString(select, where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
             var errorMessage = $"Problem getting List<{typeof(TEntity).Name}> instance at {ControllerPath}/{queryString}";
-            var response = HttpClient.GetAsync($"{ControllerPath}/{queryString}").Result;
-            return GetTuple<dynamic>(response, errorMessage);
+            var response = await HttpClient.GetAsync($"{ControllerPath}/{queryString}");
+            return await GetTupleAsync<dynamic>(response, errorMessage);
         }
 
         /// <summary>
@@ -137,11 +137,11 @@ namespace EDennis.AspNetUtils
         /// </summary>
         /// <param name="asOf">records modifed after this date are returned</param>
         /// <returns></returns>
-        public IEnumerable<TEntity> GetModified(DateTime asOf)
+        public async Task<IEnumerable<TEntity>> GetModifiedAsync(DateTime asOf)
         {
             var errorMessage = $"Problem getting modified {typeof(TEntity).Name} instances at {ControllerPath}/modified?asOf={asOf}";
-            var response = HttpClient.GetAsync($"{ControllerPath}/modified?asOf={asOf}").Result;
-            return GetEnumerable(response, errorMessage);
+            var response = await HttpClient.GetAsync($"{ControllerPath}/modified?asOf={asOf}");
+            return await GetEnumerableAsync(response, errorMessage);
         }
 
         /// <summary>
@@ -150,10 +150,10 @@ namespace EDennis.AspNetUtils
         /// <param name="output">A helper for outputting logs</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void EnableTest(ITestOutputHelper output = null)
+        public async Task EnableTestAsync(ITestOutputHelper output = null)
         {
             var errorMessage = $"Problem enabling test at {ControllerPath}/test";
-            var response = HttpClient.PostAsync($"{ControllerPath}/test", null).Result;
+            var response = await HttpClient.PostAsync($"{ControllerPath}/test", null);
             if (!response.IsSuccessStatusCode)
                 throw new Exception(errorMessage);
         }
@@ -176,14 +176,14 @@ namespace EDennis.AspNetUtils
         /// <param name="ignoreStatusCodes">Status codes to ignore (not throw exceptions for)</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static TEntity GetObject(HttpResponseMessage response, string exceptionMessage)
+        private static async Task<TEntity> GetObjectAsync(HttpResponseMessage response, string exceptionMessage)
         {
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return null;
             else if (!response.IsSuccessStatusCode)
                 throw new Exception(exceptionMessage);
 
-            var body = response.Content.ReadAsStringAsync().Result;
+            var body = await response.Content.ReadAsStringAsync();
             var entity = JsonSerializer.Deserialize<TEntity>(body);
             return entity;
         }
@@ -195,14 +195,14 @@ namespace EDennis.AspNetUtils
         /// <param name="exceptionMessage">An exception message to use if the status code 
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static IEnumerable<TEntity> GetEnumerable(HttpResponseMessage response, string exceptionMessage)
+        private static async Task<IEnumerable<TEntity>> GetEnumerableAsync(HttpResponseMessage response, string exceptionMessage)
         {
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return null;
             else if (!response.IsSuccessStatusCode)
                 throw new Exception(exceptionMessage);
 
-            var body = response.Content.ReadAsStringAsync().Result;
+            var body = await response.Content.ReadAsStringAsync();
             var entity = JsonSerializer.Deserialize<List<TEntity>>(body);
             return entity;
         }
@@ -215,14 +215,14 @@ namespace EDennis.AspNetUtils
         /// <param name="exceptionMessage">An exception message to use if the status code 
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static (List<T> Data, int Count) GetTuple<T>(HttpResponseMessage response, string exceptionMessage)
+        private static async Task<(List<T> Data, int Count)> GetTupleAsync<T>(HttpResponseMessage response, string exceptionMessage)
         {
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
             else if (!response.IsSuccessStatusCode)
                 throw new Exception(exceptionMessage);
 
-            var body = response.Content.ReadAsStringAsync().Result;
+            var body = await response.Content.ReadAsStringAsync();
             var entity = JsonSerializer.Deserialize<(List<T> Data, int Count)>(body, new JsonSerializerOptions { IncludeFields = true });
             return entity;
         }

@@ -33,7 +33,7 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, ISimpleAuthorizationProvider authProvider)
         {
-            authProvider.UpdateClaimsPrincipal(context.User);
+            authProvider.UpdateClaimsPrincipalAsync(context.User);
             await _next(context);
         }
 

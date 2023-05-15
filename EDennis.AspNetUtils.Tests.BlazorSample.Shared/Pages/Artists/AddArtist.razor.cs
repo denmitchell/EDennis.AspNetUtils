@@ -138,7 +138,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Shared.Pages.Artists
         {
             try
             {
-                ArtistService.Create(artist);
+                ArtistService.CreateAsync(artist);
                 DialogService.Close(artist);
             }
             catch (Exception)
