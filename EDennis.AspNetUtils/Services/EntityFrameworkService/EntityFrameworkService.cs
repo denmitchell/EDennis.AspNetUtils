@@ -38,7 +38,7 @@ namespace EDennis.AspNetUtils
         public TContext DbContext { get; private set; }
 
         /// <summary>
-        /// The name of the authenticated Claims Principal, which is 
+        /// The name of the authenticated UserName Principal, which is 
         /// used to update SysUser
         /// </summary>
         public string UserName { get; private set; }
@@ -95,7 +95,7 @@ namespace EDennis.AspNetUtils
         /// The constructor sets up a reference to the DbContext, the DbContextService
         /// (for replacing the DbContext during testing), and the <see cref="CountCache{TEntity}"/>.
         /// The constructor also uses the <see cref="MvcAuthenticationStateProvider"/> to
-        /// set the UserName property from the Claims Principal name.
+        /// set the UserName property from the UserName Principal name.
         /// </summary>
         /// <param name="deps">A bundled set of dependencies to inject</param>
         public EntityFrameworkService(EntityFrameworkServiceDependencies<TContext, TEntity> deps)
@@ -128,7 +128,7 @@ namespace EDennis.AspNetUtils
         #region Write Operations
 
         /// <summary>
-        /// Sets the UserName property of this service based upon the Claims Principal's 
+        /// Sets the UserName property of this service based upon the UserName Principal's 
         /// Name claim.  This class uses <see cref="MvcAuthenticationStateProvider"/>
         /// </summary>
         /// <param name="authorizationProvider"></param>
