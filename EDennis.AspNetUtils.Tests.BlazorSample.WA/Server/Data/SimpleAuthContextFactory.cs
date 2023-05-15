@@ -1,6 +1,6 @@
-﻿namespace EDennis.AspNetUtils.Tests.BlazorSample
+﻿namespace EDennis.AspNetUtils.Tests.BlazorSample.WA.Server
 {
-    public class AppUserRolesDesignTimeDbContextFactory_AppUserContext 
+    public class SimpleAuthContextFactory 
         : AppUserRoleDesignTimeDbContextFactory<SimpleAuthContext>
     {
         public override IEnumerable<AppUser> AppUserData => TestRecords.GetAppUsers();

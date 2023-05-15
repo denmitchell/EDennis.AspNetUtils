@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -8,6 +10,131 @@ namespace EDennis.AspNetUtils
 {
     public static class SimpleAuthorizationExtensions
     {
+
+
+        public static AuthorizationOptions AddDefaultPolicies<TEntity>(this AuthorizationOptions options)
+        {
+            var entityName = typeof(TEntity).Name;
+            options.AddPolicy($"{entityName}.Get",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin,user,readonly");
+                });
+            options.AddPolicy($"{entityName}.Create",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin,user");
+                });
+            options.AddPolicy($"{entityName}.Update",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin,user");
+                });
+            options.AddPolicy($"{entityName}.Delete",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin");
+                });
+            options.AddPolicy($"{entityName}.GetModified",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            options.AddPolicy($"{entityName}.EnableTest",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            return options;
+        }
+
+
+        public static AuthorizationOptions AddDefaultUserAdministrationPolicies(this AuthorizationOptions options)
+        {
+            options.AddPolicy($"{typeof(AppUser).Name}.Get",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin");
+                });
+            options.AddPolicy($"{typeof(AppUser).Name}.Create",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin");
+                });
+            options.AddPolicy($"{typeof(AppUser).Name}.Update",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin");
+                });
+            options.AddPolicy($"{typeof(AppUser).Name}.Delete",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin");
+                });
+            options.AddPolicy($"{typeof(AppUser).Name}.GetModified",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            options.AddPolicy($"{typeof(AppUser).Name}.EnableTest",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            
+            options.AddPolicy($"{typeof(AppRole).Name}.Get",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT,admin");
+                });
+
+
+            options.AddPolicy($"{typeof(AppRole).Name}.Create",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            options.AddPolicy($"{typeof(AppRole).Name}.Update",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            options.AddPolicy($"{typeof(AppRole).Name}.Delete",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            options.AddPolicy($"{typeof(AppRole).Name}.GetModified",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            options.AddPolicy($"{typeof(AppRole).Name}.EnableTest",
+                policy =>
+                {
+                    policy.RequireAssertion(context => !context.User.IsInRole("disabled"));
+                    policy.RequireRole("IT");
+                });
+            return options;
+        }
+
 
         /// <summary>
         /// Adds Simple Authorization -- the ability to resolve the user name of an authenticated

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
@@ -64,7 +65,8 @@ namespace EDennis.AspNetUtils
         /// <param name="input">the record to create</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create([FromBody] TEntity input)
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(Create))]
+        public virtual IActionResult Create([FromBody] TEntity input)
         {
             var result = CrudService.Create(input);
             return new ObjectResult(result) { StatusCode = 200 };
@@ -77,7 +79,8 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The primary key of the record to update</param>
         /// <returns></returns>
         [HttpPut("{**key}")]
-        public IActionResult Update([FromBody] TEntity input, [FromRoute] string key)
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(Update))]
+        public virtual IActionResult Update([FromBody] TEntity input, [FromRoute] string key)
         {
             var result = CrudService.Update(input, GetId(key));
             if (result == null)
@@ -92,7 +95,8 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The primary key of the record to update</param>
         /// <returns></returns>
         [HttpDelete("{**key}")]
-        public IActionResult Delete([FromRoute] string key)
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(Delete))]
+        public virtual IActionResult Delete([FromRoute] string key)
         {
             var result = CrudService.Delete(GetId(key));
             if (result == null)
@@ -108,7 +112,8 @@ namespace EDennis.AspNetUtils
         /// <param name="required">whether to throw an exception if not cound</param>
         /// <returns></returns>
         [HttpGet("{**key}")]
-        public IActionResult Find([FromRoute] string key)
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(Find))]
+        public virtual IActionResult Find([FromRoute] string key)
         {
             var result = CrudService.Find(GetId(key));
             if (result == null)
@@ -133,7 +138,8 @@ namespace EDennis.AspNetUtils
         /// <returns>A Tuple with the first value being a List{TEntity} and the second value being
         /// the count across records</returns>
         [HttpGet]
-        public IActionResult Get(
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(Get))]
+        public virtual IActionResult Get(
                 [FromQuery] string select = null,
                 [FromQuery] string where = null,
                 [FromQuery] object[] whereArgs = null,
@@ -171,7 +177,8 @@ namespace EDennis.AspNetUtils
         /// <param name="asOf">records modifed after this date are returned</param>
         /// <returns></returns>
         [HttpGet("modified")]
-        public IActionResult GetModified([FromQuery] DateTime asOf)
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(GetModified))]
+        public virtual IActionResult GetModified([FromQuery] DateTime asOf)
         {
             var result = CrudService.GetModified(asOf);
             return new ObjectResult(result) { StatusCode = 200 };
@@ -184,7 +191,8 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [HttpPost("test")]
-        public void EnableTestAsync()
+        [Authorize(Policy = nameof(TEntity) + "." + nameof(EnableTest))]
+        public virtual void EnableTest()
         {
             CrudService.EnableTest(new ILoggerTestOutputHelper(Logger));
         }
