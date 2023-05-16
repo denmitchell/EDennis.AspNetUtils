@@ -10,16 +10,16 @@ namespace EDennis.AspNetUtils
     /// authorization middleware.
     /// </summary>
     /// <typeparam name="TAppUserRolesDbContext"></typeparam>
-    public class MvcAuthenticationStateProviderMiddleware
+    public class MvcSimpleAuthorizationMiddleware
     {
         private readonly RequestDelegate _next;
 
         /// <summary>
-        /// Constructs a new instance of <see cref="MvcAuthenticationStateProviderMiddleware"/>
+        /// Constructs a new instance of <see cref="MvcSimpleAuthorizationMiddleware"/>
         /// with the provided options and roles cache.
         /// </summary>
         /// <param name="next">A delegate to invoke the next middleware in the pipeline</param>
-        public MvcAuthenticationStateProviderMiddleware(RequestDelegate next)
+        public MvcSimpleAuthorizationMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -33,7 +33,7 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, ISimpleAuthorizationProvider authProvider)
         {
-            authProvider.UpdateClaimsPrincipalAsync(context.User);
+            await authProvider.UpdateClaimsPrincipalAsync(context.User);
             await _next(context);
         }
 
@@ -45,9 +45,9 @@ namespace EDennis.AspNetUtils
     /// </summary>
     public static class MvcAuthenticationProviderMiddlewareExtensions
     {
-        public static IApplicationBuilder UseMvcAuthenticationProvider(this IApplicationBuilder app)
+        public static IApplicationBuilder UseMvcSimpleAuthorization(this IApplicationBuilder app)
         {
-            app.UseMiddleware<MvcAuthenticationStateProviderMiddleware>();
+            app.UseMiddleware<MvcSimpleAuthorizationMiddleware>();
             return app;
         }
     }

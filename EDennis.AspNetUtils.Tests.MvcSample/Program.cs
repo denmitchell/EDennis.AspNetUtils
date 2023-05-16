@@ -66,7 +66,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMvcAuthenticationProvider();
+app.UseMvcSimpleAuthorization();
 
 app.MapControllerRoute(
     name: "default",

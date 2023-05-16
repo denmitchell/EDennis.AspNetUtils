@@ -33,7 +33,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         {
             var whereArgs = whereArgsKey == null ? null : _filterArgs[whereArgsKey];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var (data, count) = await service
                 .GetAsync(where, whereArgs,orderBy,skip,take,countType:CountType.Count);
@@ -48,7 +48,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         [InlineData("Title.Contains(\"o\")", "ReleaseDate desc", 3, 4, 9, /*guidIds:*/ 11, 16, 3, 15)]
         public async Task TestGetDynamicLinqNoSelectAsync(string where, string orderBy, int skip, int take, int countAcrossPages, params int[] guidIds)
         {
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var (data, count) = await service
                 .GetAsync(where,null,orderBy,skip,take, countType: CountType.Count);
@@ -89,7 +89,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
             var whereArgs = whereArgsKey == null ? null : _filterArgs[whereArgsKey];
             var expected = _select[select];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var (data, count) = await service
                 .GetAsync(select,where,whereArgs,orderBy,skip,take, countType: CountType.Count);
@@ -135,7 +135,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
         {
             var expected = _select[select];
 
-            var service = _fixture.GetCrudService(_appsettingsFile, "Starbuck", _output);
+            var service = await _fixture.GetCrudServiceAsync(_appsettingsFile, "Starbuck", _output);
 
             var (data, count) = await service
                 .GetAsync(select, where, null, orderBy, skip, take, countType: CountType.Count);

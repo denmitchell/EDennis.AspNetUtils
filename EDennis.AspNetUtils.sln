@@ -13,13 +13,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.BlazorSample.Shared", "EDennis.AspNetUtils.Tests.BlazorSample.Shared\EDennis.AspNetUtils.Tests.BlazorSample.Shared.csproj", "{5623569F-FAE3-444F-8D73-2929A1ADA939}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Server", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Server\EDennis.AspNetUtils.Tests.BlazorSample.WA.Server.csproj", "{E1267514-E9EA-488E-812F-47E1C8B50374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Server", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Server\EDennis.AspNetUtils.Tests.BlazorSample.WA.Server.csproj", "{E1267514-E9EA-488E-812F-47E1C8B50374}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Client", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Client\EDennis.AspNetUtils.Tests.BlazorSample.WA.Client.csproj", "{B24D8415-9C11-480D-842F-BE3C44236838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Client", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Client\EDennis.AspNetUtils.Tests.BlazorSample.WA.Client.csproj", "{B24D8415-9C11-480D-842F-BE3C44236838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Shared", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Shared\EDennis.AspNetUtils.Tests.BlazorSample.WA.Shared.csproj", "{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Tests.BlazorSample.WA.Shared", "EDennis.AspNetUtils.Tests.BlazorSample.WA\Shared\EDennis.AspNetUtils.Tests.BlazorSample.WA.Shared.csproj", "{A41605D0-6A81-4DB7-93A4-D8F1FC84B8A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDennis.AspNetUtils.Core", "EDennis.AspNetUtils.Core\EDennis.AspNetUtils.Core.csproj", "{C639C1F2-4876-40FE-9605-8FE113282EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDennis.AspNetUtils.Core", "EDennis.AspNetUtils.Core\EDennis.AspNetUtils.Core.csproj", "{C639C1F2-4876-40FE-9605-8FE113282EEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E25DF6AA-4971-49AF-9638-7783D003B9AD}"
+	ProjectSection(SolutionItems) = preProject
+		MsalAndSimpleAuthorization.pptx = MsalAndSimpleAuthorization.pptx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
