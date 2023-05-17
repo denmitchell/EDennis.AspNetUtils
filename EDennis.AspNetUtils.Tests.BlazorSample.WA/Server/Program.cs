@@ -27,14 +27,6 @@ builder.AddSimpleAuthorization<
     EntityFrameworkService<SimpleAuthContext, AppUser>,
     EntityFrameworkService<SimpleAuthContext, AppRole>> (false);
 
-//Add Authorization Policies
-builder.Services.AddAuthorization(options => {
-    options.AddDefaultUserAdministrationPolicies();
-    options.AddDefaultPolicies<Artist>();
-    options.AddDefaultPolicies<Song>();
-    // /*EX: */ options.AddPolicy($"{nameof(Artist)}.GetAsync", policy => policy.RequireRole("IT,admin,user,readonly"));
-});
-
 
 //Add CRUD services
 builder.AddEntityFrameworkServices<HitsContext>()
@@ -67,8 +59,24 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.Use(async (context, next) =>
+{
+    System.Diagnostics.Debug.WriteLine("PRE AUTHORIZATION");
+    var claims = string.Join(',',context.User.Claims.Select(c => $"{c.Type}={c.Value}").ToArray());
+    System.Diagnostics.Debug.WriteLine(claims);
+    await next();
+});
 
+app.UseAuthorization();
+app.UseSimpleAuthorization();
+
+app.Use(async (context, next) =>
+{
+    System.Diagnostics.Debug.WriteLine("POST AUTHORIZATION");
+    var claims = string.Join(',', context.User.Claims.Select(c => $"{c.Type}={c.Value}").ToArray());
+    System.Diagnostics.Debug.WriteLine(claims);
+    await next();
+});
 
 app.MapRazorPages();
 app.MapControllers();

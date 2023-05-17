@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Net;
-using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils
@@ -38,7 +38,65 @@ namespace EDennis.AspNetUtils
         {
             CrudService = crudService;
             Logger = loggerFactory.CreateLogger(GetType().Name);
+
+            if (Privileges == null)
+            {
+                if (typeof(TEntity) == typeof(AppUser))
+                    Privileges = DefaultUserControllerPrivileges;
+                else if (typeof(TEntity) == typeof(AppRole))
+                    Privileges = DefaultUserControllerPrivileges;
+                else
+                    Privileges = DefaultCrudControllerPrivileges;
+            }
         }
+
+        #region Privileges
+        public virtual Dictionary<string, (string[] Allowed, string[] Disallowed)> Privileges { get; set; }
+
+        public static Dictionary<string, (string[] Allowed, string[] Disallowed)> DefaultCrudControllerPrivileges =>
+            new() {
+             { nameof(FindAsync), (new string[]{ "IT", "admin", "user", "readonly" }, new string[] { "disabled" })},
+             { nameof(GetAsync), (new string[]{ "IT", "admin", "user", "readonly" }, new string[] { "disabled" })},
+             { nameof(CreateAsync), (new string[]{ "IT", "admin", "user" }, new string[] { "disabled" })},
+             { nameof(UpdateAsync), (new string[]{ "IT", "admin", "user" }, new string[] { "disabled" })},
+             { nameof(DeleteAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(GetModifiedAsync), (new string[]{ "IT" }, new string[] { "disabled" })},
+             { nameof(EnableTestAsync), (new string[]{ "IT" }, new string[] { "disabled" })}
+         };
+
+        public static Dictionary<string, (string[] Allowed, string[] Disallowed)> DefaultUserControllerPrivileges =>
+            new() {
+             { nameof(FindAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(GetAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(CreateAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(UpdateAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(DeleteAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(GetModifiedAsync), (new string[]{ "IT" }, new string[] { "disabled" })},
+             { nameof(EnableTestAsync), (new string[]{ "IT" }, new string[] { "disabled" })}
+         };
+
+        public static Dictionary<string, (string[] Allowed, string[] Disallowed)> DefaultRoleControllerPrivileges =>
+            new() {
+             { nameof(FindAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(GetAsync), (new string[]{ "IT", "admin" }, new string[] { "disabled" })},
+             { nameof(CreateAsync), (new string[]{ "IT" }, new string[] { "disabled" })},
+             { nameof(UpdateAsync), (new string[]{ "IT" }, new string[] { "disabled" })},
+             { nameof(DeleteAsync), (new string[]{ "IT" }, new string[] { "disabled" })},
+             { nameof(GetModifiedAsync), (new string[]{ "IT" }, new string[] { "disabled" })},
+             { nameof(EnableTestAsync), (new string[]{ "IT" }, new string[] { "disabled" })}
+         };
+
+
+
+        private bool IsAuthorized(string methodName)
+        {
+            var (Allowed, Disallowed) = Privileges[methodName];
+            var roles = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToArray();
+            var allowed = roles.Intersect(Allowed).Any() && !roles.Intersect(Disallowed).Any();
+            return allowed;
+        }
+
+        #endregion
 
         /// <summary>
         /// Overrideable method for resolving a string parameter to a params object[]
@@ -67,9 +125,13 @@ namespace EDennis.AspNetUtils
         /// <param name="input">the record to create</param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(CreateAsync))]
         public virtual async Task<IActionResult> CreateAsync([FromBody] TEntity input)
         {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(CreateAsync)))
+                return Forbid();
+
             var result = await CrudService.CreateAsync(input);
             return new ObjectResult(result) { StatusCode = 200 };
         }
@@ -81,9 +143,13 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The primary key of the record to update</param>
         /// <returns></returns>
         [HttpPut("{**key}")]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(UpdateAsync))]
         public virtual async Task<IActionResult> UpdateAsync([FromBody] TEntity input, [FromRoute] string key)
         {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(UpdateAsync)))
+                return Forbid();
+
             var result = await CrudService.UpdateAsync(input, GetId(key));
             if (result == null)
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
@@ -97,9 +163,13 @@ namespace EDennis.AspNetUtils
         /// <param name="key">The primary key of the record to update</param>
         /// <returns></returns>
         [HttpDelete("{**key}")]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(DeleteAsync))]
         public virtual async Task<IActionResult> DeleteAsync([FromRoute] string key)
         {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(DeleteAsync)))
+                return Forbid();
+
             var result = await CrudService.DeleteAsync(GetId(key));
             if (result == null)
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
@@ -114,9 +184,13 @@ namespace EDennis.AspNetUtils
         /// <param name="required">whether to throw an exception if not cound</param>
         /// <returns></returns>
         [HttpGet("{**key}")]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(FindAsync))]
         public virtual async Task<IActionResult> FindAsync([FromRoute] string key)
         {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(FindAsync)))
+                return Forbid();
+
             var result = await CrudService.FindAsync(GetId(key));
             if (result == null)
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
@@ -140,7 +214,6 @@ namespace EDennis.AspNetUtils
         /// <returns>A Tuple with the first value being a List{TEntity} and the second value being
         /// the count across records</returns>
         [HttpGet]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(GetAsync))]
         public virtual async Task<IActionResult> GetAsync(
                 [FromQuery] string select = null,
                 [FromQuery] string where = null,
@@ -152,12 +225,19 @@ namespace EDennis.AspNetUtils
                 [FromQuery] string include = null,
                 [FromQuery] bool asNoTracking = true)
         {
+
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(GetAsync)))
+                return Forbid();
+
             if (select == null)
             {
                 (List<TEntity> Data, int Count) = await CrudService.GetAsync(where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
 
-                var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
+                var dataAndCount = new DataAndCount<TEntity> { Data = Data, Count = Count };
+                var json = JsonSerializer.Serialize(dataAndCount, _jsonSerializerOptions);
                 return new ContentResult { Content = json, ContentType = "application/json", StatusCode = 200 };
 
             }
@@ -166,7 +246,8 @@ namespace EDennis.AspNetUtils
                 (List<dynamic> Data, int Count) = await CrudService.GetAsync(select, where, whereArgs, orderBy, skip, take,
                         GetCountType(countType), include, asNoTracking);
 
-                var json = JsonSerializer.Serialize((Data, Count), _jsonSerializerOptions);
+                var dataAndCount = new DataAndCount<dynamic> { Data = Data, Count = Count };
+                var json = JsonSerializer.Serialize(dataAndCount, _jsonSerializerOptions);
                 return new ContentResult { Content = json, ContentType = "application/json", StatusCode = 200 };
 
             }
@@ -179,9 +260,13 @@ namespace EDennis.AspNetUtils
         /// <param name="asOf">records modifed after this date are returned</param>
         /// <returns></returns>
         [HttpGet("modified")]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(GetModifiedAsync))]
         public virtual async Task<IActionResult> GetModifiedAsync([FromQuery] DateTime asOf)
         {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(GetModifiedAsync)))
+                return Forbid();
+
             var result = await CrudService.GetModifiedAsync(asOf);
             return new ObjectResult(result) { StatusCode = 200 };
         }
@@ -193,10 +278,15 @@ namespace EDennis.AspNetUtils
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [HttpPost("test")]
-        [Authorize(Policy = nameof(TEntity) + "." + nameof(EnableTestAsync))]
-        public virtual async Task EnableTestAsync()
+        public virtual async Task<IActionResult> EnableTestAsync()
         {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            if (!IsAuthorized(nameof(CreateAsync)))
+                return Forbid();
+
             await CrudService.EnableTestAsync(new ILoggerTestOutputHelper(Logger));
+            return Ok();
         }
 
 
@@ -205,7 +295,7 @@ namespace EDennis.AspNetUtils
         /// </summary>
         private static JsonSerializerOptions _jsonSerializerOptions = new()
         {
-            IncludeFields = true
+            ReferenceHandler = ReferenceHandler.Preserve
         };
 
 

@@ -29,11 +29,12 @@ namespace TestBlazorWasmMsal.Server.Controllers
         [HttpGet]
         public AppUser Info()
         {
-            return new AppUser
+            var user = new AppUser
             {
                 UserName = User.Identity.IsAuthenticated ? _userNameProvider.UserName : "Anonymous",
                 Role = string.Join(',', User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value))
             };
+            return user;
         }
 
     }

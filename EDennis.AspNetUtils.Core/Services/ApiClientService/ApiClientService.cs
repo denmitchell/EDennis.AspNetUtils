@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Xunit.Abstractions;
 
 namespace EDennis.AspNetUtils
@@ -15,7 +16,7 @@ namespace EDennis.AspNetUtils
         public HttpClient HttpClient { get; }
 
         /// <summary>
-        /// Controller path (defaults to "api/{EntityName}Controller"
+        /// Controller path (defaults to "api/{EntityName}"
         /// </summary>
         public virtual string ControllerPath { get; }
 
@@ -26,7 +27,7 @@ namespace EDennis.AspNetUtils
         public ApiClientService(HttpClient client)
         {
             HttpClient = client;
-            ControllerPath ??= $"api/{typeof(TEntity).Name}Controller";
+            ControllerPath ??= $"api/{typeof(TEntity).Name}";
         }
 
         /// <summary>
@@ -101,9 +102,10 @@ namespace EDennis.AspNetUtils
                 string include = null, bool asNoTracking = true)
         {
             var queryString = QueryString(null, where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
-            var errorMessage = $"Problem getting List<{typeof(TEntity).Name}> instance at {ControllerPath}/{queryString}";
-            var response = await HttpClient.GetAsync($"{ControllerPath}/{queryString}");
-            return await GetTupleAsync<TEntity>(response, errorMessage);
+            var errorMessage = $"Problem getting List<{typeof(TEntity).Name}> instance at {ControllerPath}{queryString}";
+            var response = await HttpClient.GetAsync($"{ControllerPath}{queryString}");
+            var dataAndCount = await GetDataAndCountAsync<TEntity>(response, errorMessage);
+            return (dataAndCount.Data, dataAndCount.Count);
         }
 
         /// <summary>
@@ -126,9 +128,10 @@ namespace EDennis.AspNetUtils
                 string include = null, bool asNoTracking = true)
         {
             var queryString = QueryString(select, where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
-            var errorMessage = $"Problem getting List<{typeof(TEntity).Name}> instance at {ControllerPath}/{queryString}";
-            var response = await HttpClient.GetAsync($"{ControllerPath}/{queryString}");
-            return await GetTupleAsync<dynamic>(response, errorMessage);
+            var errorMessage = $"Problem getting List<{typeof(TEntity).Name}> instance at {ControllerPath}{queryString}";
+            var response = await HttpClient.GetAsync($"{ControllerPath}{queryString}");
+            var dataAndCount = await GetDataAndCountAsync<dynamic>(response, errorMessage);
+            return (dataAndCount.Data, dataAndCount.Count);
         }
 
         /// <summary>
@@ -215,17 +218,19 @@ namespace EDennis.AspNetUtils
         /// <param name="exceptionMessage">An exception message to use if the status code 
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static async Task<(List<T> Data, int Count)> GetTupleAsync<T>(HttpResponseMessage response, string exceptionMessage)
+        private static async Task<DataAndCount<T>> GetDataAndCountAsync<T>(HttpResponseMessage response, string exceptionMessage)
         {
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
-            else if (!response.IsSuccessStatusCode)
-                throw new Exception(exceptionMessage);
+            //else if (!response.IsSuccessStatusCode)
+                //throw new Exception(exceptionMessage);
 
             var body = await response.Content.ReadAsStringAsync();
-            var entity = JsonSerializer.Deserialize<(List<T> Data, int Count)>(body, new JsonSerializerOptions { IncludeFields = true });
-            return entity;
+            var dataAndCount = JsonSerializer.Deserialize<DataAndCount<T>>(body, _jsonSerializerOptions);
+            return dataAndCount;
         }
+
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.Preserve };
 
         /// <summary>
         /// Builds a query string from Dynamic Linq parameters
@@ -245,27 +250,27 @@ namespace EDennis.AspNetUtils
                 int? skip = null, int? take = null, CountType countType = CountType.None,
                 string include = null, bool asNoTracking = true)
         {
-            var sb = new StringBuilder();
-            if (select != null)
-                sb.Append($"select={select}");
-            if (where != null)
-                sb.Append($"where={where}");
+            List<string> qstring = new List<string>();
+            if (!string.IsNullOrWhiteSpace(select))
+                qstring.Add($"select={select}");
+            if (!string.IsNullOrWhiteSpace(where))
+                qstring.Add($"where={where}");
             if (whereArgs != null && whereArgs.Any())
-                sb.Append($"whereArgs={JsonSerializer.Serialize(whereArgs)}");
-            if (orderBy != null)
-                sb.Append($"orderBy={orderBy}");
-            if (skip != null)
-                sb.Append($"skip={skip}");
-            if (take != null)
-                sb.Append($"take={take}");
+                qstring.Add($"whereArgs={JsonSerializer.Serialize(whereArgs)}");
+            if (!string.IsNullOrWhiteSpace(orderBy))
+                qstring.Add($"orderBy={orderBy}");
+            if (skip != null && skip > 0)
+                qstring.Add($"skip={skip}");
+            if (take != null && take > 0)
+                qstring.Add($"take={take}");
             if (countType != CountType.None)
-                sb.Append($"countType={countType.ToString()}");
-            if (include != null)
-                sb.Append($"include={include}");
+                qstring.Add($"countType={countType}");
+            if (!string.IsNullOrWhiteSpace(include))
+                qstring.Add($"include={include}");
             if (!asNoTracking)
-                sb.Append($"asNoTracking={asNoTracking}");
+                qstring.Add($"asNoTracking={asNoTracking}");
 
-            var str = sb.ToString();
+            var str = string.Join('&',qstring);
             if (str.Length > 0)
                 str = "?" + str;
 

@@ -28,7 +28,7 @@ namespace EDennis.AspNetUtils
         {
             if (principal != null)
             {
-                if (principal.Claims.Any(c => c.Type == "role"))
+                if (principal.Claims.Any(c => c.Type == "role" || c.Type == ClaimTypes.Role))
                     return;
 
                 UserNameProvider.UserName = principal.Claims.FirstOrDefault(c =>

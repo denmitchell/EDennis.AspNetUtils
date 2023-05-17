@@ -349,14 +349,15 @@ namespace EDennis.AspNetUtils
                 bool asNoTracking = true
                 )
         {
+
+            IQueryable<TEntity> query = null;
             List<dynamic> data = null;
             int recCount = -1;
 
             await Task.Run(() =>
             {
-                var (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
+                (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
 
-                List<dynamic> data = null;
                 if (countType != CountType.CountOnly)
                     data = query.Select(select)
                         .ToDynamicList();
@@ -390,14 +391,14 @@ namespace EDennis.AspNetUtils
                 bool asNoTracking = true
                 )
         {
+            IQueryable<TEntity> query = null;
             List<TEntity> data = null;
             int recCount = -1;
 
             await Task.Run(() =>
             {
-                var (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
+                (query, recCount) = BuildQuery(where, whereArgs, orderBy, skip, take, countType, include, asNoTracking);
 
-            List<TEntity> data = null;
             if (countType != CountType.CountOnly)
                 data = query.ToList();
 
