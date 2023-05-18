@@ -3,9 +3,26 @@ using EDennis.AspNetUtils.Tests.BlazorSample.Shared.Models;
 using EDennis.AspNetUtils.Tests.BlazorSample.WA.Server;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
+using Radzen;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowSpecificOrigins",
+                      policy =>
+                      {
+                          policy.WithOrigins("https://login.microsoft.com","https://localhost:7244"); // add the allowed origins  
+                      });
+});
 
 #if DEBUG
 var fakeUser = builder.Configuration["FakeUser"];
@@ -58,6 +75,7 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+//app.UseCors("MyAllowSpecificOrigins");
 
 app.Use(async (context, next) =>
 {
@@ -68,7 +86,7 @@ app.Use(async (context, next) =>
 });
 
 app.UseAuthorization();
-app.UseSimpleAuthorization();
+//app.UseSimpleAuthorization();
 
 app.Use(async (context, next) =>
 {
@@ -80,6 +98,10 @@ app.Use(async (context, next) =>
 
 app.MapRazorPages();
 app.MapControllers();
+
+//add _Host.cshtml file from standard Blazor Server project, updating the rendering mode to Server
+// and pointing the body component type to the wasm client's App component
+//app.MapFallbackToPage("/_Host");
 app.MapFallbackToFile("index.html");
 
 app.Run();

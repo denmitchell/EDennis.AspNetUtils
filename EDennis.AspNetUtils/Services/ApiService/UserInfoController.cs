@@ -1,4 +1,5 @@
 ﻿using EDennis.AspNetUtils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
 using System.Security.Claims;
@@ -12,9 +13,6 @@ namespace TestBlazorWasmMsal.Server.Controllers
     /// a "Me/Info" endpoint; so, setting the subclassed Controller class name
     /// to "MeController" is easiest.
     /// </summary>
-    [ApiController]
-    [Route("[controller]/[action]")]
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
     public abstract class UserInfoController : ControllerBase
     {
         private readonly UserNameProvider _userNameProvider;

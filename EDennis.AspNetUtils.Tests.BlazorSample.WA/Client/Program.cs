@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
@@ -22,11 +24,18 @@ builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAP
     .AddApiClientService<Song>();
 
 
+//builder.Services.AddMsalAuthentication(options =>
+//{
+//    builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
+//    options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration.GetSection("ServerApi")["Scopes"]);
+//});
+
 builder.AddMsalAuthentication();
 
 
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+await host.RunAsync();
 
 
 

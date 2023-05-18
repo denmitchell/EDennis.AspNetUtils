@@ -7,13 +7,26 @@
 
     protected override void OnInitialized()
     {
-        if (!IsAuthenticated)
-        {
-            Navigation.NavigateToLogin("authentication/login");
-        }
-        else
-        {
-            Navigation.NavigateTo("Unauthorized", true);
-        }
+        Navigation.NavigateToLogin("authentication/login");
     }
+
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    if (!IsAuthenticated)
+    //    {
+    //        Navigation.NavigateToLogin("authentication/login");
+    //        //Navigation.NavigateToLogin("authentication/login",
+    //        //    new InteractiveRequestOptions { 
+    //        //        ReturnUrl = "https://localhost:7244/signin-oidc", 
+    //        //        Interaction = InteractionType.SignIn,
+    //        //        Scopes = new string[] { "api://80608a06-50b8-4b6f-90d0-ccce48178e68/access_as_user" }
+    //        //    });
+    //    }
+    //    else
+    //    {
+    //        Navigation.NavigateTo("Unauthorized", true);
+    //    }
+
+    //    base.OnAfterRender(firstRender);
+    //}
 }

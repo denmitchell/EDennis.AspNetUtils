@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace EDennis.AspNetUtils
 {
