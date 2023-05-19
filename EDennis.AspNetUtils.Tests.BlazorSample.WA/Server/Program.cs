@@ -7,6 +7,7 @@ using Radzen;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +33,8 @@ else
 {
 #endif
 
-    builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-        .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 #if DEBUG
 }
@@ -85,8 +86,9 @@ app.Use(async (context, next) =>
     await next();
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
-//app.UseSimpleAuthorization();
+app.UseSimpleAuthorization();
 
 app.Use(async (context, next) =>
 {

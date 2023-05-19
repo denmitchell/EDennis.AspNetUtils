@@ -30,7 +30,7 @@ namespace EDennis.AspNetUtils
                 builder.Configuration.Bind(azureAdConfigKey, options.ProviderOptions.Authentication);
                 options.ProviderOptions.DefaultAccessTokenScopes.Add(
                     builder.Configuration.GetSection(serverApiConfigSection)[scopeConfigSection]);
-                //options.ProviderOptions.LoginMode = "redirect";
+                options.ProviderOptions.LoginMode = "redirect";
             }).AddAccountClaimsPrincipalFactory<RemoteAuthenticationState,
                     MsalUserAccount, MsalAccountClaimsPrincipalFactory>();
         }

@@ -18,12 +18,6 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
 
-builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI")
-    .AddApiClientService<AppUser>()
-    .AddApiClientService<Artist>()
-    .AddApiClientService<Song>();
-
-
 //builder.Services.AddMsalAuthentication(options =>
 //{
 //    builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
@@ -31,6 +25,12 @@ builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAP
 //});
 
 builder.AddMsalAuthentication();
+
+builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI")
+    .AddApiClientService<AppUser>()
+    .AddApiClientService<Artist>()
+    .AddApiClientService<Song>();
+
 
 
 
