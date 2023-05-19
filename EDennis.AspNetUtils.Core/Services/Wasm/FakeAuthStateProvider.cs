@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Security.Claims;
@@ -19,11 +22,13 @@ namespace EDennis.AspNetUtils.Core.Services.Wasm
     {
 
         private readonly IServiceProvider _provider;
+        private readonly SecurityOptions _securityOptions;
 
         public virtual string InfoEndpoint { get; } = "Me/Info";
 
-        public FakeAuthStateProvider(IServiceProvider serviceProvider) {
-            _provider = serviceProvider;    
+        public FakeAuthStateProvider(IServiceProvider serviceProvider, IOptionsMonitor<SecurityOptions> securityOptions) {
+            _provider = serviceProvider;
+            _securityOptions = securityOptions.CurrentValue;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -39,13 +44,20 @@ namespace EDennis.AspNetUtils.Core.Services.Wasm
 
         public async ValueTask<AccessTokenResult> RequestAccessToken()
         {
-            return await Task.Run(()=>new AccessTokenResult(AccessTokenResultStatus.Success, new AccessToken() { Expires = DateTime.Now + new TimeSpan(365, 0, 0, 0) }, "", 
+            return await Task.Run(()=>new AccessTokenResult(AccessTokenResultStatus.Success, 
+                new AccessToken() { Expires = DateTime.Now + new TimeSpan(365, 0, 0, 0), 
+                    GrantedScopes= new string[] { _securityOptions.ApiAccessClaim }, 
+                    Value = GenerateToken()}, "", 
                 new InteractiveRequestOptions { Interaction = InteractionType.GetToken, ReturnUrl = "~/"}));
         }
 
         public async ValueTask<AccessTokenResult> RequestAccessToken(AccessTokenRequestOptions options)
         {
-            return await Task.Run(() => new AccessTokenResult(AccessTokenResultStatus.Success, new AccessToken() { Expires = DateTime.Now + new TimeSpan(365, 0, 0, 0) }, "",
+            return await Task.Run(() => new AccessTokenResult(AccessTokenResultStatus.Success, 
+                new AccessToken() { Expires = DateTime.Now + new TimeSpan(365, 0, 0, 0), 
+                    GrantedScopes = new string[] { _securityOptions.ApiAccessClaim },
+                    Value = GenerateToken()
+                }, "",
                 new InteractiveRequestOptions { Interaction = InteractionType.GetToken, ReturnUrl = "~/" }));
         }
 
@@ -55,7 +67,7 @@ namespace EDennis.AspNetUtils.Core.Services.Wasm
         /// </summary>
         /// <param name="principal">The authenticated user</param>
         /// <param name="appUser">Holds claims to be added to that user</param>
-        private static ClaimsPrincipal CreateFakeClaimsPrincipal(AppUser appUser)
+        private ClaimsPrincipal CreateFakeClaimsPrincipal(AppUser appUser)
         {
 
             Claim[] claims = appUser.Role.Split(',').SelectMany(r => new Claim[]
@@ -66,6 +78,7 @@ namespace EDennis.AspNetUtils.Core.Services.Wasm
             Union(new Claim[] {
                 new Claim("name", appUser.UserName),
                 new Claim(ClaimTypes.Name, appUser.UserName),
+                new Claim("scope", appUser.Scope)//_securityOptions.ApiAccessClaim)
             }).ToArray();
 
 
@@ -73,6 +86,32 @@ namespace EDennis.AspNetUtils.Core.Services.Wasm
 
         }
 
+
+        public string GenerateToken()
+        {
+            var mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
+            var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(mySecret));
+
+            var myIssuer = "http://mysite.com";
+            var myAudience = "http://myaudience.com";
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, "xxx"),
+                }),
+                Claims = new Dictionary<string,object> { {"scp",_securityOptions.ApiAccessClaim } },
+                Expires = DateTime.UtcNow.AddDays(7),
+                Issuer = myIssuer,
+                Audience = myAudience,
+                SigningCredentials = new SigningCredentials(mySecurityKey, SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
     }
 }

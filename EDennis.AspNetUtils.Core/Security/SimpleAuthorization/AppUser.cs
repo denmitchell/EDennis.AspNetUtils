@@ -22,6 +22,9 @@ namespace EDennis.AspNetUtils
         public string Role { get; set; }
 
         [NotMapped]
+        public string Scope { get; set; }
+
+        [NotMapped]
         public bool IsFake { get; set; }
 
     }

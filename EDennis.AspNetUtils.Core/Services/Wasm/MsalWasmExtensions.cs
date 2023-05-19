@@ -7,6 +7,7 @@ using Microsoft.Authentication.WebAssembly.Msal.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace EDennis.AspNetUtils
 {
@@ -40,7 +41,7 @@ namespace EDennis.AspNetUtils
                     MsalUserAccount, MsalAccountClaimsPrincipalFactory>();
         }
 
-        public static void SetupFakeAuth(this WebAssemblyHostBuilder builder)
+        public static void SetupFakeAuth(this WebAssemblyHostBuilder builder, string securityConfigKey = "Security")
         {
             //https://github.com/dotnet/aspnetcore/blob/c925f99cddac0df90ed0bc4a07ecda6b054a0b02/src/Components/WebAssembly/WebAssembly.Authentication/src/WebAssemblyAuthenticationServiceCollectionExtensions.cs#L28
 
@@ -61,6 +62,10 @@ namespace EDennis.AspNetUtils
             builder.Services.AddRemoteAuthentication<RemoteAuthenticationState, MsalUserAccount, MsalProviderOptions>();
 
             builder.Services.TryAddScoped<IAccessTokenProviderAccessor, FakeAccessTokenProviderAccessor>();
+
+            if (!builder.Services.Any(s => s.ServiceType == typeof(IOptionsMonitor<SecurityOptions>)))
+                builder.Services.BindAndConfigure(builder.Configuration, securityConfigKey, out SecurityOptions _);
+
 
         }
 

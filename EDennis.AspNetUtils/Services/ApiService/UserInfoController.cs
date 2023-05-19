@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web.Resource;
 using System.Data;
 using System.Security.Claims;
@@ -19,10 +20,14 @@ namespace TestBlazorWasmMsal.Server.Controllers
     {
         private readonly UserNameProvider _userNameProvider;
         private readonly IConfiguration _configuration;
-        public UserInfoController(UserNameProvider userNameProvider, IConfiguration configuration)
+        private readonly SecurityOptions _securityOptions;
+
+        public UserInfoController(UserNameProvider userNameProvider, IConfiguration configuration, 
+            IOptionsMonitor<SecurityOptions> securityOptions)
         {
             _userNameProvider = userNameProvider;
             _configuration = configuration;
+            _securityOptions = securityOptions.CurrentValue;
         }
 
         public string RedirectUri { get; set; }
@@ -35,11 +40,12 @@ namespace TestBlazorWasmMsal.Server.Controllers
             {
                 UserName = User.Identity.IsAuthenticated ? _userNameProvider.UserName : "Anonymous",
                 Role = string.Join(',', User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value))
-            };
+        };
 #if DEBUG
             if (_configuration[FakeAuthenticationOptions.ConfigurationKey] != null) { 
                 user.IsFake = true;
                 user.UserName = User.Identity.Name;
+                user.Scope = _securityOptions.ApiAccessClaim;
             }
 #endif 
             return user;

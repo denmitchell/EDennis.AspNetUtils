@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
 using System.Security.Claims;
 using TestBlazorWasmMsal.Server.Controllers;
+using Microsoft.Extensions.Options;
 
 namespace EDennis.AspNetUtils.Tests.BlazorSample.WA.Server.Controllers
 {
+
+
     [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
@@ -17,7 +20,7 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.WA.Server.Controllers
     {
 
         public MeController(UserNameProvider userNameProvider,
-            IConfiguration config) : base(userNameProvider, config)
+            IConfiguration config, IOptionsMonitor<SecurityOptions> securityOptions) : base(userNameProvider, config, securityOptions)
         {
         }
     }

@@ -50,7 +50,8 @@ namespace EDennis.AspNetUtils
             var claims = new Claim[] {
                 new Claim(_securityOptions.IdpUserNameClaim, userNameClaim),
                 new Claim(ClaimTypes.Name, userNameClaim),
-                new Claim("scope",_securityOptions.ApiAccessClaim)
+                new Claim("scope",_securityOptions.ApiAccessClaim),
+                new Claim("scp",_securityOptions.ApiAccessClaim)
             };
 
 
