@@ -17,11 +17,15 @@
     {
 
         public const string DefaultConfigKey = "Security";
+        public const string FakeRole = "***FAKE***";
 
         /// <summary>
         /// The claim type from Azure used as the UserName
         /// </summary>
         public string IdpUserNameClaim { get; set; } = "preferred_username";
+
+        public string ApiAccessClaim { get; set; } = "API.Access";
+
 
         /// <summary>
         /// whether to allow a single user to have multiple roles

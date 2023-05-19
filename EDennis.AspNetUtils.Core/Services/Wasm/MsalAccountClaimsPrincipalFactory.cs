@@ -71,9 +71,11 @@ namespace EDennis.AspNetUtils
                 new Claim(ClaimTypes.Role, r)
             }).ToArray();
 
+
             (principal.Identity as ClaimsIdentity).AddClaims(claims);
 
         }
+
 
     }
 }

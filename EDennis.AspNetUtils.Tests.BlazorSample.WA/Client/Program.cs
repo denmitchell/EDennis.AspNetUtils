@@ -1,8 +1,13 @@
 using EDennis.AspNetUtils;
+using EDennis.AspNetUtils.Core.Services.Wasm;
 using EDennis.AspNetUtils.Tests.BlazorSample.Shared.Models;
 using EDennis.AspNetUtils.Tests.BlazorSample.WA.Client;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -18,13 +23,9 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
 
-//builder.Services.AddMsalAuthentication(options =>
-//{
-//    builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
-//    options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration.GetSection("ServerApi")["Scopes"]);
-//});
+builder.SetupFakeAuth();
+//builder.AddMsalAuthentication();
 
-builder.AddMsalAuthentication();
 
 builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI")
     .AddApiClientService<AppUser>()
@@ -32,28 +33,6 @@ builder.AddApiClientServices("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAP
     .AddApiClientService<Song>();
 
 
-
-
 var host = builder.Build();
 await host.RunAsync();
-
-
-
-
-
-/*
- //OLD
-builder.Services.AddHttpClient("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI", 
-    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
-    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
-
-// Supply HttpClient instances that include access tokens when making requests to the server project
-builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("EDennis.AspNetUtils.Tests.BlazorSample.WA.ServerAPI"));
-
-builder.Services.AddMsalAuthentication(options =>
-{
-    builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
-    options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration.GetSection("ServerApi")["Scopes"]);
-});
-*/
 

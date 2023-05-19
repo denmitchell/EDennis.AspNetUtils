@@ -4,17 +4,40 @@
 
 <AuthorizeView>
     <Authorized>
-        Hello, @context.User.Identity?.Name!
-        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+        <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+            <RadzenProfileMenu Click="@BeginLogOut">
+                <ChildContent>
+                    <RadzenProfileMenuItem Text="Logout" Value="Logout" Icon="power_settings_new" />
+                </ChildContent>
+                <Template>
+                    @context.User.Identity?.Name
+                </Template>
+            </RadzenProfileMenu>
+        </RadzenStack>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/login">Log in</a>
+        <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+            <RadzenProfileMenu Click="@BeginLogIn">
+                <ChildContent>
+                    <RadzenProfileMenuItem Text="Login" Value="Login" Icon="account_circle" />
+                </ChildContent>
+                <Template>
+                    (not logged in)
+                </Template>
+            </RadzenProfileMenu>
+        </RadzenStack>
     </NotAuthorized>
 </AuthorizeView>
+
+
 
 @code{
     public void BeginLogOut()
     {
         Navigation.NavigateToLogout("authentication/logout");
+    }
+    public void BeginLogIn()
+    {
+        Navigation.NavigateToLogout("authentication/login");
     }
 }

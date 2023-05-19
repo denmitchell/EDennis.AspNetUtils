@@ -1,13 +1,9 @@
 using EDennis.AspNetUtils;
 using EDennis.AspNetUtils.Tests.BlazorSample.Shared.Models;
 using EDennis.AspNetUtils.Tests.BlazorSample.WA.Server;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Radzen;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +12,6 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "MyAllowSpecificOrigins",
-                      policy =>
-                      {
-                          policy.WithOrigins("https://login.microsoft.com","https://localhost:7244"); // add the allowed origins  
-                      });
-});
 
 #if DEBUG
 var fakeUser = builder.Configuration["FakeUser"];

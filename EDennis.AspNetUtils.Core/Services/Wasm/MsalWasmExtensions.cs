@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+﻿using EDennis.AspNetUtils.Core.Services.Wasm;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Authentication.WebAssembly.Msal.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace EDennis.AspNetUtils
 {
@@ -34,5 +39,30 @@ namespace EDennis.AspNetUtils
             }).AddAccountClaimsPrincipalFactory<RemoteAuthenticationState,
                     MsalUserAccount, MsalAccountClaimsPrincipalFactory>();
         }
+
+        public static void SetupFakeAuth(this WebAssemblyHostBuilder builder)
+        {
+            //https://github.com/dotnet/aspnetcore/blob/c925f99cddac0df90ed0bc4a07ecda6b054a0b02/src/Components/WebAssembly/WebAssembly.Authentication/src/WebAssemblyAuthenticationServiceCollectionExtensions.cs#L28
+
+            builder.Services.AddOptions();
+            builder.Services.AddAuthorizationCore();
+            builder.Services.TryAddScoped<AuthenticationStateProvider, FakeAuthStateProvider>();
+
+
+            builder.Services.TryAddTransient<BaseAddressAuthorizationMessageHandler>();
+            builder.Services.TryAddTransient<AuthorizationMessageHandler>();
+
+            builder.Services.TryAddScoped(sp =>
+            {
+                return (IAccessTokenProvider)sp.GetRequiredService<AuthenticationStateProvider>();
+            });
+
+
+            builder.Services.AddRemoteAuthentication<RemoteAuthenticationState, MsalUserAccount, MsalProviderOptions>();
+
+            builder.Services.TryAddScoped<IAccessTokenProviderAccessor, FakeAccessTokenProviderAccessor>();
+
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System.Data;
 using System.Security.Claims;
 
 namespace EDennis.AspNetUtils
@@ -12,7 +14,6 @@ namespace EDennis.AspNetUtils
         public RolesCache _rolesCache;
 
         public UserNameProvider UserNameProvider { get; }
-
         public SimpleAuthorizationProvider(IOptionsMonitor<SecurityOptions> securityOptions,
             ICrudService<AppUser> userService, RolesCache rolesCache,
             UserNameProvider userNameProvider)
@@ -32,8 +33,8 @@ namespace EDennis.AspNetUtils
                     return;
 
                 UserNameProvider.UserName = principal.Claims.FirstOrDefault(c =>
-                               c.Type.Equals(_securityOptions.IdpUserNameClaim,
-                               StringComparison.OrdinalIgnoreCase))?.Value;
+                       c.Type.Equals(_securityOptions.IdpUserNameClaim,
+                       StringComparison.OrdinalIgnoreCase))?.Value;
 
                 if (UserNameProvider.UserName != null)
                 {

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EDennis.AspNetUtils
 {
@@ -19,6 +20,9 @@ namespace EDennis.AspNetUtils
         /// The user's role 
         /// </summary>
         public string Role { get; set; }
+
+        [NotMapped]
+        public bool IsFake { get; set; }
 
     }
 }
