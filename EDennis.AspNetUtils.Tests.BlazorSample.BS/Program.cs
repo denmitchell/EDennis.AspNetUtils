@@ -10,7 +10,6 @@ using Radzen;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 // Conditionally add support for faking a user, which must be registered
 // in AppUser table
 
@@ -23,18 +22,15 @@ else
 #endif
     builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
-
 #if DEBUG
 }
 #endif
-
 
 
 //AddAsync CRUD services
 builder.AddEntityFrameworkServices<HitsContext>()
     .AddEntityFrameworkService<ArtistService, Artist>() //ArtistService extends EntityFrameworkService to implement cascade delete on Songs
     .AddEntityFrameworkService<Song>(); //there was no need to extend EntityFrameworkService for Song
-
 
 
 //Radzen services
@@ -44,15 +40,12 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
 
-
 builder.Services.AddControllersWithViews()
     .AddMicrosoftIdentityUI();
 
 
-
 builder.Services.AddAuthorization(options =>
 {
-    // By default, all incoming requests will be authorized according to the default policy
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
@@ -67,19 +60,12 @@ builder.AddSimpleAuthorization<
     EntityFrameworkService<SimpleAuthContext,AppRole>>(isBlazorServer: true);
 
 
-
 var app = builder.Build();
 
-//ServiceInspector.ServiceDescriptors = builder.Services
-//    .OrderBy(s => s.ServiceType.CSharpName())
-//    .Select(s => new ServiceDescriptor(s.ServiceType, s.ImplementationType ?? s.ServiceType, s.Lifetime));
-//File.WriteAllText("Services.json", JsonSerializer.Serialize(ServiceInspector.ServiceDescriptors.Select(s => new { ServiceType = s.ServiceType.CSharpName(), ImplementationType = s.ImplementationType.CSharpName() }), new JsonSerializerOptions { WriteIndented = true }));
-// Configure the HTTP request pipeline.
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
