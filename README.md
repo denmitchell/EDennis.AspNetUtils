@@ -6,7 +6,7 @@ The most notable features of this library are:
 - **Generic ICrudService Repository Interface** with implementations for Entity Framework and API Clients.  The service exposes CRUD operations and includes support for flexible querying/paging via Dynamic Linq Expressions.  The Entity Framework implementation automatically updates a username (SysUser) property of all tracked and modified entities.  The ICrudService interface makes it much easier to implement Blazor UI components that can work with Blazor Server or Web Assembly.
 
 <img
-  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/e34f71aba951afae58ab04f846948e82a1555fe0/ICrudService.png"
+  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/7ac546cf454c1deeb1a79328ce1383ab1a6ff182/ICrudService.png"
   alt="ICrudService"
   title="ICrudService"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
