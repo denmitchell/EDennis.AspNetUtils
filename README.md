@@ -14,7 +14,7 @@ The most notable features of this library are:
 - **Simple Authorization Classes and UI** that provide the ability to manage users and roles -- with two simple tables -- independent of user authentication.  In a world where authentication is becoming increasingly easy to outsource (e.g., with the Microsoft Authentication Library), it only makes sense to rework custom application security to focus on authorization.  This library demonstrates how to do that.  The library also caches user roles (for performance, but with configurable expiration) and allows the developer to configure support for single or multiple roles per user without a change to the database schema. 
 
 <img
-  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/948d417ead5b82281ea84c6514b099b496fb1650/SimpleAuthorizationMvc.PNG"
+  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/197f768143705ec43eee92a244123bd814a2aed0/SimpleAuthorizationMvc.PNG"
   alt="SimpleAuthorization for MVC"
   title="SimpleAuthorization for MVC"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
@@ -26,7 +26,7 @@ The most notable features of this library are:
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 
 <img
-  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/948d417ead5b82281ea84c6514b099b496fb1650/SimpleAuthorizationWasm.PNG"
+  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/197f768143705ec43eee92a244123bd814a2aed0/SimpleAuthorizationWasm.PNG"
   alt="SimpleAuthorization for Blazor Web Assembly"
   title="SimpleAuthorization for Blazor Web Assembly"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
