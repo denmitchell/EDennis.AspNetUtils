@@ -6,9 +6,9 @@ The most notable features of this library are:
 - **Generic ICrudService Repository Interface** with implementations for Entity Framework and API Clients.  The service exposes CRUD operations and includes support for flexible querying/paging via Dynamic Linq Expressions.  The Entity Framework implementation automatically updates a username (SysUser) property of all tracked and modified entities.  The ICrudService interface makes it much easier to implement Blazor UI components that can work with Blazor Server or Web Assembly.
 
 <img
-  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/948d417ead5b82281ea84c6514b099b496fb1650/ICrudServiceAbstraction.png"
-  alt="ICrudServiceAbstraction"
-  title="ICrudServiceAbstraction"
+  src="https://github.com/denmitchell/EDennis.AspNetUtils/blob/948d417ead5b82281ea84c6514b099b496fb1650/ICrudService.png"
+  alt="ICrudService"
+  title="ICrudService"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 
 - **Simple Authorization Classes and UI** that provide the ability to manage users and roles -- with two simple tables -- independent of user authentication.  In a world where authentication is becoming increasingly easy to outsource (e.g., with the Microsoft Authentication Library), it only makes sense to rework custom application security to focus on authorization.  This library demonstrates how to do that.  The library also caches user roles (for performance, but with configurable expiration) and allows the developer to configure support for single or multiple roles per user without a change to the database schema. 
