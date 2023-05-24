@@ -35,10 +35,12 @@ The most notable features of this library are:
 - **DbContextService Class** that facilitates swapping out a normal DbContext instance for a DbContext instance that is more suitable for testing (e.g., one with an open transaction that gets rolled back automatically when the instance is disposed)
 
 ## Sample Projects and Tests
-In addition to the library project, there are three supporting sample/test projects:
-- **Blazor Sample** that has sample pages for managing artists, songs, and application users using Radzen components
-- **MVC Sample** that has sample pages for managing application users
-- **Test Project** that demonstrates how to test CRUD operations with automatic rollback of transactions
+In addition to the library (AspNetUtils and AspNetUtils.Core -- with the latter supporting WASM clients), there are serveral supporting sample/test projects:
+- **...BlazorSample.Shared** -- A Razor component library that has sample pages for managing artists, songs, and application users using Radzen components.  The pages utilize ICrudService so that they can be used interchangeably with Blazor Server and Blazor Web Assembly projects.
+- **...BlazorSample.BS** -- A Blazor Server project that uses the Shared project's pages
+- **...BlazorSample.WA.Server/Client** -- A Blazor Web Assembly project pair that uses the Shared project's pages 
+- **...MvcSample** -- An MVC application that has sample pages for managing application users
+- **...Tests** -- An Xunit test project that demonstrates how to test CRUD operations with automatic rollback of transactions
 
 ## Setup
 - Clone the repository
