@@ -27,8 +27,9 @@ namespace EDennis.AspNetUtils
                 ?? "Development";
 
             var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env}.json")
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddJsonFile($"appsettings.{env}.json", optional: true)
+                .AddJsonFile($"appsettings.Migrations.json", optional: true)
                 .Build();
 
             var cxnString = DbContextService<TContext>.GetConnectionString(config);

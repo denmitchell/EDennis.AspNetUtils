@@ -138,13 +138,15 @@ namespace EDennis.AspNetUtils.Tests.BlazorSample.Tests
 
             var guid = GuidUtils.FromId(guidId);
 
-            var AppRole = new AppRole
+            var appRole = new AppRole
             {
                 RoleName = roleName,
                 SysGuid = guid
             };
 
             var maxSysStart = await service.GetMaxSysStartAsync();
+
+            await service.CreateAsync(appRole);
 
             var recs = await service
                 .GetModifiedAsync(maxSysStart);

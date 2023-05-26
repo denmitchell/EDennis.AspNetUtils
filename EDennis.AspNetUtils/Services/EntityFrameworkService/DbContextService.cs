@@ -160,11 +160,20 @@ namespace EDennis.AspNetUtils
         /// <exception cref="ApplicationException"></exception>
         public static string GetConnectionString(IConfiguration config, string sectionKey = "DbContexts")
         {
-            var cxnString = config.GetSection($"{sectionKey}:{typeof(TContext).Name}").Get<string>();
+            var cxnString = config[$"{sectionKey}:{typeof(TContext).Name}"];
             if (string.IsNullOrEmpty(cxnString))
-                throw new ApplicationException($"Connection string for {typeof(TContext).Name} " +
-                    $"not defined in Configuration (e.g., appsettings)");
-
+            {
+                cxnString = config[$"{sectionKey}:{typeof(TContext).Name}:ConnectionString"];
+                if (string.IsNullOrEmpty(cxnString))
+                {
+                    cxnString = config[$"{sectionKey}:ConnectionString"];
+                    if (string.IsNullOrEmpty(cxnString))
+                    {
+                        throw new ApplicationException($"Connection string for {typeof(TContext).Name} " +
+                            $"not defined in Configuration (e.g., appsettings)");
+                    }
+                }
+            }
             return cxnString;
         }
 
